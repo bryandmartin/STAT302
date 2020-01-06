@@ -10,7 +10,7 @@ output: html_document
 <style type="text/css">
 /* Whole document: */
 body{
-  font-family: "Georgia", serif;
+  font-family: "Metropolis";
   font-size: 12pt;
 }
 h1.title {
