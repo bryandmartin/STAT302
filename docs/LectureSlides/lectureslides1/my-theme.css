@@ -12,10 +12,12 @@
 }
 
 .middler{
-  position: absolute;
+  position: fixed;
   text-align: center;
   top: 50%;
-  width: 100%;
+  left: 50%;
+  width: 95%;
+  transform: translate(-50%, -50%);
 }
 
 .remark-code, .remark-inline-code {

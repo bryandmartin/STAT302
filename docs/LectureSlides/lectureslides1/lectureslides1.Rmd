@@ -26,7 +26,7 @@ knitr::opts_chunk$set(comment = "##")
 2. Introduction to R, RStudio, and RMarkdown
 3. Getting started with data
 
-.middler[**Goal:** Create a function Rmarkdown document (Short Lab 1)]
+.middler[**Goal:** Create a functional Rmarkdown document utilizing basic R functionality (Short Lab 1)]
 
 ---
 
