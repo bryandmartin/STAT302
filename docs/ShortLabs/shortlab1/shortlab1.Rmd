@@ -28,13 +28,8 @@ h4.date {
 </style>
 <!--- Begin here! Fill in text and R code for each of these questions. --->
 
-To begin, copy and paste the single line of code below into your R console. 
-This will allow you to compile .Rmd documents. (We will go over packages in detail soon!)
-
-```{r, eval = FALSE}
-install.packages("rmarkdown")
-```
-
+To begin, please follow the course links to download R, RStudio, and Rmarkdown.
+You should edit this .Rmd using RStudio, then click *Knit* in the menu bar of the Source window (above the text of this .Rmd).
 Remember, you must submit *both* your .Rmd and the compiled .html in order to receive full credit!
 
 ### **Part A. Written Response**
