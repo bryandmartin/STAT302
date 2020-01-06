@@ -1,0 +1,359 @@
+---
+title: "STAT 302, Week 1"
+subtitle: "Introduction and Getting Started with R"
+author: "Bryan Martin"
+date: "Jan 6, 2020"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow-night-bright
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["center","top"]
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "##")
+```
+
+
+# Outline
+
+1. Course Overview
+2. Introduction to R, RStudio, and RMarkdown
+3. Getting started with data
+
+.middler[**Goal:** Create a function Rmarkdown document (Short Lab 1)]
+
+---
+
+# Syllabus
+
+.middler[.large[
+[Link to syllabus](https://bryandmartin.github.io/STAT302/syllabus.html)
+]]
+---
+
+# Expectations
+
+What you should expect from me...
+* your learning will be my priority
+* you will be treated like an adult and with respect
+* your feedback will be valued
+* timely feedback on assignments
+* understandable and well-paced lectures (tell me if they are not!)
+* an attempt at making statistical computation as fun for you as it is for me!
+
+---
+
+# Expectations
+
+What I will expect from you...
+* regular attendance
+* timely assignments that represent your best work
+* a respectful and engaged classroom
+* a desire and effort to learn challenging material
+
+---
+
+# Canvas Discussion
+
+* Worth up to 5% extra credit on your final grade!
+* Substantive and helpful questions and answers
+
+--
+
+.pull-left[
+### Bad questions:
+
+* How do you do problem 2?
+* Here's my code and it's broken. How do I fix it?
+]
+
+.pull-right[
+### Good questions:
+* Here's a snippet of code I used for problem 2: 
+<br/>`formatted code snippet`
+<br/>It returned the following error:
+<br/>`formatted error message`
+<br/>Does anyone know why? I already tried...
+* I don't understand the concept from Slide 18 today. Could anyone elaborate on why...
+]
+
+---
+
+# Canvas Discussion
+
+* Worth up to 5% extra credit on your final grade!
+* Substantive and helpful questions and answers
+
+.pull-left[
+### Bad answers:
+* Here's my solution
+* Fool! You should already know the answer to this! Your trivial question is no match for my superior intellect!
+]
+
+.pull-right[
+### Good answers:
+* This error message occurs because your variable is a string instead of a numberic.
+Have you tried checking...
+* I think you have a bug in line 3 of the code you posted. You have more left parenthesis than right parenthesis so the line is incomplete.
+]
+
+---
+
+# Why R?
+
+R is a programming language designed for statistical analysis.
+
+--
+
+* open-source
+* free
+* large and active community of developers and users
+* great analysis tools
+* great visualization tools
+--
+
+* great user interface...
+
+---
+
+# Why RStudio?
+
+RStudio is an integrated development environment (IDE) designed to make your life easier.
+
+--
+
+* Organizes scripts, files, plots, code console, ...
+* Highlights syntax
+* Helpful interactive graphical interface
+* Will make an efficient, reproducible workflow *much* easier
+--
+
+* Rmarkdown integration...
+
+---
+
+# Why Rmarkdown?
+
+* Interface between code, output, and writing
+* Self-contained analyses
+* Creates HTML, PDF, slides (like these!), webpages, ...
+--
+
+* Required for your labs!
+
+---
+
+# Operators
+
+```{r}
+# Addition
+6 + 3
+```
+
+```{r}
+# Subtraction
+6 - 3
+```
+
+```{r}
+# Multiplication
+6 * 3
+```
+
+```{r}
+# Division
+6 / 3
+```
+
+
+---
+
+
+# Comparison Operators
+
+```{r}
+# Greater than
+6 > 3
+```
+
+```{r}
+# Less than
+6 < 3
+```
+
+```{r}
+# Equal to
+6 == 3
+6 == 3 + 3
+```
+
+
+---
+
+# Comparison Operators
+
+```{r}
+# Not equal to
+6 != 3
+```
+
+```{r}
+6 < 6
+# Less than or equal to
+6 <= 6
+```
+
+
+---
+
+# Logical Operators
+
+```{r, eval = FALSE}
+# and
+(6 < 3) & (1 < 3)
+```
+
+
+--
+
+
+```{r, echo = FALSE}
+# and
+(6 < 3) & (1 < 3)
+```
+
+
+--
+
+```{r, eval = FALSE}
+# and
+(2 < 3) & (1 < 3)
+```
+
+
+--
+
+
+```{r, echo = FALSE}
+# and
+(2 < 3) & (1 < 3)
+```
+
+
+--
+
+```{r, eval = FALSE}
+# or
+(6 < 3) | (1 < 3)
+```
+
+
+--
+
+
+```{r, echo = FALSE}
+# or
+(6 < 3) | (1 < 3)
+```
+
+
+--
+
+```{r, eval = FALSE}
+# a bit harder...
+(6 < 3) | (1 < 3) & (6 < 3)
+```
+
+
+--
+
+
+```{r, echo = FALSE}
+# a bit harder...
+(6 < 3) | (1 < 3) & (6 < 3)
+```
+
+
+---
+
+# Object Types
+
+```{r}
+class(7)
+class("7")
+is.numeric(7)
+is.numeric("7")
+```
+
+
+---
+
+# Object Types
+
+```{r}
+is.character(7)
+is.character("7")
+is.na(7)
+is.na(0/0)
+```
+
+
+---
+
+# Object Types
+
+```{r, error = TRUE}
+as.character(7)
+as.numeric("7")
+as.numeric("7") + 3 == 10
+"7" + 3 == 10
+```
+
+
+---
+
+# Assigning Variables
+
+```{r}
+x <- 7
+x
+x + 3
+x == 7
+as.character(x)
+y <- 3
+x + y
+```
+
+
+---
+
+# Workspaces
+
+```{r, error = TRUE}
+# List all defined objects
+ls()
+# Remove an object
+rm("x")
+ls()
+x
+```
+
+
+---
+
+# Workspaces
+
+```{r}
+x <- 7
+ls()
+# Use with caution! This erases everything!
+rm(list = ls())
+ls()
+```
+

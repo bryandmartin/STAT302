@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>STAT 302, Week 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bryan Martin" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, top, title-slide
+
+# STAT 302, Week 1
+## Introduction and Getting Started with R
+### Bryan Martin
+### Jan 6, 2020
+
+---
+
+
+
+
+
+# Outline
+
+1. Course Overview
+2. Introduction to R, RStudio, and RMarkdown
+3. Getting started with data
+
+.middler[**Goal:** Create a function Rmarkdown document (Short Lab 1)]
+
+---
+
+# Syllabus
+
+.middler[.large[
+[Link to syllabus](https://bryandmartin.github.io/STAT302/syllabus.html)
+]]
+---
+
+# Expectations
+
+What you should expect from me...
+* your learning will be my priority
+* you will be treated like an adult and with respect
+* your feedback will be valued
+* timely feedback on assignments
+* understandable and well-paced lectures (tell me if they are not!)
+* an attempt at making statistical computation as fun for you as it is for me!
+
+---
+
+# Expectations
+
+What I will expect from you...
+* regular attendance
+* timely assignments that represent your best work
+* a respectful and engaged classroom
+* a desire and effort to learn challenging material
+
+---
+
+# Canvas Discussion
+
+* Worth up to 5% extra credit on your final grade!
+* Substantive and helpful questions and answers
+
+--
+
+.pull-left[
+### Bad questions:
+
+* How do you do problem 2?
+* Here's my code and it's broken. How do I fix it?
+]
+
+.pull-right[
+### Good questions:
+* Here's a snippet of code I used for problem 2: 
+&lt;br/&gt;`formatted code snippet`
+&lt;br/&gt;It returned the following error:
+&lt;br/&gt;`formatted error message`
+&lt;br/&gt;Does anyone know why? I already tried...
+* I don't understand the concept from Slide 18 today. Could anyone elaborate on why...
+]
+
+---
+
+# Canvas Discussion
+
+* Worth up to 5% extra credit on your final grade!
+* Substantive and helpful questions and answers
+
+.pull-left[
+### Bad answers:
+* Here's my solution
+* Fool! You should already know the answer to this! Your trivial question is no match for my superior intellect!
+]
+
+.pull-right[
+### Good answers:
+* This error message occurs because your variable is a string instead of a numberic.
+Have you tried checking...
+* I think you have a bug in line 3 of the code you posted. You have more left parenthesis than right parenthesis so the line is incomplete.
+]
+
+---
+
+# Why R?
+
+R is a programming language designed for statistical analysis.
+
+--
+
+* open-source
+* free
+* large and active community of developers and users
+* great analysis tools
+* great visualization tools
+--
+
+* great user interface...
+
+---
+
+# Why RStudio?
+
+RStudio is an integrated development environment (IDE) designed to make your life easier.
+
+--
+
+* Organizes scripts, files, plots, code console, ...
+* Highlights syntax
+* Helpful interactive graphical interface
+* Will make an efficient, reproducible workflow *much* easier
+--
+
+* Rmarkdown integration...
+
+---
+
+# Why Rmarkdown?
+
+* Interface between code, output, and writing
+* Self-contained analyses
+* Creates HTML, PDF, slides (like these!), webpages, ...
+--
+
+* Required for your labs!
+
+---
+
+# Operators
+
+
+```r
+# Addition
+6 + 3
+```
+
+```
+## [1] 9
+```
+
+
+```r
+# Subtraction
+6 - 3
+```
+
+```
+## [1] 3
+```
+
+
+```r
+# Multiplication
+6 * 3
+```
+
+```
+## [1] 18
+```
+
+
+```r
+# Division
+6 / 3
+```
+
+```
+## [1] 2
+```
+
+
+---
+
+
+# Comparison Operators
+
+
+```r
+# Greater than
+6 &gt; 3
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+# Less than
+6 &lt; 3
+```
+
+```
+## [1] FALSE
+```
+
+
+```r
+# Equal to
+6 == 3
+```
+
+```
+## [1] FALSE
+```
+
+```r
+6 == 3 + 3
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+
+# Comparison Operators
+
+
+```r
+# Not equal to
+6 != 3
+```
+
+```
+## [1] TRUE
+```
+
+
+```r
+6 &lt; 6
+```
+
+```
+## [1] FALSE
+```
+
+```r
+# Less than or equal to
+6 &lt;= 6
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+
+# Logical Operators
+
+
+```r
+# and
+(6 &lt; 3) &amp; (1 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] FALSE
+```
+
+
+--
+
+
+```r
+# and
+(2 &lt; 3) &amp; (1 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] TRUE
+```
+
+
+--
+
+
+```r
+# or
+(6 &lt; 3) | (1 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] TRUE
+```
+
+
+--
+
+
+```r
+# a bit harder...
+(6 &lt; 3) | (1 &lt; 3) &amp; (6 &lt; 3)
+```
+
+
+--
+
+
+
+```
+## [1] FALSE
+```
+
+
+---
+
+# Object Types
+
+
+```r
+class(7)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+class("7")
+```
+
+```
+## [1] "character"
+```
+
+```r
+is.numeric(7)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+is.numeric("7")
+```
+
+```
+## [1] FALSE
+```
+
+
+---
+
+# Object Types
+
+
+```r
+is.character(7)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.character("7")
+```
+
+```
+## [1] TRUE
+```
+
+```r
+is.na(7)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+is.na(0/0)
+```
+
+```
+## [1] TRUE
+```
+
+
+---
+
+# Object Types
+
+
+```r
+as.character(7)
+```
+
+```
+## [1] "7"
+```
+
+```r
+as.numeric("7")
+```
+
+```
+## [1] 7
+```
+
+```r
+as.numeric("7") + 3 == 10
+```
+
+```
+## [1] TRUE
+```
+
+```r
+"7" + 3 == 10
+```
+
+```
+## Error in "7" + 3: non-numeric argument to binary operator
+```
+
+
+---
+
+# Assigning Variables
+
+
+```r
+x &lt;- 7
+x
+```
+
+```
+## [1] 7
+```
+
+```r
+x + 3
+```
+
+```
+## [1] 10
+```
+
+```r
+x == 7
+```
+
+```
+## [1] TRUE
+```
+
+```r
+as.character(x)
+```
+
+```
+## [1] "7"
+```
+
+```r
+y &lt;- 3
+x + y
+```
+
+```
+## [1] 10
+```
+
+
+---
+
+# Workspaces
+
+
+```r
+# List all defined objects
+ls()
+```
+
+```
+## [1] "x" "y"
+```
+
+```r
+# Remove an object
+rm("x")
+ls()
+```
+
+```
+## [1] "y"
+```
+
+```r
+x
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'x' not found
+```
+
+
+---
+
+# Workspaces
+
+
+```r
+x &lt;- 7
+ls()
+```
+
+```
+## [1] "x" "y"
+```
+
+```r
+# Use with caution! This erases everything!
+rm(list = ls())
+ls()
+```
+
+```
+## character(0)
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

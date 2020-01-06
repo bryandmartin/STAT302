@@ -1,0 +1,112 @@
+---
+title: "Short Lab 1"
+author: "INSERT YOUR NAME HERE"
+date: "1/6/2020"
+output: html_document
+---
+
+
+<!--- Please do not touch the code below! It is for styling. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Georgia", serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- Begin here! Fill in text and R code for each of these questions. --->
+
+### **Part A. Written Response**
+
+#### *1. What is the name you want me to call you?*
+
+Replace this text with your answer.
+
+#### *2. What are your gender pronouns? (Example: mine are he/him/his)*
+
+Replace this text with your answer.
+
+#### *3. What is your coding/computational experience? Please specifically mention whether or not you have any experience in each of R, Rmarkdown, and LaTeX.*
+
+Replace this text with your answer.
+
+#### *4. In 3 sentences or less, please explain what you hope to take away from this course.*
+
+Replace this text with your answer.
+
+#### *5. Explain the grading scale of Short Labs in this course.*
+
+Replace this text with your answer.
+
+#### *6. What is the penalty if you submit an assignment 32 hours late?*
+
+Replace this text with your answer.
+
+#### *7. What percent extra credit is possible in this course, and how do you earn it?*
+
+Replace this text with your answer.
+
+<!--- Note: I use the backslash to skip a line for formatting. --->
+\ 
+
+### **Part B. R Code**
+
+#### *8a. Fill in the code below to assign two numeric variables.*
+
+```{r}
+# Your code here
+```
+
+#### *8b. Use object type functions to confirm your variables are numeric.*
+
+```{r}
+# Your code here
+```
+
+#### *9. Write one line of code that involves an arithmatic operator and both of your variables*
+
+```{r}
+# Your code here
+```
+
+#### *10. Write one line of code that involves a comparison operator, both of your variables, and evaluates to TRUE*
+
+```{r}
+# Your code here
+```
+
+#### *11. Write one line of code that involves a comparison operator, both of your variables, and evaluates to FALSE*
+
+```{r}
+# Your code here
+```
+
+#### *12. Write one line of code that involves a comparison operator, a logical operator, both of your variables, and evaluates to TRUE. Add a comment to explain what your code is doing in words.*
+
+```{r}
+# Your code here
+```
+
+#### *13. Write one line of code that involves a comparison operator, a logical operator, both of your variables, and evaluates to FALSE. Make each of the operators different than they were in question 12. Add a comment to explain what your code is doing in words.*
+
+```{r}
+# Your code here
+```
+
+#### *14. Remove one of your variables from your workspace, then print out your workspace to confirm.*
+
+```{r}
+# Your code here
+```
