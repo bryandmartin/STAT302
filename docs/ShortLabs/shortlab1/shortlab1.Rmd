@@ -1,11 +1,3 @@
----
-title: "Short Lab 1"
-author: "INSERT YOUR NAME HERE"
-date: "1/6/2020"
-output: html_document
----
-
-
 <!--- Please do not touch the code below! It is for styling. --->
 <style type="text/css">
 /* Whole document: */
@@ -27,6 +19,13 @@ h4.date {
 }
 </style>
 <!--- Begin here! Fill in text and R code for each of these questions. --->
+
+---
+title: "Short Lab 1"
+author: "INSERT YOUR NAME HERE"
+date: "1/6/2020"
+output: html_document
+---
 
 To begin, please follow the course links to download R, RStudio, and Rmarkdown.
 You should edit this .Rmd using RStudio, then click *Knit* in the menu bar of the Source window (above the text of this .Rmd).
