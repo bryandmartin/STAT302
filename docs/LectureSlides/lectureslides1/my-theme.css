@@ -1,5 +1,7 @@
 .large{ font-size: 150% }
+.huge{ font-size: 250% }
 .small{ font-size: 70% }
+
 
 .left {
   float: left;

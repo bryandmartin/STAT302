@@ -148,6 +148,11 @@ RStudio is an integrated development environment (IDE) designed to make your lif
 * Required for your labs!
 
 ---
+class: inverse
+
+.middler[.huge[Part I: Introduction to R Utilities]]
+
+---
 
 # Operators
 
@@ -357,3 +362,111 @@ rm(list = ls())
 ls()
 ```
 
+---
+layout:true
+# Commenting Code
+---
+
+## What is a comment?
+
+* Computers completely ignore comments, in R, any line preceded by `#`
+* Comments do not impact the functionality of your code at all.
+
+--
+### So why do them...
+
+ 
+
+--
+* Commenting a code allows you to write notes for readers of your code only
+* Usually, that reader is you!
+* Coding without comments is ill-advised, bordering on impossible
+
+--
+* Sneak peak at functions...
+
+---
+
+```{r}
+#' Wald-type t test
+#' @param mod an object of class \code{bbdml}
+#' @return Matrix with wald test statistics and p-values. Univariate tests only.
+waldt <- function(mod) {
+  # Covariance matrix
+  covMat <- try(chol2inv(chol(hessian(mod))), silent = TRUE)
+  if (class(covMat) == "try-error") {
+    warning("Singular Hessian! Cannot calculate p-values in this setting.")
+    np <- length(mod$param)
+    se <- tvalue <- pvalue <- rep(NA, np)
+  } else {
+    # Standard errors
+    se <- sqrt(diag(covMat))
+    # test statistic
+    tvalue <- mod$param/se
+    # P-value
+    pvalue <- 2*stats::pt(-abs(tvalue), mod$df.residual)
+  }
+  # make table
+  coef.table <- cbind(mod$param, se, tvalue, pvalue)
+  dimnames(coef.table) <- list(names(mod$param),
+                               c("Estimate", "Std. Error", "t value", "Pr(>|t|)"))
+  return(coef.table)
+}
+```
+
+---
+
+## Standard Practice
+
+* When starting out, you should comment (almost!) every line
+* Frequent use of comments mean most comments can be restricted to one line for 
+readability
+* A comment should go above its corresponding line, be indented equally with the next line, and use a single `#` to mark a comment
+
+--
+* There are exceptions to every rule! Usually, comments are to help **you**!
+
+---
+
+## Example of when I break my own rules
+
+* Here's a snippet of a long mathematical function I wrote (lots code emitted with ellipses for space).
+* In order to help myself read through it later, I divided the function into major steps marked by easily visible comments I can see when scanning through
+
+```{r, eval = FALSE}
+objfun <- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
+
+  ### STEP 1 - Negative Log-likelihood
+
+  # extract matrix of betas (np x 1), first np entries
+  b      <- utils::head(theta, np)
+  # extract matrix of beta stars (npstar x 1), last npstar entries
+  b_star <- utils::tail(theta, npstar)
+
+  ...
+
+  ### STEP 2 - Gradient
+
+  # define gam
+  gam <- phi/(1 - phi)
+```
+
+---
+
+## A final plea
+
+* Being a successful programmer *requires* commenting your code
+* Want to understand code you wrote >24 hours ago without comments?
+
+--
+.center[![David](davidsmall.gif)]
+.center[.small[I just learned you can add gifs to Rmarkdown slides. Expect a lot of these]]
+
+--
+* If you still aren't convinced...
+
+--
+* Clear commenting is required for this course
+
+---
+layout:false
