@@ -82,7 +82,7 @@ Replace this text with your answer.
 # Your code here
 ```
 
-#### *10. Write one line of code that involves an arithmatic operator and both of your variables*
+#### *10. Write one line of code that involves an arithmetic operator and both of your variables*
 
 ```{r}
 # Your code here

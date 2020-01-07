@@ -154,7 +154,7 @@ RStudio is an integrated development environment (IDE) designed to make your lif
 ---
 class: inverse
 
-.middler[.huge[Part I: Introduction to R Utilities]]
+.middler[.huge[Part 1: Introduction to R Utilities]]
 
 ---
 
@@ -578,7 +578,7 @@ layout:true
 
 ## What is a comment?
 
-* Computers completely ignore comments, in R, any line preceded by `#`
+* Computers completely ignore comments (in R, any line preceded by `#`)
 * Comments do not impact the functionality of your code at all.
 
 --
@@ -629,7 +629,7 @@ waldt &lt;- function(mod) {
 ## Standard Practice
 
 * When starting out, you should comment (almost!) every line
-* Frequent use of comments mean most comments can be restricted to one line for 
+* Frequent use of comments should allow most comments to be restricted to one line for 
 readability
 * A comment should go above its corresponding line, be indented equally with the next line, and use a single `#` to mark a comment
 
@@ -678,6 +678,108 @@ objfun &lt;- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
 
 --
 * Clear commenting is required for this course
+
+---
+layout:false
+class: inverse
+
+.middler[.huge[Part 2: Using RStudio and RMarkdown]]
+---
+
+# RStudio Interface
+
+By default...
+
+* *Top left*: Editor pane. Browse and edit scripts and data with tabs
+* *Top right*: List of objects in your Environment (recall `ls()`), code History
+* *Bottom left*: Console for running R code line-by-line (`&gt;` prompt)
+* *Bottom right*: Files, plots, packages, help files
+
+---
+
+# Editor
+
+* Your workflow should be contained here (**not** your console)
+* Primarily used for writing and editing .R scripts
+
+--
+ 
+  
+  
+* Try opening a file now using *File &gt; New File &gt; R Script*, write two lines of simple code
+* Click `Run` in the bar above your script. What happens?
+* Click on one of the lines of code. Press `Ctrl`/`⌘` + `Enter`. What happens?
+
+--
+
+.center[**Important:** Every part of your R workflow belongs in this window!]
+
+---
+layout: true
+# Environment &amp; History
+
+* If you didn't already, define a variable in your R Script and run it
+* What happens in your Environment tab?
+
+--
+* Now add `data(iris)` to your script and run it.
+* What happens if you click on this in your Environment tab?
+  * Note: We will delve deeper into data later!
+  
+--
+* Remove one of your variables and see what happens.
+
+---
+
+* Click on the History tab to see what it contains. Try searching!
+
+--
+* Select a line from your history and click `To Source`. What happens?
+
+--
+  * Useful for adding lines that you tested in your Console to your scripts
+
+--
+
+
+.pushdown[.center[**Summary:** Useful to quickly browse what you have defined in your environment]]
+
+---
+layout: false
+layout: true
+# Console
+---
+
+* The quick and easy way to run individual lines of code
+* Nothing you do here is saved as part of your workflow!
+
+--
+* Useful for debugging, testing code, iterating a plot until you like it ...
+* Once you get what you were looking for, add it to your script files!
+* **Never** manipulate your data in the console. 
+Your workflow should always be **reproducible!**
+
+---
+
+## Incomplete Code
+
+What if we start a command, but do not finish it?
+
+
+```r
+&gt; 5 -
++ 
+```
+
+Two options:
+  * Press `Esc` to exit and *not* execute the line
+  * Complete the command
+
+---
+layout: false
+layout: true
+# Files, Plots, Packages, Help
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
