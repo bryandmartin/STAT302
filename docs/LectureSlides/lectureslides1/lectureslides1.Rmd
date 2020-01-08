@@ -17,6 +17,7 @@ output:
 ```{r setup, include=FALSE, purl=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(comment = "##")
+library(kableExtra)
 ```
 
 
@@ -416,9 +417,9 @@ waldt <- function(mod) {
 
 ---
 
-## Standard Practice
+## Comment Style Guide
 
-* When starting out, you should comment (almost!) every line
+* When starting out, you should comment most lines
 * Frequent use of comments should allow most comments to be restricted to one line for 
 readability
 * A comment should go above its corresponding line, be indented equally with the next line, and use a single `#` to mark a comment
@@ -888,7 +889,7 @@ The variable I want to reference is `r x`.
 
 ## In-Line R Code
 
-* This allows you to easily see where your values came from!\
+* This allows you to easily see where your values came from!
 * This prevents any typos in translating coding results to text!
 * This allows you to modify your analysis without needing to copy and paste updated results into your text!
 
@@ -984,6 +985,63 @@ x == c(1, 3, 2, 4, 5)
 
 ---
 
+## Boolean Vectors
+
+In code, entries that are `TRUE` or `FALSE` are called **booleans**. 
+These are incredibly important, because they can be used to give your computer conditions.
+What will the following code do?
+
+```{r, eval = FALSE}
+x[x > 3] <- 3
+x
+```
+
+
+--
+```{r, echo = FALSE}
+x[x > 3] <- 3
+x
+```
+
+
+---
+
+## Boolean Vectors
+
+We can also do basic arithmetic with booleans. `TRUE` is encoded as `1` and `FALSE` is encoded as `0`.
+
+```{r, eval = FALSE}
+sum(x >= 3)
+```
+
+
+--
+```{r, echo = FALSE}
+sum(x >= 3)
+```
+
+
+--
+```{r, eval = FALSE}
+mean(x >= 3)
+```
+
+
+--
+```{r, echo = FALSE}
+mean(x >= 3)
+```
+
+--
+What is this last quantity telling us?
+
+--
+
+By taking the mean, we are looking at the **proportion** of our vector that is `TRUE`!
+
+
+---
+
 We can also get more complicated with our indexing.
 
 ```{r}
@@ -1032,6 +1090,7 @@ R will force the entries vector to be of the same type! This is a common source 
 ## Names
 
 We can assign names to the entries of our vectors using `names()`. This can be useful to label our data.
+Note that arithmetic doesn't change the names of our elements. 
 
 ```{r}
 my_vec <- c(1, 2, 3)
@@ -1040,7 +1099,6 @@ my_vec
 my_vec + 1
 ```
 
-Note that arithmetic doesn't change the names of our elements. 
 We can then access the names as their own vector by calling `names()` again.
 
 ```{r}
@@ -1147,6 +1205,36 @@ R automatically coerces it into a vector. We can prevent this by including `drop
 ```{r}
 my_matrix[, -c(1, 3, 4, 5), drop = FALSE]
 is.matrix(my_matrix[, -c(1, 3, 4, 5), drop = FALSE])
+```
+
+---
+
+## Filling in a Matrix
+
+We can fill in a matrix using indices. This is commonly done in statistical computing.
+In R, you should always start by initializing an empty matrix of the right size.
+
+```{r}
+my_results <- matrix(NA, nrow = 3, ncol = 3)
+my_results
+```
+
+
+---
+
+
+Then I can replace a single row (or column) using indices as follows.
+
+```{r}
+my_results[2, ] <- c(2, 4, 3)
+my_results
+```
+
+We can also fill in multiple rows (or columns) at once. (Likewise, we can also do subsets of  rows/columns, or unique entries). Note that **recycling** applies here.
+
+```{r}
+my_results[c(1, 3), ] <- 7
+my_results
 ```
 
 ---
@@ -1321,3 +1409,249 @@ Similarly to `names()` for vectors, we then access them by calling the function 
 rownames(mat1)
 colnames(mat1)
 ```
+
+
+---
+
+## Tables in R Markdown
+
+It is easy to go from matrices to tables using R Markdown. There are several methods (check the cheatsheet link and Google for alternatives). I will present one easy method here, but what you use is up to you!
+
+```{r, eval = FALSE}
+# We need to load the knitr and kableExtra package
+library(knitr)
+library(kableExtra)
+```
+
+```{r}
+my_tab <- data.frame(mat1)
+kable_styling(kable(mat1))
+```
+
+What happened with the row and column names?
+
+
+---
+layout: false
+class: inverse
+
+.middler[.huge[Part 4: R Coding Style Guide]]
+
+---
+layout: true
+
+# R Coding Style Guide
+
+---
+
+## Who are you to tell me how to type?
+
+We will be using a mix of the [Tidyverse Style Guide](https://style.tidyverse.org/) by Hadley Wickham and the [Google Style Guide](https://google.github.io/styleguide/Rguide.html). Please see the links for details, but I will summarize some main points here and throughout the class as we learn more functionality, such as functions and packages.
+
+You will be graded on following good code style!
+
+---
+
+## Object Names
+
+Use either underscores (`_`) or big camel case (`BigCamelCase`) to separate words within an object name.
+Do not use dots `.` to separate words in R functions!
+
+```{r, eval = FALSE}
+# Good
+day_one
+day_1
+DayOne
+
+# Bad
+dayone
+```
+
+---
+
+## Object Names
+
+Names should be concise, meaningful, and (generally) nouns.
+
+```{r, eval = FALSE}
+# Good
+day_one
+
+# Bad
+first_day_of_the_month
+djm1
+```
+
+
+---
+
+## Object Names
+
+It is *very* important that object names do not write over common functions!
+
+```{r, eval = FALSE}
+# Very extra super bad
+c <- 7
+t <- 23
+T <- FALSE
+mean <- "something"
+```
+
+Note: `T` and `F` are R shorthand for `TRUE` and `FALSE`, respectively. In general, spell them 
+out to be as clear as possible.
+
+---
+
+## Spacing
+
+Put a space after every comma, just like in English writing.
+
+```{r, eval = FALSE}
+# Good
+x[, 1]
+
+# Bad
+x[,1]
+x[ ,1]
+x[ , 1]
+```
+
+Do not put spaces inside or outside parentheses for regular function calls.
+
+```{r, eval = FALSE}
+# Good
+mean(x, na.rm = TRUE)
+
+# Bad
+mean (x, na.rm = TRUE)
+mean( x, na.rm = TRUE )
+```
+
+
+---
+
+## Spacing with Operators
+
+Most of the time when you are doing math, conditionals, logicals, or assignment, your operators should be surrounded by spaces. (e.g. for `==`, `+`, `-`, `<-`, etc.)
+
+```{r, eval = FALSE}
+# Good
+height <- (feet * 12) + inches
+mean(x, na.rm = 10)
+
+# Bad
+height<-feet*12+inches
+mean(x, na.rm=10)
+```
+
+There are some exceptions we will learn more about later, such as the power symbol `^`. 
+See the [Tidyverse Style Guide](https://style.tidyverse.org/) for more details!
+
+---
+
+## Extra Spacing
+
+Adding extra spaces ok if it improves alignment of `=` or `<-`.
+
+```{r, eval = FALSE}
+# Good
+list(
+  total = a + b + c,
+  mean  = (a + b + c) / n
+)
+
+# Also fine
+list(
+  total = a + b + c,
+  mean = (a + b + c) / n
+)
+```
+
+
+---
+
+## Long Lines of Code
+
+Strive to limit your code to 80 characters per line. This fits comfortably on a printed page with a reasonably sized font. 
+
+If a function call is too long to fit on a single line, use one line each for the function name, each argument, and the closing `)`. This makes the code easier to read and to change later.
+
+
+```{r, eval = FALSE}
+# Good
+do_something_very_complicated(
+  something = "that",
+  requires = many,
+  arguments = "some of which may be long"
+)
+
+# Bad
+do_something_very_complicated("that", requires, many, arguments,
+                              "some of which may be long"
+                              )
+```
+
+*Tip! Try RStudio > Preferences > Code > Display > Show Margin with Margin column 
+80 to give yourself a visual cue!*
+
+---
+
+## Assignment
+
+We use `<-` instead of `=` for assignment. 
+This is moderately controversial if you find yourself in the right (wrong?) communities.
+
+```{r, eval = FALSE}
+# Good
+x <- 5
+
+# Bad
+x = 5
+```
+
+
+---
+
+## Semicolons
+
+In R, semi-colons (`;`) are used to execute pieces of R code on a single line.
+In general, this is bad practice and should be avoided. 
+Also, you never need to end lines of code with semi-colons!
+
+```{r, eval = FALSE}
+# Bad
+a <- 2; b <- 3
+
+# Also bad
+a <- 2;
+b <- 3;
+
+# Good
+a <- 2
+b <- 3
+```
+
+
+---
+
+## Quotes and Strings
+
+Use `"`, not `'`, for quoting text. The only exception is when the text already contains double quotes and no single quotes.
+
+```{r, eval = FALSE}
+# Bad
+'Text'
+'Text with "double" and \'single\' quotes'
+
+# Good
+"Text"
+'Text with "quotes"'
+'<a href="http://style.tidyverse.org">A link</a>'
+```
+
+
+---
+
+Phew! All done for now. Follow these rules and your code will be looking 
+
+.middler[![fab](fab.gif)]
