@@ -2,7 +2,7 @@
 title: "STAT 302, Week 1"
 subtitle: "Introduction and Getting Started with R"
 author: "Bryan Martin"
-date: "Jan 6, 2020"
+date: "Week of Jan 6, 2020"
 output:
   xaringan::moon_reader:
     css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
@@ -23,10 +23,10 @@ knitr::opts_chunk$set(comment = "##")
 # Outline
 
 1. Course Overview
-2. Introduction to R, RStudio, and RMarkdown
+2. Introduction to R, RStudio, and R Markdown
 3. Getting started with data
 
-.middler[**Goal:** Create a functional Rmarkdown document utilizing basic R functionality (Short Lab 1)]
+.middler[**Goal:** Create a functional R Markdown document utilizing basic R functionality (Short Lab 1)]
 
 ---
 
@@ -134,11 +134,11 @@ RStudio is an integrated development environment (IDE) designed to make your lif
 * Will make an efficient, reproducible workflow *much* easier
 --
 
-* Rmarkdown integration...
+* R Markdown integration...
 
 ---
 
-# Why Rmarkdown?
+# Why R Markdown?
 
 * Interface between code, output, and writing
 * Self-contained analyses
@@ -422,6 +422,9 @@ waldt <- function(mod) {
 * Frequent use of comments should allow most comments to be restricted to one line for 
 readability
 * A comment should go above its corresponding line, be indented equally with the next line, and use a single `#` to mark a comment
+* Use a string of `-` or `=` to break your code into easily noticeable chunks
+  * Example: `# Data Manipulation -----------`
+  * RStudio allows you to collapse chunks marked like this to help with clutter
 
 --
 * There are exceptions to every rule! Usually, comments are to help **you**!
@@ -460,7 +463,7 @@ objfun <- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
 
 --
 .center[![David](davidsmall.gif)]
-.center[.small[I just learned you can add gifs to Rmarkdown slides. Expect a lot of these]]
+.center[.small[I just learned you can add gifs to R Markdown slides. Expect a lot of these]]
 
 --
 * If you still aren't convinced...
@@ -472,7 +475,7 @@ objfun <- function(theta, W, M, X, X_star, np, npstar, link, phi.link) {
 layout:false
 class: inverse
 
-.middler[.huge[Part 2: Using RStudio and RMarkdown]]
+.middler[.huge[Part 2: Using RStudio and R Markdown]]
 ---
 
 # RStudio Interface
@@ -565,7 +568,756 @@ Two options:
 
 ---
 layout: false
-layout: true
+
 # Files, Plots, Packages, Help
+
+* We will explore this tab more as we get into functions and visualization
+* Files is used to browse the files on your computer
+  * Useful for opening files/data, moving files you are working with
+  * *Use caution!* Changing files here is the same as changing them on your computer. If you delete something, it's gone!
+* Plots are used to display plots you create in R
+* Help is used to browse help files of functions. You can explore these by preceding a function name with `?`. Try `?sqrt` to see.
+* Packages shows all the packages you currently have installed (we will get more into this later!)
+
+---
+class: inverse
+
+.middler[.huge[Brief Intermission: File Organization]]
+---
+layout:true
+
+# File Names Matter
+
 ---
 
+.middler[![lion](lionking.jpg)]
+
+---
+
+.pull-left[
+## Bad
+
+* `newfinal2actualFINALnew.docx`
+* `asdfasdf.R`
+* `analy$i$ functions!.R`
+* `stuff.R`
+
+
+* Cluttered
+* Uninformative
+* Spaces
+* Special characters other than `_` and `-`
+]
+
+.pull-right[
+## Good
+* `stat302_lab1.Rmd`
+* `analysis_functions.R`
+* `analysisFunctions.R`
+* `2020-01-08_labWriteup.Rmd`
+
+
+* Meaningful
+* Concise
+* camelCase or using `_` to distinguish words
+* Machine sortable
+]
+
+---
+
+## Summary
+
+* Machine readable
+* Human readable
+* Plays well with default ordering
+
+--
+  * `01_draft.Rmd`, `02_draft.Rmd` , ... , `11_draft.Rmd`
+  * `2018-05-05_resume.docx`, `2019-02-17_resume.docx`, `2020-01-08_resume.docx`
+
+---
+layout: false
+layout: true
+
+# File Organization Matters
+---
+
+.middler[![](disorganized.gif)]
+
+---
+
+Easier to start with best practice rather than fix things later!
+
+--
+1. Somewhere on your computer, create the folder `STAT302`
+2. Within that folder, create the subfolders `short_labs`<sup>1</sup>, `labs`, `projects`
+3. Within your Short Labs folder, create a subfolder `short_lab_1`<sup>2</sup>
+4. Put your both of short lab files from Monday into that folder
+5. Within your Labs folder, create a folder for Lab 1 that follows the filename guide
+
+.footnote[[1] or `shortLabs`, `ShortLabs`, `Short_Labs`, ... (just follow the rules for file names!)
+
+[2] or `shortLab1`, `short_lab1`, ...
+]
+
+--
+.pushdown[May seem excessive for now, but this will come in handy when labs start 
+including extra files such as data and figures!]
+
+
+
+---
+layout: false
+
+# All done! For now...
+
+.middler[![](files.gif)]
+
+---
+layout: true
+# R Markdown
+---
+
+Let's try making an R Markdown file:
+
+1. Choose *File > New File > R Markdown...*
+2. Make sure *HTML Output* is selected and click OK
+3. Save the file in your new folder, call it `stat302_Lab1.Rmd`
+  * *Hint:* Follow along, because this will become your Lab 1 submission!
+4. Click the *Knit HTML* button
+  * After it is done, browse to the file location using the `Files` tab. What do you notice?
+  * Click *Open in Browser* to view the full HTML
+
+---
+
+## R Markdown Headers
+
+The header of .Rmd files is YAML (YAML Ain't Markup Language) code
+
+5. Change `title` to "Lab 1"
+6. Change `author` to your name in quotes
+7. Change `date` to the due date in quotes ("1/13/20")
+
+--
+
+
+Congrats! You have a functional .Rmd that will soon be your Lab 1 submissions!
+
+---
+
+## R Markdown Syntax
+
+(Thanks to Charles Lanfear, UW Sociology, for this very concise summary)
+
+---
+
+.pull-left[
+
+## Output
+
+**bold/strong emphasis**
+
+*italic/normal emphasis*
+
+.forcehead[Header]
+## Subheader
+### Subsubheader
+
+]
+
+.pull-right[
+## Syntax
+
+<pre>
+**bold/strong emphasis**
+
+*italic/normal emphasis*
+
+# Header
+
+
+## Subheader
+
+### Subsubheader
+
+</pre>
+]
+
+---
+
+.pull-left[
+## Output
+
+1. Ordered lists
+1. Are real easy
+  1. Even with sublists
+  1. Or when lazy with numbering
+  
+* Unordered lists
+* Are also real easy
+  + Also even with sublists
+
+[URLs are trivial](http://www.uw.edu)
+
+![pictures too](http://depts.washington.edu/uwcreate/img/UW_W-Logo_smallRGB.gif)
+]
+
+.pull-right[
+
+## Syntax
+
+<pre>
+1. Ordered lists
+1. Are real easy
+  1. Even with sublists
+  1. Or when lazy with numbering
+
+* Unordered lists
+* Are also real easy
+  + Also even with sublists
+
+[URLs are trivial](http://www.uw.edu)
+
+![pictures too](http://depts.washington.edu/uwcreate/img/UW_W-Logo_smallRGB.gif)
+</pre>
+]
+
+---
+
+.pull-left[
+## Output 
+
+You can put some math $y= \left( \frac{2}{3} \right)^2$ right up in there.
+
+
+
+$$\frac{1}{n} \sum_{i=1}^{n} x_i = \bar{x}_n$$
+
+Or a sentence with `code-looking font`.
+
+
+Or a block of code:
+
+```
+y <- 1:5
+z <- y^2
+```
+]
+
+.pull-right[
+
+## Syntax
+
+<pre>
+You can put some math $y= \left(\frac{2}{3} 
+\right)^2$ right up in there
+
+$$\frac{1}{n} \sum_{i=1}^{n}
+x_i = \bar{x}_n$$
+
+Or a sentence with `code-looking font`.
+
+Or a block of code:
+
+    ```
+    y <- 1:5
+    z <- y^2
+    ```
+</pre>
+]
+
+---
+
+## Helpful Links
+* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+* [R Markdown Cheatsheet](https://rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+
+
+
+---
+
+## R Code within R Markdown
+
+As you saw in Short Lab 1, we can run and execute R code within R Markdown. 
+To do so encase your code as follows.
+
+
+    `r ''````{r, eval = TRUE, echo = TRUE}
+    # Your code goes here!
+    ```
+
+You can click the green triangle in the corner to evaluate that code chunk to preview the results without compiling the entire document
+
+---
+
+## Useful Code Chunk Parameters
+
+Parameters go into the opening brackets `{r}` and are separated by commas. Here are some you might find useful (checkout the guide links above for more):
+
+* `echo=FALSE`: Hide R code but keep results
+
+* `eval=FALSE`: Do not execute the R code
+
+* `include=FALSE`: Hides all output (useful to load packages at the beginning of your document)
+
+* `cache=TRUE`: Stores the results of the chunk, and only re-runs if the chunk is changed. Useful for files that take a while to compile
+
+* `fig.height=5, fig.width=5`: modify the dimensions of any plots that are generated in the chunk (units are in inches)
+
+---
+
+## In-Line R Code
+
+```{r, echo=FALSE}
+library(knitr)
+```
+
+You can also include and execute R code directly in the text of your .Rmd!
+For example, say we define a variable
+```{r}
+x <- 7
+```
+If I want to reference this variable in text, I can do so directly by writing using ticks and starting with r. So if I type:
+
+    The variable I want to reference is `r inline_expr("x", "md")`.
+what will appear is:
+
+The variable I want to reference is `r x`.
+
+---
+
+## In-Line R Code
+
+* This allows you to easily see where your values came from!\
+* This prevents any typos in translating coding results to text!
+* This allows you to modify your analysis without needing to copy and paste updated results into your text!
+
+---
+layout: false
+class: inverse
+
+.middler[.huge[Part 3: Data Types]]
+
+---
+layout: true
+
+# Vectors
+---
+
+* A **vector** is a set of values of the same type
+* We create vectors using the function `c()`
+
+```{r}
+c(16, 3, 0, 7, -2)
+```
+
+* We can shorthand vectors counting up (or down) using `:`
+
+```{r}
+1:5
+```
+
+
+---
+
+* We can also generate vectors using functions such as `rep()` and `seq()`
+
+```{r}
+# Sequence from 1 to 20, incrementing by 5
+seq(1, 20, by = 5)
+# Repeat each element of a vector 3 times each
+rep(c(1, 2), each = 3)
+# Repeat an entire vector 3 times
+rep(c(1, 2), 3)
+```
+
+---
+
+* We index vectors using `[index]` after the vector name
+
+```{r}
+x <- 1:5
+x[3]
+```
+
+* If we use a negative index, we return the vector with that element removed
+
+```{r}
+x[-4]
+```
+
+---
+
+## Vector Arithmetic
+
+**Vectorization**, or applying functions across vectors/arrays, is one of R's most powerful capabilities 
+
+```{r}
+y <- -5:-1
+y
+x + y
+x * y
+```
+
+---
+
+Be careful! R **recycles**, repeating elements of shorter vectors to match longer vectors.
+This is incredibly useful when done on purpose, 
+but can also easily lead to hard-to-catch bugs in your code!
+
+```{r}
+2 * x
+c(1, -1) * x
+c(1, -1) + x
+```
+
+---
+
+We can apply many functions component-wise to vectors, including comparison operators.
+
+```{r}
+x >= 3
+y < -2
+(x >= 3) & (y < -2)
+x == c(1, 3, 2, 4, 5)
+```
+
+---
+
+We can also get more complicated with our indexing.
+
+```{r}
+# Return the second and third elements of 
+y[c(2, 3)]
+# Return the values of x greater than 3
+x[x >= 3]
+# Values of x that match the index of the values of y that are less than -2
+x[y < -2]
+# which() returns the index of entries that are TRUE
+which(y < -2)
+```
+
+---
+
+We can compare entire vectors using `identical()`
+
+```{r}
+identical(x, -rev(y))
+```
+
+What do you think the function `rev()` is doing in the code above?
+
+*Hint:* Use `?rev` to read the help files for the function
+
+---
+
+## Vector Data Types
+
+Note that vectors can only have one type of data. So we can do
+
+```{r}
+c(1, 2, 3)
+c("a", "b", "c")
+```
+but when we try
+
+```{r}
+c(1, "b", 3)
+```
+R will force the entries vector to be of the same type! This is a common source of bugs.
+
+
+---
+
+## Names
+
+We can assign names to the entries of our vectors using `names()`. This can be useful to label our data.
+
+```{r}
+my_vec <- c(1, 2, 3)
+names(my_vec) <- c("a", "b", "c")
+my_vec
+my_vec + 1
+```
+
+Note that arithmetic doesn't change the names of our elements. 
+We can then access the names as their own vector by calling `names()` again.
+
+```{r}
+names(my_vec)
+```
+
+
+---
+
+## Useful functions for vectors
+
+* `max()`, `min()`, `mean()`, `median()`, `sum()`, `sd()`, `var()` 
+* `length()` returns the number of elements in the vector
+* `head()` and `tail()` return the beginning and end vectors
+* `sort()` will sort
+* `summary()` returns a 5-number summary
+* `any()` and `all()` to check conditions on Boolean vectors
+* `hist()` will return a crude histogram (we'll learn how to make this nicer later)
+
+You will need some of these for Lab 1! 
+
+If you are unclear about what any of them do, use `?` before the function name to read the documentation. You should get in the habit of checking function documentation a lot!
+
+---
+layout: false
+layout: true
+
+# Matrices
+---
+
+* **Matrices** are two-dimensional extension of vectors, 
+they have **rows** and **columns**
+* We can create a vector using the function `matrix()`
+
+```{r}
+my_matrix <- matrix(c(x, y), nrow = 2, ncol = 5, byrow = TRUE)
+my_matrix
+# Note: byrow = FALSE is the default
+my_matrix2 <- matrix(c(x, y), nrow = 2, ncol = 5)
+my_matrix2
+```
+
+.center[*Warning:* be careful not to call your matrix `matrix`! Why not?]
+
+---
+
+We can also generate matrices by column binding (`cbind()`) and row binding (`rbind`) vectors
+
+```{r}
+cbind(x, y)
+rbind(x, y)
+```
+
+---
+
+## Indexing and Subsetting Matrices
+
+Indexing a matrix is similar to indexing a vector, except we must index both the row and column, in that order.
+
+```{r}
+my_matrix
+```
+
+```{r, eval = FALSE}
+my_matrix[2, 3]
+```
+
+--
+```{r, echo = FALSE}
+my_matrix[2, 3]
+```
+
+--
+```{r, eval = FALSE}
+my_matrix[2, c(1, 3, 5)]
+```
+
+--
+```{r, echo = FALSE}
+my_matrix[2, c(1, 3, 5)]
+```
+
+---
+
+Also similarly to vectors, we can subset using a negative index.
+
+```{r}
+my_matrix
+my_matrix[-2, -4]
+# Note: Leaving an index blank includes all indices
+my_matrix[, -c(1, 3, 4, 5)]
+```
+
+---
+
+```{r}
+my_matrix[, -c(1, 3, 4, 5)]
+is.matrix(my_matrix[, -c(1, 3, 4, 5)])
+```
+
+What happened here? When subsetting a matrix reduces one dimension to length 1,
+R automatically coerces it into a vector. We can prevent this by including `drop = FALSE`.
+
+```{r}
+my_matrix[, -c(1, 3, 4, 5), drop = FALSE]
+is.matrix(my_matrix[, -c(1, 3, 4, 5), drop = FALSE])
+```
+
+---
+
+## Matrix Entry Types
+
+Matrices, like vectors, can only have entries of one type. 
+
+```{r}
+rbind(c(1, 2, 3), c("a", "b", "c"))
+```
+
+
+---
+
+## Functions on Matrices
+
+Let's create 3 matrices for the purposes of demonstrating matrix functions.
+
+```{r}
+mat1 <- matrix(1:6, nrow = 2, ncol = 3, byrow = TRUE)
+mat1
+mat2 <- matrix(1:6, nrow = 3, ncol = 2)
+mat2
+```
+
+
+---
+
+
+```{r}
+mat3 <- matrix(5:10, nrow = 2, ncol = 3, byrow = TRUE)
+mat3
+```
+
+---
+
+### Matrix Sums `+`
+
+```{r}
+mat1 + mat3
+```
+
+### Element-wise Matrix Multiplication `*`
+
+```{r}
+mat1 * mat3
+```
+
+---
+
+### Matrix Multiplication `%*%`
+
+```{r}
+mat_square <- mat1 %*% mat2
+mat_square
+```
+
+
+### Column Bind Matrices `cbind()`
+
+```{r}
+cbind(mat1, mat3)
+```
+
+
+---
+
+
+### Transpose `t()`
+
+```{r}
+t(mat1)
+```
+
+
+### Column Sums `colSums()`
+
+```{r}
+colSums(mat1)
+```
+
+### Row Sums `rowSums()`
+
+```{r}
+rowSums(mat1)
+```
+
+
+---
+
+
+### Column Means `colMeans()`
+
+```{r}
+colMeans(mat1)
+```
+
+### Row Means `rowMeans()`
+
+```{r}
+rowMeans(mat1)
+```
+
+### Dimensions `dim()`
+
+```{r}
+dim(mat1)
+```
+
+
+---
+
+
+### Determinent `det()`
+
+```{r}
+det(mat_square)
+```
+
+### Matrix Inverse `solve()`
+
+```{r}
+solve(mat_square)
+```
+
+### Matrix Diagonal `diag()`
+
+```{r}
+diag(mat_square)
+```
+
+
+---
+
+## A note on `diag()`
+
+`diag()` can also be used to generate diagonal matrices by supplying a vector
+
+```{r}
+diag(c(1, 2, 3))
+```
+
+Supplying an integer will produce an identity matrix of that dimension
+
+```{r}
+diag(3)
+```
+
+---
+
+## Names
+
+We can assign names to the rows and columns, using `rownames()` and `colnames()`, respectively.
+Similarly to `names()` for vectors, we then access them by calling the function again.
+
+```{r}
+colnames(mat1) <- c("var1", "var2", "var3")
+rownames(mat1) <- c("sample1", "sample2")
+mat1
+mat1 * 2
+```
+
+---
+
+## Names
+
+We can assign names to the rows and columns, using `rownames()` and `colnames()`, respectively.
+Similarly to `names()` for vectors, we then access them by calling the function again.
+
+```{r}
+rownames(mat1)
+colnames(mat1)
+```
