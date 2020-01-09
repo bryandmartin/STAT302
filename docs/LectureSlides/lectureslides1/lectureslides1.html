@@ -1337,6 +1337,8 @@ We can also do basic arithmetic with booleans. `TRUE` is encoded as `1` and `FAL
 
 
 ```r
+# First reset x
+x &lt;- 1:5
 sum(x &gt;= 3)
 ```
 
@@ -1389,7 +1391,7 @@ x[x &gt;= 3]
 ```
 
 ```
-## [1] 3 3 3
+## [1] 3 4 5
 ```
 
 ```r
@@ -1420,7 +1422,7 @@ identical(x, -rev(y))
 ```
 
 ```
-## [1] FALSE
+## [1] TRUE
 ```
 
 What do you think the function `rev()` is doing in the code above?
@@ -1537,7 +1539,7 @@ my_matrix
 
 ```
 ##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    2    3    3    3
+## [1,]    1    2    3    4    5
 ## [2,]   -5   -4   -3   -2   -1
 ```
 
@@ -1549,15 +1551,15 @@ my_matrix2
 
 ```
 ##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    3    3   -4   -2
-## [2,]    2    3   -5   -3   -1
+## [1,]    1    3    5   -4   -2
+## [2,]    2    4   -5   -3   -1
 ```
 
 .center[*Warning:* be careful not to call your matrix `matrix`! Why not?]
 
 ---
 
-We can also generate matrices by column binding (`cbind()`) and row binding (`rbind`) vectors
+We can also generate matrices by column binding (`cbind()`) and row binding (`rbind()`) vectors
 
 
 ```r
@@ -1569,8 +1571,8 @@ cbind(x, y)
 ## [1,] 1 -5
 ## [2,] 2 -4
 ## [3,] 3 -3
-## [4,] 3 -2
-## [5,] 3 -1
+## [4,] 4 -2
+## [5,] 5 -1
 ```
 
 ```r
@@ -1579,7 +1581,7 @@ rbind(x, y)
 
 ```
 ##   [,1] [,2] [,3] [,4] [,5]
-## x    1    2    3    3    3
+## x    1    2    3    4    5
 ## y   -5   -4   -3   -2   -1
 ```
 
@@ -1596,7 +1598,7 @@ my_matrix
 
 ```
 ##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    2    3    3    3
+## [1,]    1    2    3    4    5
 ## [2,]   -5   -4   -3   -2   -1
 ```
 
@@ -1634,7 +1636,7 @@ my_matrix
 
 ```
 ##      [,1] [,2] [,3] [,4] [,5]
-## [1,]    1    2    3    3    3
+## [1,]    1    2    3    4    5
 ## [2,]   -5   -4   -3   -2   -1
 ```
 
@@ -1643,7 +1645,7 @@ my_matrix[-2, -4]
 ```
 
 ```
-## [1] 1 2 3 3
+## [1] 1 2 3 5
 ```
 
 ```r

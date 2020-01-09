@@ -1011,12 +1011,16 @@ x
 We can also do basic arithmetic with booleans. `TRUE` is encoded as `1` and `FALSE` is encoded as `0`.
 
 ```{r, eval = FALSE}
+# First reset x
+x <- 1:5
 sum(x >= 3)
 ```
 
 
 --
 ```{r, echo = FALSE}
+# First reset x
+x <- 1:5
 sum(x >= 3)
 ```
 
@@ -1145,7 +1149,7 @@ my_matrix2
 
 ---
 
-We can also generate matrices by column binding (`cbind()`) and row binding (`rbind`) vectors
+We can also generate matrices by column binding (`cbind()`) and row binding (`rbind()`) vectors
 
 ```{r}
 cbind(x, y)
