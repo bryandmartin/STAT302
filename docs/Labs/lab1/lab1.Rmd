@@ -57,7 +57,7 @@ Let's jump right in and start working with large simulations. You will need the 
 
 **1d.** Calculate (using an R function) the percent of simulations from a $N(0, 1)$ that you *expect* to be above 1.644854. How does this compare to the observed proportion of your standardized simulations that are above 1.644854?
 
-**1e.** How does the quantity from part d compare to to the observed proportion of your first 10 standardized simulations that are above 1.644854? Repeat this for your first 100, 1000, and 10000. 
+**1e.** How does the quantity from part d compare to to the observed proportion of your first 10 standardized simulations that are above 1.644854? Repeat this for your first 100, 1000, and 10,000 standardized simulations. 
 What do you notice?
 
 **1f.** I simulated from an unknown distribution and obtained a value of 13.86. What is the percentile of my simulution in the distribution of your simulations? If you standardize my simulation (using the same mean and standard deviation as in part c!), what is the percentile of my simulation in the distribution of your standardized simulations? What do you notice about these two quantities?
@@ -68,7 +68,7 @@ What do you notice?
 
 ## Part 2. Matrices (7 points)
 
-A Binomial distribution with $n$ trials and probability of success $p$, sometimes shorthanded $Bin(n, p)$, represents the number of success out of 10 independent trials, each with probability of success $p$. 
+A Binomial distribution with $n$ trials and probability of success $p$, sometimes shorthanded $Bin(n, p)$, represents the number of success out of $n$ independent trials, each with probability of success $p$. 
 For this part, we will be using the Binomial distribution equivalent of the functions we used in part 1.
 These are `rbinom()`, `pbinom()`, and `dbinom()`.
 
