@@ -1,0 +1,53 @@
+<!--- Please do not touch the code below! It is for styling. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- Begin here! Fill in text and R code for each of these questions. --->
+
+---
+title: "Short Lab 2"
+author: "INSERT YOUR NAME HERE"
+date: "1/15/2020"
+output: html_document
+---
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+### Part A. Control Flow
+
+1. 
+    a. Write a function that returns a Boolean indicating whether the input is numeric or not.
+    b. Evaluate your function with input that returns `TRUE`
+    c. Evaluate your function with input that returns `FALSE`
+    
+
+2. 
+    a. Write a function returns the absolute value of the input. This function should check to make sure the input is numeric. 
+If the input is not numeric, it should `stop` with an informative error message.
+    b. Evaluate your function with positive numeric input.
+    c. Evaluate your function with negative numeric input.
+    d. Trigger your custom error message. Note: You will need to add the parameter 
+`error = TRUE` to your R Markdown code chunk. If you do not, your document will not compile!
+
+### Part B. Loops
+
+3. Write and demonstrate a function that loops through through a numeric input vector
+and returns a numeric vector of the same length, where the $i$th element of the output is equal to the sum of the first $i$ elements of the input. (Hint: The first element of the output should match the first element of the input. The last element of the output should match the sum of the elements of the input.)
+
+4. Write and demonstrate a function that loops through each element of a matrix and replaces each element with the row index minus the column index. (Hint: use `ncol()` and `nrow()`)

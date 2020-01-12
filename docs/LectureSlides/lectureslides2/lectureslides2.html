@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>STAT 302, Week 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bryan Martin" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, top, title-slide
+
+# STAT 302, Week 2
+## Practical Programming
+### Bryan Martin
+### Week of Jan 6, 2020
+
+---
+
+
+
+
+
+# Outline
+
+1. Control flow: `if`, `else`, `while`
+2. Loops: `for` and `while`
+3. Functions
+
+.middler[**Goal:** Use R's programming capabilities to build efficient functions and workflows.]
+
+---
+class: inverse
+
+.sectionhead[Part 1: Control Flow]
+---
+layout: true
+
+# Control Flow
+---
+
+## `if` statements
+
+* `if` statement give our computer conditions for chunks of code
+* If our condition is `TRUE`, then the chunk evaluates
+* If our condition is `FALSE`, then it does not
+* We must give our condition as a single Boolean
+
+---
+
+## `if` statements
+
+
+```r
+x &lt;- 1
+# Conditions go in parenthesis after if
+if (x &gt; 0) {
+  # code chunks get surrounded by curly brackets
+  cat("x is equal to", x, ", a positive number!")
+}
+```
+
+```
+## x is equal to 1 , a positive number!
+```
+
+--
+
+```r
+x &lt;- -1
+# Conditions go in parenthesis after if
+if (x &gt; 0) {
+  # code chunks get surrounded by curly brackets
+  cat("x is equal to", x, ", a positive number!")
+}
+```
+
+---
+
+## `else` statments
+
+* We can use `else` to specify what we want to happen when our condition is `FALSE`
+
+
+```r
+x &lt;- 1
+if (x &gt; 0) {
+  cat("x is equal to", x, ", a positive number!")
+} else {
+  cat("x is equal to", x, ", a negative number!")
+}
+```
+
+```
+## x is equal to 1 , a positive number!
+```
+
+--
+
+```r
+x &lt;- -1
+if (x &gt; 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else {
+  paste0("x is equal to ", x, ", a negative number!")
+}
+```
+
+```
+## [1] "x is equal to -1, a negative number!"
+```
+
+---
+
+## `else if`
+
+* Use `else if` to set a sequence of conditions
+* The final `else` will evaluate anything left
+
+
+```r
+x &lt;- 1
+if (x &gt; 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x &lt; 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+```
+## [1] "x is equal to 1, a positive number!"
+```
+
+---
+
+
+```r
+x &lt;- -1
+if (x &gt; 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x &lt; 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+```
+## [1] "x is equal to -1, a negative number!"
+```
+
+--
+
+```r
+x &lt;- 0
+if (x &gt; 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x &lt; 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+```
+## [1] "x is equal to 0!"
+```
+
+---
+layout: false
+layout: true
+
+# Control Flow: Examples
+---
+
+## Absolute Value
+
+
+```r
+x &lt;- 5
+if (x &gt;= 0) {
+  x
+} else {
+  -x
+}
+```
+
+```
+## [1] 5
+```
+
+--
+
+```r
+x &lt;- -5
+if (x &gt;= 0) {
+  x
+} else {
+  -x
+}
+```
+
+```
+## [1] 5
+```
+
+---
+
+## Checking if `x` is even or negative
+
+
+```r
+x &lt;- 6
+if ((x %% 2) == 0 | x &lt; 0) {
+  TRUE
+} else {
+  FALSE
+}
+```
+
+```
+## [1] TRUE
+```
+
+--
+
+```r
+x &lt;- -5
+if ((x %% 2) == 0 | x &lt; 0) {
+  TRUE
+} else {
+  FALSE
+}
+```
+
+```
+## [1] TRUE
+```
+
+---
+
+
+```r
+x &lt;- 5
+if ((x %% 2) == 0 | x &lt; 0) {
+  TRUE
+} else {
+  FALSE
+}
+```
+
+```
+## [1] FALSE
+```
+
+
+---
+
+## Check length of strings
+
+
+
+```r
+x &lt;- "cat"
+if (length(x) &lt;= 10) {
+  cat("x is a pretty short string!")
+} else {
+  cat("x is a pretty long string!")
+}
+```
+
+```
+## x is a pretty short string!
+```
+
+--
+
+```r
+x &lt;- "A big fluffy cat with orange fur and stripes"
+if (length(x) &lt;= 10) {
+  cat("x is a pretty short string!")
+} else {
+  cat("x is a pretty long string!")
+}
+```
+
+```
+## x is a pretty short string!
+```
+
+---
+
+## Check class
+
+
+```r
+x &lt;- 5
+if (is.numeric(x)) {
+  cat("x is a numeric!")
+} else if (is.character(x)) {
+  cat("x is a character!")
+} else {
+  cat("x is some class I didn't check for in my code!")
+}
+```
+
+```
+## x is a numeric!
+```
+
+---
+
+## Check class
+
+
+```r
+x &lt;- list()
+if (is.numeric(x)) {
+  cat("x is a numeric!")
+} else if (is.character(x)) {
+  cat("x is a character!")
+} else {
+  cat("x is some class I didn't check for in my code!")
+}
+```
+
+```
+## x is some class I didn't check for in my code!
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2: for loops]
+---
+layout: true
+
+# Loops
+
+---
+
+## `for` loops
+
+`for` loops iterate along an input vector, 
+stores the current value of the vector as a variable,
+and repeatedly evaluates a code chunk until the vector is exhausted
+
+
+```r
+for (i in 1:10) {
+  print(i)
+}
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10
+```
+
+---
+
+## `while` loops
+
+`while` loops continuously evaluate the inner code chunk until the condition is `FALSE`.
+
+
+Be careful here! It is possible to get stuck in an infinite loop!
+
+
+```r
+x &lt;- 0
+while (x &lt; 5) {
+  cat("x is currently", x, ". Let's increase it by 1!")
+  x &lt;- x + 1
+}
+```
+
+```
+## x is currently 0 . Let's increase it by 1!x is currently 1 . Let's increase it by 1!x is currently 2 . Let's increase it by 1!x is currently 3 . Let's increase it by 1!x is currently 4 . Let's increase it by 1!
+```
+
+---
+
+## `while` loops
+
+Let's see if we can clean up that output. Add `"\n"` to a string to force a line break. 
+
+
+```r
+x &lt;- 0
+while (x &lt; 5) {
+  cat("x is currently ", x, ". Let's increase it by 1! \n", sep = "")
+  x &lt;- x + 1
+}
+```
+
+```
+## x is currently 0. Let's increase it by 1! 
+## x is currently 1. Let's increase it by 1! 
+## x is currently 2. Let's increase it by 1! 
+## x is currently 3. Let's increase it by 1! 
+## x is currently 4. Let's increase it by 1!
+```
+
+---
+layout: false
+layout: true
+
+# Loops: Examples
+---
+
+## String Input
+
+
+```r
+string_vector &lt;- c("a", "b", "c", "d", "e")
+for (mystring in string_vector) {
+  print(mystring)
+}
+```
+
+```
+## [1] "a"
+## [1] "b"
+## [1] "c"
+## [1] "d"
+## [1] "e"
+```
+
+---
+
+## Nested Loops
+
+
+```r
+counter &lt;- 0
+for (i in 1:3) {
+  for (j in 1:2) {
+    counter &lt;- counter + 1
+    cat("i = ", i, ", j = ", j, ", counter = ", counter, "\n", sep = "")
+  }
+}
+```
+
+```
+## i = 1, j = 1, counter = 1
+## i = 1, j = 2, counter = 2
+## i = 2, j = 1, counter = 3
+## i = 2, j = 2, counter = 4
+## i = 3, j = 1, counter = 5
+## i = 3, j = 2, counter = 6
+```
+
+---
+
+## Nested Loops
+
+
+```r
+for (i in 1:3) {
+  for (j in 1:2) {
+    print(i * j)
+  }
+}
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 2
+## [1] 4
+## [1] 3
+## [1] 6
+```
+
+---
+
+## Filling in a vector
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+
+```r
+# Inefficient
+x &lt;- rep(NA, 5)
+for (i in 1:5) {
+  x[i] &lt;- i * 2
+}
+x
+```
+
+```
+## [1]  2  4  6  8 10
+```
+
+```r
+# Much better
+x &lt;- seq(2, 10, by = 2)
+x
+```
+
+```
+## [1]  2  4  6  8 10
+```
+
+---
+
+## Filling in a vector
+
+Note: We will need the `stringr` package for this 
+
+```r
+# Run this if you have never installed stringr before!
+# install.packages("stringr")
+library(stringr)
+```
+
+--
+
+```r
+x &lt;- rep(NA, 5)
+my_strings &lt;- c("a", "a ", "a c", "a ca", "a cat")
+for (i in 1:5) {
+  x[i] &lt;- str_length(my_strings[i])
+  print(x)
+}
+```
+
+```
+## [1]  1 NA NA NA NA
+## [1]  1  2 NA NA NA
+## [1]  1  2  3 NA NA
+## [1]  1  2  3  4 NA
+## [1] 1 2 3 4 5
+```
+
+---
+
+## Filling in a matrix
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+
+```r
+x &lt;- matrix(NA, nrow = 4, ncol = 3)
+for (i in 1:4) {
+  for (j in 1:3) {
+    x[i, j] &lt;- i * j
+  }
+}
+x
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    4    6
+## [3,]    3    6    9
+## [4,]    4    8   12
+```
+
+---
+
+## Continue until positive sample
+
+
+```r
+set.seed(3)
+x &lt;- -1
+while (x &lt; 0) {
+  x &lt;- rnorm(1)
+  print(x)
+}
+```
+
+```
+## [1] -0.9619334
+## [1] -0.2925257
+## [1] 0.2587882
+```
+
+```r
+x
+```
+
+```
+## [1] 0.2587882
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 3: Functions]
+---
+layout: true
+
+# Functions
+---
+
+We've already seen and used several functions, but you can also create your own!
+This is incredibly useful when:
+
+* You use the same code chunk repeatedly
+* You want to generalize your workflow to multiple inputs
+* You want others to be able to use your code
+* You want to complete your assignments for STAT 302
+
+---
+
+## Anatomy of a function
+
+
+```r
+function_name &lt;- function(param1, param2 = "default") {
+  # Body of the function
+  return(output)
+}
+```
+
+* `function_name`: the name you want to give your function, what you will use to call it
+* `function()`: call this to define a function
+* `param1`, `param2`: function parameters, what the user inputs. You can assign default values by setting them equal to something in the function definition
+* **Body**: the actual code that is executed
+* `return()`: is what your function will return to the user
+
+---
+layout: false
+layout: true
+
+# Functions: Examples
+---
+
+## Square a number, add 2
+
+
+```r
+square_plus_2 &lt;- function(x) {
+  y &lt;- x^2 + 2
+  return(y)
+}
+
+square_plus_2(4)
+```
+
+```
+## [1] 18
+```
+
+```r
+square_plus_2(10)
+```
+
+```
+## [1] 102
+```
+
+```r
+square_plus_2(1:5)
+```
+
+```
+## [1]  3  6 11 18 27
+```
+
+---
+
+
+```r
+square_plus_2("some string")
+```
+
+```
+## Error in x^2: non-numeric argument to binary operator
+```
+
+What happened here? We wrote a function for numerics only but didn't check the input!
+
+Let's try making our function more robust by adding a `stop`
+
+
+```r
+square_plus_2 &lt;- function(x) {
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    y &lt;- x^2 + 2
+    return(y)
+  }
+}
+
+square_plus_2("some string")
+```
+
+```
+## Error in square_plus_2("some string"): x must be numeric!
+```
+
+
+---
+
+## Check if the input is positive
+
+
+```r
+check_pos &lt;- function(x) {
+  if (x &gt; 0) {
+    return(TRUE)
+  } else if (x &lt; 0) {
+    return(FALSE)
+  } else {
+    return(paste0("x is equal to ", x, "!"))
+  }
+}
+
+check_pos(-3)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+store_output &lt;- check_pos(0)
+store_output
+```
+
+```
+## [1] "x is equal to 0!"
+```
+
+---
+
+## Make a table
+
+We'll use `str_c` from `stringr` for this function.
+
+
+```r
+my_summary &lt;- function(input, percentiles = c(.05, .5, .95)) {
+  if (!is.numeric(input) | !is.numeric(percentiles)) {
+    stop("The input and percentiles must be numeric!")
+  }
+  if (max(percentiles) &gt; 1 | min(percentiles) &lt; 0) {
+    stop("Percentiles must all be in [0, 1]")
+  }
+  # Convert percentiles to character percent, append " Percentile" to each
+  labels &lt;- str_c(percentiles * 100, " Percentile")
+  output &lt;- quantile(input, probs = percentiles)
+  names(output) &lt;- labels
+  return(output)
+}
+```
+
+---
+
+## Make a table
+
+
+```r
+x &lt;- rnorm(100)
+my_summary(x)
+```
+
+```
+##  5 Percentile 50 Percentile 95 Percentile 
+##   -1.22236488    0.06183487    1.22655423
+```
+
+```r
+my_summary(x, percentiles = c(.07, .5, .63, .91))
+```
+
+```
+##  7 Percentile 50 Percentile 63 Percentile 91 Percentile 
+##   -1.13785677    0.06183487    0.36358152    1.16185072
+```
+
+```r
+my_summary(c("string1", "string2"))
+```
+
+```
+## Error in my_summary(c("string1", "string2")): The input and percentiles must be numeric!
+```
+
+```r
+my_summary(x, percentiles = c(-7, .5, 1.3))
+```
+
+```
+## Error in my_summary(x, percentiles = c(-7, 0.5, 1.3)): Percentiles must all be in [0, 1]
+```
+
+
+---
+
+## Function with iteration
+
+
+```r
+my_cumulative_sum &lt;- function(x) {
+  total &lt;- 0
+  for (item in x) {
+    total &lt;- total + item
+  }
+  return(total)
+}
+my_cumulative_sum(1:5)
+```
+
+```
+## [1] 15
+```
+
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Style guide!]
+---
+layout: true
+
+# Style guide!
+---
+
+.middler[Once again, we will using a mix of the [Tidyverse style guide](https://style.tidyverse.org/) and the [Google style guide](https://google.github.io/styleguide/Rguide.html).]
+
+---
+
+## Function Names
+
+Strive to have function names based on verbs. 
+Otherwise, standard variable name style guidelines apply!
+
+
+```r
+# Good
+add_row()
+permute()
+
+# Bad
+row_adder()
+permutation()
+```
+
+
+---
+
+## Spacing
+
+Place a space before and after `()` when used with `if`, `for`, or `while`.
+
+
+```r
+# Good
+if (condition) {
+  x + 2
+}
+
+# Bad
+if(condition){
+  x + 2
+}
+```
+
+
+---
+
+## Spacing
+
+Place a space after `()` used for function arguments.
+
+
+```r
+# Good
+if (debug) {
+  show(x)
+}
+
+# Bad
+if(debug){
+  show(x)
+}
+```
+
+
+---
+
+
+## Code Blocks
+
+* `{` should be the last character on the line. Related code (e.g., an `if` clause, a function declaration, a trailing comma, ...) must be on the same line as the opening brace. It should be preceded by a single space.
+* The contents within code blocks should be indented by two spaces from where it started
+* `}` should be the first character on the line.
+
+---
+
+## Code Blocks
+
+
+```r
+# Good
+if (y &lt; 0) {
+  message("y is negative")
+}
+
+if (y == 0) {
+  if (x &gt; 0) {
+    log(x)
+  } else {
+    message("x is negative or zero")
+  }
+} else {
+  y^x
+}
+```
+
+---
+
+## Code Blocks
+
+
+```r
+# Bad
+if (y&lt;0){
+message("Y is negative")
+}
+
+if (y == 0)
+{
+    if (x &gt; 0) {
+      log(x)
+    } else {
+  message("x is negative or zero")
+    }
+} else { y ^ x }
+```
+
+---
+
+## In-line Statments
+
+In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
+
+
+
+```r
+# Good
+y &lt;- 10
+x &lt;- if (y &lt; 20) "Too low" else "Too high"
+
+if (y &lt; 0) {
+  stop("Y is negative")
+}
+
+find_abs &lt;- function(x) {
+  if (x &gt; 0) {
+    return(x)
+  }
+  x * -1
+}
+```
+
+
+---
+
+
+## In-line Statements
+
+In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
+
+
+```r
+# Bad
+if (y &lt; 0) stop("Y is negative")
+
+if (y &lt; 0)
+  stop("Y is negative")
+
+find_abs &lt;- function(x) {
+  if (x &gt; 0) return(x)
+  x * -1
+}
+```
+
+
+---
+
+
+## Long lines in functions
+
+If a function definition runs over multiple lines, indent the second line to where the definition starts.
+
+
+```r
+# Good
+long_function_name &lt;- function(a = "a long argument",
+                               b = "another argument",
+                               c = "another long argument") {
+  # As usual code is indented by two spaces.
+}
+
+# Bad
+long_function_name &lt;- function(a = "a long argument",
+  b = "another argument",
+  c = "another long argument") {
+  # Here it's hard to spot where the definition ends and the
+  # code begins
+}
+```
+
+---
+
+## `return`
+
+Strictly speaking, `return` is not necessary in a function definition.
+The function will output the last line of executable R code. 
+The following function definitions will output the same results!
+
+
+```r
+Add_Values &lt;- function(x, y) {
+  return(x + y)
+}
+
+Add_Values &lt;- function(x, y) {
+  x + y
+}
+```
+
+
+Note that our two guides disagree on which of these is preferable. 
+
+Personally, I always make my `return` statements explicit, so I prefer the former.
+
+---
+
+## Commenting functions
+
+For now, when commenting functions, include (at least) 3 lines of comments:
+
+* a comment describing the purpose of a function
+* a comment describing each input
+* a comment describing the output
+
+The function body should be commented as usual!
+
+---
+
+
+
+```r
+# Good ----
+# Function: square_plus_2, squares a number and then adds 2
+# Input: x, must be numeric
+# Output: numeric equal to x^2 + 2
+square_plus_2 &lt;- function(x) {
+  # check that x is numeric
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    # if numeric, then square and add 2
+    y &lt;- x^2 + 2
+    return(y)
+  }
+}
+
+# Bad ----
+# Function for problem 2c
+square_plus_2 &lt;- function(x) {
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    y &lt;- x^2 + 2
+    return(y)
+  }
+}
+```
+
+
+---
+layout: false
+
+# Summary
+
+* Use `if` and `else` to set conditions
+* Use `for` and `while` to write loops
+* Functions include a input parameters, a body of code, and an output
+* Functions are essential for a good workflow!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

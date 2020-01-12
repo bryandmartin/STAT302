@@ -1,0 +1,842 @@
+---
+title: "STAT 302, Week 2"
+subtitle: "Practical Programming"
+author: "Bryan Martin"
+date: "Week of Jan 6, 2020"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow-night-bright
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["center","top"]
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "##")
+library(kableExtra)
+```
+
+
+# Outline
+
+1. Control flow: `if`, `else`, `while`
+2. Loops: `for` and `while`
+3. Functions
+
+.middler[**Goal:** Use R's programming capabilities to build efficient functions and workflows.]
+
+---
+class: inverse
+
+.sectionhead[Part 1: Control Flow]
+---
+layout: true
+
+# Control Flow
+---
+
+## `if` statements
+
+* `if` statement give our computer conditions for chunks of code
+* If our condition is `TRUE`, then the chunk evaluates
+* If our condition is `FALSE`, then it does not
+* We must give our condition as a single Boolean
+
+---
+
+## `if` statements
+
+```{r}
+x <- 1
+# Conditions go in parenthesis after if
+if (x > 0) {
+  # code chunks get surrounded by curly brackets
+  cat("x is equal to", x, ", a positive number!")
+}
+```
+
+--
+```{r}
+x <- -1
+# Conditions go in parenthesis after if
+if (x > 0) {
+  # code chunks get surrounded by curly brackets
+  cat("x is equal to", x, ", a positive number!")
+}
+```
+
+---
+
+## `else` statments
+
+* We can use `else` to specify what we want to happen when our condition is `FALSE`
+
+```{r}
+x <- 1
+if (x > 0) {
+  cat("x is equal to", x, ", a positive number!")
+} else {
+  cat("x is equal to", x, ", a negative number!")
+}
+```
+
+--
+```{r}
+x <- -1
+if (x > 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else {
+  paste0("x is equal to ", x, ", a negative number!")
+}
+```
+
+---
+
+## `else if`
+
+* Use `else if` to set a sequence of conditions
+* The final `else` will evaluate anything left
+
+```{r}
+x <- 1
+if (x > 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x < 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+---
+
+```{r}
+x <- -1
+if (x > 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x < 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+--
+```{r}
+x <- 0
+if (x > 0) {
+  paste0("x is equal to ", x, ", a positive number!")
+} else if (x < 0) {
+  paste0("x is equal to ", x, ", a negative number!")
+} else {
+  paste0("x is equal to ", x, "!")
+}
+```
+
+---
+layout: false
+layout: true
+
+# Control Flow: Examples
+---
+
+## Absolute Value
+
+```{r}
+x <- 5
+if (x >= 0) {
+  x
+} else {
+  -x
+}
+```
+
+--
+```{r}
+x <- -5
+if (x >= 0) {
+  x
+} else {
+  -x
+}
+```
+
+---
+
+## Checking if `x` is even or negative
+
+```{r}
+x <- 6
+if ((x %% 2) == 0 | x < 0) {
+  TRUE
+} else {
+  FALSE
+}
+```
+
+--
+```{r}
+x <- -5
+if ((x %% 2) == 0 | x < 0) {
+  TRUE
+} else {
+  FALSE
+}
+```
+
+---
+
+```{r}
+x <- 5
+if ((x %% 2) == 0 | x < 0) {
+  TRUE
+} else {
+  FALSE
+}
+```
+
+
+---
+
+## Check length of strings
+
+
+```{r}
+x <- "cat"
+if (length(x) <= 10) {
+  cat("x is a pretty short string!")
+} else {
+  cat("x is a pretty long string!")
+}
+```
+
+--
+```{r}
+x <- "A big fluffy cat with orange fur and stripes"
+if (length(x) <= 10) {
+  cat("x is a pretty short string!")
+} else {
+  cat("x is a pretty long string!")
+}
+```
+
+---
+
+## Check class
+
+```{r}
+x <- 5
+if (is.numeric(x)) {
+  cat("x is a numeric!")
+} else if (is.character(x)) {
+  cat("x is a character!")
+} else {
+  cat("x is some class I didn't check for in my code!")
+}
+```
+
+---
+
+## Check class
+
+```{r}
+x <- list()
+if (is.numeric(x)) {
+  cat("x is a numeric!")
+} else if (is.character(x)) {
+  cat("x is a character!")
+} else {
+  cat("x is some class I didn't check for in my code!")
+}
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2: for loops]
+---
+layout: true
+
+# Loops
+
+---
+
+## `for` loops
+
+`for` loops iterate along an input vector, 
+stores the current value of the vector as a variable,
+and repeatedly evaluates a code chunk until the vector is exhausted
+
+```{r}
+for (i in 1:10) {
+  print(i)
+}
+```
+
+---
+
+## `while` loops
+
+`while` loops continuously evaluate the inner code chunk until the condition is `FALSE`.
+
+
+Be careful here! It is possible to get stuck in an infinite loop!
+
+```{r}
+x <- 0
+while (x < 5) {
+  cat("x is currently", x, ". Let's increase it by 1!")
+  x <- x + 1
+}
+```
+
+---
+
+## `while` loops
+
+Let's see if we can clean up that output. Add `"\n"` to a string to force a line break. 
+
+```{r}
+x <- 0
+while (x < 5) {
+  cat("x is currently ", x, ". Let's increase it by 1! \n", sep = "")
+  x <- x + 1
+}
+```
+
+---
+layout: false
+layout: true
+
+# Loops: Examples
+---
+
+## String Input
+
+```{r}
+string_vector <- c("a", "b", "c", "d", "e")
+for (mystring in string_vector) {
+  print(mystring)
+}
+```
+
+---
+
+## Nested Loops
+
+```{r}
+counter <- 0
+for (i in 1:3) {
+  for (j in 1:2) {
+    counter <- counter + 1
+    cat("i = ", i, ", j = ", j, ", counter = ", counter, "\n", sep = "")
+  }
+}
+```
+
+---
+
+## Nested Loops
+
+```{r}
+for (i in 1:3) {
+  for (j in 1:2) {
+    print(i * j)
+  }
+}
+```
+
+---
+
+## Filling in a vector
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+```{r}
+# Inefficient
+x <- rep(NA, 5)
+for (i in 1:5) {
+  x[i] <- i * 2
+}
+x
+
+# Much better
+x <- seq(2, 10, by = 2)
+x
+```
+
+---
+
+## Filling in a vector
+
+Note: We will need the `stringr` package for this 
+```{r}
+# Run this if you have never installed stringr before!
+# install.packages("stringr")
+library(stringr)
+```
+
+--
+```{r}
+x <- rep(NA, 5)
+my_strings <- c("a", "a ", "a c", "a ca", "a cat")
+for (i in 1:5) {
+  x[i] <- str_length(my_strings[i])
+  print(x)
+}
+```
+
+---
+
+## Filling in a matrix
+
+Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
+
+```{r}
+x <- matrix(NA, nrow = 4, ncol = 3)
+for (i in 1:4) {
+  for (j in 1:3) {
+    x[i, j] <- i * j
+  }
+}
+x
+```
+
+---
+
+## Continue until positive sample
+
+```{r}
+set.seed(3)
+x <- -1
+while (x < 0) {
+  x <- rnorm(1)
+  print(x)
+}
+x
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 3: Functions]
+---
+layout: true
+
+# Functions
+---
+
+We've already seen and used several functions, but you can also create your own!
+This is incredibly useful when:
+
+* You use the same code chunk repeatedly
+* You want to generalize your workflow to multiple inputs
+* You want others to be able to use your code
+* You want to complete your assignments for STAT 302
+
+---
+
+## Anatomy of a function
+
+```{r}
+function_name <- function(param1, param2 = "default") {
+  # Body of the function
+  return(output)
+}
+```
+
+* `function_name`: the name you want to give your function, what you will use to call it
+* `function()`: call this to define a function
+* `param1`, `param2`: function parameters, what the user inputs. You can assign default values by setting them equal to something in the function definition
+* **Body**: the actual code that is executed
+* `return()`: is what your function will return to the user
+
+---
+layout: false
+layout: true
+
+# Functions: Examples
+---
+
+## Square a number, add 2
+
+```{r}
+square_plus_2 <- function(x) {
+  y <- x^2 + 2
+  return(y)
+}
+
+square_plus_2(4)
+square_plus_2(10)
+square_plus_2(1:5)
+```
+
+---
+
+```{r, error = TRUE}
+square_plus_2("some string")
+```
+
+What happened here? We wrote a function for numerics only but didn't check the input!
+
+Let's try making our function more robust by adding a `stop`
+
+```{r, error = TRUE}
+square_plus_2 <- function(x) {
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    y <- x^2 + 2
+    return(y)
+  }
+}
+
+square_plus_2("some string")
+```
+
+
+---
+
+## Check if the input is positive
+
+```{r}
+check_pos <- function(x) {
+  if (x > 0) {
+    return(TRUE)
+  } else if (x < 0) {
+    return(FALSE)
+  } else {
+    return(paste0("x is equal to ", x, "!"))
+  }
+}
+
+check_pos(-3)
+store_output <- check_pos(0)
+store_output
+```
+
+---
+
+## Make a table
+
+We'll use `str_c` from `stringr` for this function.
+
+```{r}
+my_summary <- function(input, percentiles = c(.05, .5, .95)) {
+  if (!is.numeric(input) | !is.numeric(percentiles)) {
+    stop("The input and percentiles must be numeric!")
+  }
+  if (max(percentiles) > 1 | min(percentiles) < 0) {
+    stop("Percentiles must all be in [0, 1]")
+  }
+  # Convert percentiles to character percent, append " Percentile" to each
+  labels <- str_c(percentiles * 100, " Percentile")
+  output <- quantile(input, probs = percentiles)
+  names(output) <- labels
+  return(output)
+}
+```
+
+---
+
+## Make a table
+
+```{r, error = TRUE}
+x <- rnorm(100)
+my_summary(x)
+my_summary(x, percentiles = c(.07, .5, .63, .91))
+my_summary(c("string1", "string2"))
+my_summary(x, percentiles = c(-7, .5, 1.3))
+```
+
+
+---
+
+## Function with iteration
+
+```{r}
+my_cumulative_sum <- function(x) {
+  total <- 0
+  for (item in x) {
+    total <- total + item
+  }
+  return(total)
+}
+my_cumulative_sum(1:5)
+```
+
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Style guide!]
+---
+layout: true
+
+# Style guide!
+---
+
+.middler[Once again, we will using a mix of the [Tidyverse style guide](https://style.tidyverse.org/) and the [Google style guide](https://google.github.io/styleguide/Rguide.html).]
+
+---
+
+## Function Names
+
+Strive to have function names based on verbs. 
+Otherwise, standard variable name style guidelines apply!
+
+```{r, eval = FALSE}
+# Good
+add_row()
+permute()
+
+# Bad
+row_adder()
+permutation()
+```
+
+
+---
+
+## Spacing
+
+Place a space before and after `()` when used with `if`, `for`, or `while`.
+
+```{r, eval = FALSE}
+# Good
+if (condition) {
+  x + 2
+}
+
+# Bad
+if(condition){
+  x + 2
+}
+```
+
+
+---
+
+## Spacing
+
+Place a space after `()` used for function arguments.
+
+```{r, eval = FALSE}
+# Good
+if (debug) {
+  show(x)
+}
+
+# Bad
+if(debug){
+  show(x)
+}
+```
+
+
+---
+
+
+## Code Blocks
+
+* `{` should be the last character on the line. Related code (e.g., an `if` clause, a function declaration, a trailing comma, ...) must be on the same line as the opening brace. It should be preceded by a single space.
+* The contents within code blocks should be indented by two spaces from where it started
+* `}` should be the first character on the line.
+
+---
+
+## Code Blocks
+
+```{r, eval = FALSE}
+# Good
+if (y < 0) {
+  message("y is negative")
+}
+
+if (y == 0) {
+  if (x > 0) {
+    log(x)
+  } else {
+    message("x is negative or zero")
+  }
+} else {
+  y^x
+}
+```
+
+---
+
+## Code Blocks
+
+```{r, eval = FALSE}
+# Bad
+if (y<0){
+message("Y is negative")
+}
+
+if (y == 0)
+{
+    if (x > 0) {
+      log(x)
+    } else {
+  message("x is negative or zero")
+    }
+} else { y ^ x }
+```
+
+---
+
+## In-line Statments
+
+In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
+
+
+```{r, eval = FALSE}
+# Good
+y <- 10
+x <- if (y < 20) "Too low" else "Too high"
+
+if (y < 0) {
+  stop("Y is negative")
+}
+
+find_abs <- function(x) {
+  if (x > 0) {
+    return(x)
+  }
+  x * -1
+}
+```
+
+
+---
+
+
+## In-line Statements
+
+In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
+
+```{r, eval = FALSE}
+# Bad
+if (y < 0) stop("Y is negative")
+
+if (y < 0)
+  stop("Y is negative")
+
+find_abs <- function(x) {
+  if (x > 0) return(x)
+  x * -1
+}
+```
+
+
+---
+
+
+## Long lines in functions
+
+If a function definition runs over multiple lines, indent the second line to where the definition starts.
+
+```{r, eval = FALSE}
+# Good
+long_function_name <- function(a = "a long argument",
+                               b = "another argument",
+                               c = "another long argument") {
+  # As usual code is indented by two spaces.
+}
+
+# Bad
+long_function_name <- function(a = "a long argument",
+  b = "another argument",
+  c = "another long argument") {
+  # Here it's hard to spot where the definition ends and the
+  # code begins
+}
+```
+
+---
+
+## `return`
+
+Strictly speaking, `return` is not necessary in a function definition.
+The function will output the last line of executable R code. 
+The following function definitions will output the same results!
+
+```{r}
+Add_Values <- function(x, y) {
+  return(x + y)
+}
+
+Add_Values <- function(x, y) {
+  x + y
+}
+```
+
+
+Note that our two guides disagree on which of these is preferable. 
+
+Personally, I always make my `return` statements explicit, so I prefer the former.
+
+---
+
+## Commenting functions
+
+For now, when commenting functions, include (at least) 3 lines of comments:
+
+* a comment describing the purpose of a function
+* a comment describing each input
+* a comment describing the output
+
+The function body should be commented as usual!
+
+---
+
+
+```{r, eval = FALSE}
+# Good ----
+# Function: square_plus_2, squares a number and then adds 2
+# Input: x, must be numeric
+# Output: numeric equal to x^2 + 2
+square_plus_2 <- function(x) {
+  # check that x is numeric
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    # if numeric, then square and add 2
+    y <- x^2 + 2
+    return(y)
+  }
+}
+
+# Bad ----
+# Function for problem 2c
+square_plus_2 <- function(x) {
+  if (!is.numeric(x)) {
+    stop("x must be numeric!")
+  } else {
+    y <- x^2 + 2
+    return(y)
+  }
+}
+```
+
+
+---
+layout: false
+
+# Summary
+
+* Use `if` and `else` to set conditions
+* Use `for` and `while` to write loops
+* Functions include a input parameters, a body of code, and an output
+* Functions are essential for a good workflow!
+
+
+
