@@ -1,6 +1,6 @@
 ---
 title: "STAT 302, Week 2"
-subtitle: "Practical Programming"
+subtitle: "Programming Fundamentals"
 author: "Bryan Martin"
 date: "Week of Jan 6, 2020"
 output:
@@ -839,4 +839,6 @@ layout: false
 * Functions are essential for a good workflow!
 
 
+---
+<!--- packages, data from packages, ggplot, dplyr --->
 
