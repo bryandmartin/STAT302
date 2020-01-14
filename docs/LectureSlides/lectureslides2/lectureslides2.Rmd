@@ -563,14 +563,14 @@ my_summary(x, percentiles = c(-7, .5, 1.3))
 ## Function with iteration
 
 ```{r}
-my_cumulative_sum <- function(x) {
+my_sum <- function(x) {
   total <- 0
-  for (item in x) {
-    total <- total + item
+  for (i in 1:length(x)) {
+    total <- total + x[i]
   }
   return(total)
 }
-my_cumulative_sum(1:5)
+my_sum(1:5)
 ```
 
 
