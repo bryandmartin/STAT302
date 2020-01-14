@@ -263,11 +263,18 @@ if ((x %% 2) == 0 | x &lt; 0) {
 
 ## Check length of strings
 
+Note: We will need the `stringr` package for this 
+
+```r
+# Run this if you have never installed stringr before!
+# install.packages("stringr")
+library(stringr)
+```
 
 
 ```r
 x &lt;- "cat"
-if (length(x) &lt;= 10) {
+if (str_length(x) &lt;= 10) {
   cat("x is a pretty short string!")
 } else {
   cat("x is a pretty long string!")
@@ -278,11 +285,13 @@ if (length(x) &lt;= 10) {
 ## x is a pretty short string!
 ```
 
---
+---
+
+
 
 ```r
 x &lt;- "A big fluffy cat with orange fur and stripes"
-if (length(x) &lt;= 10) {
+if (str_length(x) &lt;= 10) {
   cat("x is a pretty short string!")
 } else {
   cat("x is a pretty long string!")
@@ -290,7 +299,7 @@ if (length(x) &lt;= 10) {
 ```
 
 ```
-## x is a pretty short string!
+## x is a pretty long string!
 ```
 
 ---

@@ -204,20 +204,28 @@ if ((x %% 2) == 0 | x < 0) {
 
 ## Check length of strings
 
+Note: We will need the `stringr` package for this 
+```{r}
+# Run this if you have never installed stringr before!
+# install.packages("stringr")
+library(stringr)
+```
 
 ```{r}
 x <- "cat"
-if (length(x) <= 10) {
+if (str_length(x) <= 10) {
   cat("x is a pretty short string!")
 } else {
   cat("x is a pretty long string!")
 }
 ```
 
---
+---
+
+
 ```{r}
 x <- "A big fluffy cat with orange fur and stripes"
-if (length(x) <= 10) {
+if (str_length(x) <= 10) {
   cat("x is a pretty short string!")
 } else {
   cat("x is a pretty long string!")
