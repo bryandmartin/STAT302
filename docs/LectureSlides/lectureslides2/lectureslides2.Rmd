@@ -382,15 +382,8 @@ x
 
 ## Filling in a vector
 
-Note: We will need the `stringr` package for this 
 ```{r}
-# Run this if you have never installed stringr before!
-# install.packages("stringr")
 library(stringr)
-```
-
---
-```{r}
 x <- rep(NA, 5)
 my_strings <- c("a", "a ", "a c", "a ca", "a cat")
 for (i in 1:5) {
@@ -533,9 +526,10 @@ store_output
 
 ## Make a table
 
-We'll use `str_c` from `stringr` for this function.
+We'll use `str_c` from the `stringr` package for this function.
 
 ```{r}
+library(stringr)
 my_summary <- function(input, percentiles = c(.05, .5, .95)) {
   if (!is.numeric(input) | !is.numeric(percentiles)) {
     stop("The input and percentiles must be numeric!")
