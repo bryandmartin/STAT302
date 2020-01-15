@@ -398,12 +398,12 @@ h4.date {
 }
 </style>
 <p><em>If you collaborated with anyone, you must include “Collaborated with: FIRSTNAME LASTNAME” at the top of your lab!</em></p>
-<div id="part-1.-more-on-functions-10-points" class="section level2">
-<h2>Part 1. More on Functions (10 points)</h2>
-<p><strong>1a.</strong> (3 points) The hard-threshold function is defined as <span class="math display">\[f_\lambda(x) = \begin{cases} x &amp; |x| \geq \lambda\\ 0 &amp; |x| &lt; \lambda \end{cases}\]</span> Write an R function that takes two parameters, numeric input <code>x</code> and a threshold <code>lambda</code>. Your function should return the value of <span class="math inline">\(f_\lambda(x)\)</span></p>
+<div id="part-1.-more-on-functions-8-points" class="section level2">
+<h2>Part 1. More on Functions (8 points)</h2>
+<p><strong>1a.</strong> (2 points) The hard-threshold function is defined as <span class="math display">\[f_\lambda(x) = \begin{cases} x &amp; |x| \geq \lambda\\ 0 &amp; |x| &lt; \lambda \end{cases}\]</span> Write an R function that takes two parameters, numeric input <code>x</code> and a threshold <code>lambda</code>. Your function should return the value of <span class="math inline">\(f_\lambda(x)\)</span></p>
 <p><strong>1b.</strong> (1 point) Set <span class="math inline">\(\lambda = 4\)</span>, demonstrate your function on the vector <code>c(-5, -3, 0, 3, 5)</code>. (Hint: the output should be the vector <code>-5, 0, 0, 0, 5</code>)</p>
 <p><strong>1c.</strong> (1 point) Set <span class="math inline">\(\lambda = 2\)</span>, demonstrate your function on the vector <code>c(-5, -3, 0, 3, 5)</code>.</p>
-<p><strong>2a.</strong> (3 points) The soft-threshold function is defined as <span class="math display">\[g_\lambda(x) = \begin{cases} sign(x)(|x| - \lambda) &amp; |x| \geq \lambda\\ 0 &amp; |x| &lt; \lambda \end{cases}\]</span> Write an R function that takes two parameters, numeric input <code>x</code> and a threshold <code>lambda</code>. Your function should return the value of <span class="math inline">\(g_\lambda(x)\)</span></p>
+<p><strong>2a.</strong> (2 points) The soft-threshold function is defined as <span class="math display">\[g_\lambda(x) = \begin{cases} sign(x)(|x| - \lambda) &amp; |x| \geq \lambda\\ 0 &amp; |x| &lt; \lambda \end{cases}\]</span> Write an R function that takes two parameters, numeric input <code>x</code> and a threshold <code>lambda</code>. Your function should return the value of <span class="math inline">\(g_\lambda(x)\)</span></p>
 <p><strong>2b.</strong> (1 point) Set <span class="math inline">\(\lambda = 4\)</span>, demonstrate your function on the vector <code>c(-5, -3, 0, 3, 5)</code>. (Hint: the output should be the vector <code>-1, 0, 0, 0, 1</code>)</p>
 <p><strong>2c.</strong> (1 point) Set <span class="math inline">\(\lambda = 2\)</span>, demonstrate your function on the vector <code>c(-5, -3, 0, 3, 5)</code>.</p>
 </div>
@@ -415,8 +415,8 @@ h4.date {
 <p><strong>3a.</strong> (2 points) What are the names of the items in the list <code>linearMod</code>?</p>
 <p><strong>3b.</strong> (2 points) Use two different methods to store the <code>coefficients</code> within <code>linearMod</code> as a variable. One method should use the dollar sign <code>$</code>, the other should use the word <code>coefficients</code>. Print out your variables.</p>
 </div>
-<div id="part-3.-data-6-points" class="section level2">
-<h2>Part 3. Data (6 points)</h2>
+<div id="part-3.-data-8-points" class="section level2">
+<h2>Part 3. Data (8 points)</h2>
 <p><strong>4.</strong> (2 points) Create a data frame that includes at least 3 observations and variables of at least 3 different types. Print out your data frame.</p>
 <p>For problem 5, we will use an adapted version of the weather data from Tidyverse.</p>
 <pre class="r"><code>library(kableExtra)

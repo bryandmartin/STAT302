@@ -31,9 +31,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 *If you collaborated with anyone, you must include "Collaborated with: FIRSTNAME LASTNAME" at the top of your lab!*
 
-## Part 1. More on Functions (10 points)
+## Part 1. More on Functions (8 points)
 
-**1a.** (3 points) The hard-threshold function is defined as 
+**1a.** (2 points) The hard-threshold function is defined as 
 $$f_\lambda(x) = \begin{cases} x & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
 Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
 Your function should return the value of $f_\lambda(x)$
@@ -42,7 +42,7 @@ Your function should return the value of $f_\lambda(x)$
 
 **1c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
 
-**2a.** (3 points) The soft-threshold function is defined as 
+**2a.** (2 points) The soft-threshold function is defined as 
 $$g_\lambda(x) = \begin{cases} sign(x)(|x| - \lambda) & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
 Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
 Your function should return the value of $g_\lambda(x)$
@@ -67,7 +67,7 @@ linearMod <- lm(dist ~ speed, data = cars)
 
 **3b.** (2 points) Use two different methods to store the `coefficients` within `linearMod` as a variable. One method should use the dollar sign `$`, the other should use the word `coefficients`. Print out your variables.
 
-## Part 3. Data (6 points)
+## Part 3. Data (8 points)
 
 **4.** (2 points) Create a data frame that includes at least 3 observations and variables of at least 3 different types. Print out your data frame.
 
