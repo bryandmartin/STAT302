@@ -1,0 +1,90 @@
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+
+---
+title: "Lab 2"
+author: "STAT 302"
+date: "1/20/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*If you collaborated with anyone, you must include "Collaborated with: FIRSTNAME LASTNAME" at the top of your lab!*
+
+## Part 1. More on Functions (10 points)
+
+**1a.** (3 points) The hard-threshold function is defined as 
+$$f_\lambda(x) = \begin{cases} x & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
+Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
+Your function should return the value of $f_\lambda(x)$
+
+**1b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`. (Hint: the output should be the vector `-5, 0, 0, 0, 5`)
+
+**1c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
+
+**2a.** (3 points) The soft-threshold function is defined as 
+$$g_\lambda(x) = \begin{cases} sign(x)(|x| - \lambda) & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
+Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
+Your function should return the value of $g_\lambda(x)$
+
+**2b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
+(Hint: the output should be the vector `-1, 0, 0, 0, 1`)
+
+**2c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
+
+## Part 2. Lists (4 points)
+
+Many popular functions in R output lists in order to return multiple objects of different types and lengths. Here we will look at the function `lm`, which performs linear regression. 
+Don't worry if you aren't familiar with linear regression, we will just be analyzing the output of the function.
+
+First, run the following code to create an object of class `lm`.
+
+```{r}
+linearMod <- lm(dist ~ speed, data = cars) 
+```
+
+**3a.** (2 points) What are the names of the items in the list `linearMod`?
+
+**3b.** (2 points) Use two different methods to store the `coefficients` within `linearMod` as a variable. One method should use the dollar sign `$`, the other should use the word `coefficients`. Print out your variables.
+
+## Part 3. Data (6 points)
+
+**4.** (2 points) Create a data frame that includes at least 3 observations and variables of at least 3 different types. Print out your data frame.
+
+For problem 5, we will use an adapted version of the weather data from Tidyverse.
+
+```{r}
+library(kableExtra)
+weather <- data.frame("station" = rep(c("A", "B", "C"), each = 4),
+                      "element" = rep(c("temp_min", "temp_max"), 2),
+                      "month1"  = c(11.4, 25.6, NA, NA, 17.7, 28.0,
+                                    NA, NA, 20.0, 24.9, NA, NA),
+                      "month2"  = c(NA, NA, 16.8, 28.7, NA, NA,
+                                    11.1, 26.8, NA, NA, 14.7, 33.4))
+kable_styling(kable(weather))
+```
+
+**5a.** (2 points) Identify and list the observations and the variables in this data set.
+
+**5b.** (4 points) Use `kable()` to present a tidied up version of this data. (Hint: My table has 4 variables, 6 observations, and no `NA` values. I only kept one of the variables unchanged.)
+
