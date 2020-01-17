@@ -1255,11 +1255,11 @@ kable_styling(kable(untidy_dat2))
 ---
 
 ```{r, echo = FALSE}
-tidy_dat2 <- data.frame("Country"   = c("A", "B"),
-                        "Year"      = rep(2018, 2),
-                        "Gender"    = rep(c("m", "f"), each = 4),
+tidy_dat2 <- data.frame("Country"   = rep(c("A", "B"), each = 4),
+                        "Year"      = rep(2018, 8),
+                        "Gender"    = rep(c("m", "m", "f", "f"), 2),
                         "Age_Group" = rep(c("16-24", "25-34"), 4),
-                        "Counts"    = c(49, 34, 55, 33, 47, 50, 41, 43))
+                        "Counts"    = c(49, 55, 47, 41, 34, 33, 50, 43))
 kable_styling(kable(tidy_dat2))
 ```
 
