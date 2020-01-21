@@ -1,0 +1,56 @@
+.large{ font-size: 150% }
+.huge{ font-size: 250% }
+.small{ font-size: 70% }
+
+
+.left {
+  float: left;
+  width: 45%;
+}
+
+.right {
+  float: right;
+  width: 45%;
+}
+
+.middler{
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  width: 95%;
+  transform: translate(-50%, -50%);
+}
+
+.pushdown{
+  position: relative;
+  top: 3em;
+}
+
+.remark-code, .remark-inline-code {
+   font-family: 'Fira Mono', 'Lucida Console', Monaco, monospace;
+   font-size: 80%;
+}
+
+.forcehead {
+  font-size: 45px;
+  font-weight: normal;
+  margin-top: -95px;
+  margin-left: -00px;
+}
+
+.sectionhead {
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  width: 95%;
+  transform: translate(-50%, -50%);
+  font-size: 250% 
+}
+
+
+.remark-code-line-highlighted {
+  background-color: black;
+  background-color: rgba(255,0,255,0.4);
+}

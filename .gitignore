@@ -2,3 +2,5 @@
 .Rproj.user
 .Rproj
 .Rhistory
+*_files
+*_cache
