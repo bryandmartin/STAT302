@@ -1157,7 +1157,7 @@ layout: true
 
 --
 
-**No-no:** Pie charts! Eugh!
+**No-no:** Pie charts! Eugh! The proportions are completely off!
 .pull-right[.center[<img src="gag1.gif" alt="" height="200"/>]]
 
 ---
@@ -1243,6 +1243,23 @@ layout: true
 **No-no:** Inconsistent x-axis intervals
 .pull-right[.center[<img src="gag10.gif" alt="" height="200"/>]]
 
+---
+layout: false
 
+# ggplot cheatsheet
 
+* Axes: `xlim()`, `ylim()`
+* Legends: within initial `aes()`, edit within `theme()` or `guides()`
+* `geom_point()`, `geom_line()`, `geom_histogram()`, `geom_bar()`, `geom_boxplot()`, `geom_text()`
+* `facet_grid()`, `facet_wrap()` for faceting
+* `labs()` for labels
+* `theme_bw()` to make things look nicer
+* Graphical parameters: `color` for color, `alpha` for opacity, `lwd`/`size` for thickness, `shape` for shape, `fill` for interior color, ...
+
+.pushdown[.center[[Much, much more! (Click me for a cheatsheet!)](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)]]
+
+---
+class: inverse
+
+.sectionhead[Part 3: Data Manipulation]
 

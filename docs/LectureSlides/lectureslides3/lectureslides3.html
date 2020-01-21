@@ -1029,7 +1029,7 @@ layout: true
 
 --
 
-**No-no:** Pie charts! Eugh!
+**No-no:** Pie charts! Eugh! The proportions are completely off!
 .pull-right[.center[&lt;img src="gag1.gif" alt="" height="200"/&gt;]]
 
 ---
@@ -1114,6 +1114,26 @@ layout: true
 
 **No-no:** Inconsistent x-axis intervals
 .pull-right[.center[&lt;img src="gag10.gif" alt="" height="200"/&gt;]]
+
+---
+layout: false
+
+# ggplot cheatsheet
+
+* Axes: `xlim()`, `ylim()`
+* Legends: within initial `aes()`, edit within `theme()` or `guides()`
+* `geom_point()`, `geom_line()`, `geom_histogram()`, `geom_bar()`, `geom_boxplot()`, `geom_text()`
+* `facet_grid()`, `facet_wrap()` for faceting
+* `labs()` for labels
+* `theme_bw()` to make things look nicer
+* Graphical parameters: `color` for color, `alpha` for opacity, `lwd`/`size` for thickness, `shape` for shape, `fill` for interior color, ...
+
+.pushdown[.center[[Much, much more! (Click me for a cheatsheet!)](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf)]]
+
+---
+class: inverse
+
+.sectionhead[Part 3: Data Manipulation]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
