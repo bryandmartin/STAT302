@@ -51,7 +51,7 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
 * If you use this .Rmd as your starting template, please remove all instructions, details, and requirements. I only want to receive your final written report.
 * Your Project 1 directory should include an R Project associated with your report and analysis.
 * Final submissions must include .Rmd, .html, and .Rproj files
-* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read .csv files online. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
+* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read online .csv files. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
 
 ### Requirements
 
