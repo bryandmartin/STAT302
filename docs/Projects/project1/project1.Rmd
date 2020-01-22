@@ -64,7 +64,7 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
 * At the end of your report, you should include a code appendix with all of your code, from downloading the data to generating the figures. This code should be well-commented and follow the style guidelines we learned in class. Use comments to label which blocks of code correspond to which visualizations. *You should have no code in the main body of your report!* (Remember: you can use `echo = FALSE` to hide code.)
 
 Keep in mind: **there are no right answers for this project!**
-These are real data, and I'm hoping for a creative and interesting analysis that tells a compelling story about the data rather than cookie cutter reports. Have some fun with it, and good luck!
+These are real data, and I'm hoping for creative and interesting analyses that tell a compelling story about the data rather than cookie cutter reports. Have some fun with it, and good luck!
 
 
 
