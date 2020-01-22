@@ -55,7 +55,7 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
 
 ### Requirements
 
-* I am only interested in games from 1950 or later and with at least 25 ratings, so you will need to `filter()` the raw data. (Make sure never to save processed data over your original raw .csv file!)
+* I am only interested in games published in 1950 or later and with at least 25 ratings, so you will need to `filter()` the raw data. (Make sure never to save processed data over your original raw .csv file!)
 * You may notice that `category` and `mechanic` variables are untidy. I recommend using the `cSplit()` function within the `splitstackshape` package to fix these. Try setting both `direction = "wide"` and `direction = "long"` within your `cSplit()` call. Both might be useful to you, depending on what plot you want generate.
 * Your project must include at least 6 visualizations. Feel free to add more to tell a more complete and compelling story, but each visualization must contribute to the substance of your report.
 * Your must include at least 3 different types of visualizations. (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.)
