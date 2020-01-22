@@ -32,14 +32,19 @@ As usual, all code below should follow the style guidelines from the lecture sli
 ## Part 1. Control Flow
 
 **1a.** Write a function that returns a Boolean indicating whether the input is numeric or not.
+
 **1b.** Evaluate your function with input that returns `TRUE`
+
 **1c.** Evaluate your function with input that returns `FALSE`
     
 
 **2a.** Write a function returns the absolute value of the input. This function should check to make sure the input is numeric. 
 If the input is not numeric, it should `stop` with an informative error message.
+
 **2b.** Evaluate your function with positive numeric input.
+
 **2c.** Evaluate your function with negative numeric input.
+
 **2d.** Trigger your custom error message. Note: You will need to add the parameter 
 `error = TRUE` to your R Markdown code chunk. If you do not, your document will not compile!
 
