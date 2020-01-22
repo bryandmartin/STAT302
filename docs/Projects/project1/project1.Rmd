@@ -42,7 +42,7 @@ To this end, your report should include an introductory paragraph as well as a c
 The target audience of your report is an educated reader who is uninformed about the details of the data, but is interested in learning more about board games.
 I encourage you to use [this 538 post](https://fivethirtyeight.com/features/designing-the-best-board-game-on-the-planet/) for inspiration, but please do not just copy their graphs and analyses.
 
-You may work with partner for this project if you choose. 
+You have the option to work with a partner for this project and submit a group report. 
 If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.
 
 
