@@ -1,0 +1,51 @@
+<!--- Please do not touch the code below! It is for styling. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- Begin here! Fill in text and R code for each of these questions. --->
+
+---
+title: "Project 1: Data Exploration and Visualization"
+author: "INSERT YOUR NAME(S) HERE"
+date: "1/29/2020"
+output: html_document
+---
+
+## Instructions
+
+For this project, we will be exploring and visualization data from [www.boardgamegeek.com](www.boardgamegeek.com).
+I am interested in observing and visualizing interesting trends and patterns in the data.
+For example, what board games tend to be most popular? Has this changed over time? How do complexity and rating interact, if at all? These are just a few examples of the types of question I hope you will explore for this project.
+This project is intentionally open-ended.
+Exceptional projects will include interesting and unique insight and analysis into this data.
+I encourage you to use [this 538 post](https://fivethirtyeight.com/features/designing-the-best-board-game-on-the-planet/) for inspiration, but please do not just copy their graphs and analyses.
+
+You may work with partner for this project if you choose. 
+If you do so, you must both submit the same .Rmd and .html files on Canvas with both of your names at the top.
+
+
+### Details
+
+* If you use this .Rmd as your starting template, please remove all instructions and details. I only want to receive your final written report.
+* Final reports must be submitted as both a .Rmd and a .html
+* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read .csv files online.
+* I am only interested in games from 1950 or later, and with at least 
+
+
+
