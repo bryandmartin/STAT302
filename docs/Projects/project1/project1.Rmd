@@ -29,11 +29,17 @@ output: html_document
 
 ## Instructions
 
-For this project, we will be exploring and visualization data from [www.boardgamegeek.com](www.boardgamegeek.com).
-I am interested in observing and visualizing interesting trends and patterns in the data.
-For example, what board games tend to be most popular? Has this changed over time? How do complexity and rating interact, if at all? These are just a few examples of the types of question I hope you will explore for this project.
-This project is intentionally open-ended.
-Exceptional projects will include interesting and unique insight and analysis into this data.
+For this project, you will be exploring and visualization data from [www.boardgamegeek.com](www.boardgamegeek.com).
+Your goal is to observe and visualize interesting trends and patterns in the data, and to tell a cohesive and compelling story about the insights you gain.
+This project is intentionally open-ended!
+
+Exceptional projects will include creative and unique insights into the board game data. For example, have the most popular types of board games changed over time? How do complexity and rating interact, if at all? Do the number of players and playing time seem to be associated with user rating and complexity? These are just a few examples of the types of question I hope you will explore for this project.
+
+Your projects will be evaluated on the quality of your visualizations and exploratory analyses.
+This includes, but is not limited to, the quality of your writing, the usefulness and clarity of your visualizations, and how interesting the insights you provide are.
+Your submission should read as one continuous and cohesive report, rather than six distinct and unconnected sections. 
+To this end, your report should include an introductory paragraph as well as a conclusion/summary paragraph at the end.
+The target audience of your report is an educated reader who is uninformed about the details of the data, but is interested in learning more about board games.
 I encourage you to use [this 538 post](https://fivethirtyeight.com/features/designing-the-best-board-game-on-the-planet/) for inspiration, but please do not just copy their graphs and analyses.
 
 You may work with partner for this project if you choose. 
@@ -42,26 +48,22 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
 
 ### Details
 
-* If you use this .Rmd as your starting template, please remove all instructions and details. I only want to receive your final written report.
+* If you use this .Rmd as your starting template, please remove all instructions, details, and requirements. I only want to receive your final written report.
+* Your Project 1 directory should include an R Project associated with your report and analysis.
 * Final submissions must include .Rmd, .html, and .Rproj files
-* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read .csv files online. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder, so you will be able to work offline.
+* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read .csv files online. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
 
 ### Requirements
 
-Your projects will be evaluated on the quality of your visualizations and exploratory analyses.
-This includes, but is not limited to, the quality of your writing, the usefulness and clarity of your visualizations, and how interesting the insights you provide are.
-
-
-* I am only interested in games from 1950 or later, and with at least 25 ratings, so you will need to `filter()` the raw data. (Make sure never to save processed data over your original raw .csv file!)
+* I am only interested in games from 1950 or later and with at least 25 ratings, so you will need to `filter()` the raw data. (Make sure never to save processed data over your original raw .csv file!)
 * You may notice that `category` and `mechanic` variables are untidy. I recommend using the `cSplit()` function within the `splitstackshape` package to fix these. Try setting both `direction = "wide"` and `direction = "long"` within your `cSplit()` call. Both might be useful to you, depending on what plot you want generate.
 * Your project must include at least 6 visualizations. Feel free to add more to tell a more complete and compelling story, but each visualization must contribute to the substance of your report.
 * Your must include at least 3 different types of visualizations. (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.)
-* Each visualization must include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.)
-* Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine, but it will only count towards 1 of your total visualizations.
+* Each visualization must include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.). A good guideline is that someone who has not read your report should be able to look at just a visualization and its caption and fully understand what that visualization is showing.
+* Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine (and likely preferred if you think it's necessary), but it will only count towards 1 of your total visualizations.
 
 Keep in mind: there are **no** right answers for this project! 
-This is real data, and I'm hoping for creative and interesting analyses rather than 
-cookie cutter reports. 
+These are real data, and I'm hoping for creative and interesting analyses that tells a compelling story about the data rather than cookie cutter reports. Have some fun with it!
 Good luck!
 
 
