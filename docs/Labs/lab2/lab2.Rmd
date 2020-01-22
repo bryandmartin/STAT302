@@ -1,3 +1,4 @@
+<!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
 body{
@@ -17,6 +18,7 @@ h4.date {
   text-align: center;
 }
 </style>
+<!--- End styling code. --->
 
 ---
 title: "Lab 2"
@@ -36,21 +38,24 @@ knitr::opts_chunk$set(echo = TRUE)
 **1a.** (2 points) The hard-threshold function is defined as 
 $$f_\lambda(x) = \begin{cases} x & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
 Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
-Your function should return the value of $f_\lambda(x)$
+Your function should return the value of $f_\lambda(x)$ and work for vector input `x` of any length.
 
-**1b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`. (Hint: the output should be the vector `-5, 0, 0, 0, 5`)
+**1b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
 
-**1c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
+(*Hint: the output should be the vector `-5, 0, 0, 0, 5`*)
+
+**1c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-7, -5, -3, 0, 3, 5, 7)`.
 
 **2a.** (2 points) The soft-threshold function is defined as 
 $$g_\lambda(x) = \begin{cases} sign(x)(|x| - \lambda) & |x| \geq \lambda\\ 0 & |x| < \lambda \end{cases}$$
 Write an R function that takes two parameters, numeric input `x` and a threshold `lambda`.
-Your function should return the value of $g_\lambda(x)$
+Your function should return the value of $g_\lambda(x)$ and work for vector input `x` of any length.
 
 **2b.** (1 point) Set $\lambda = 4$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
-(Hint: the output should be the vector `-1, 0, 0, 0, 1`)
 
-**2c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-5, -3, 0, 3, 5)`.
+(*Hint: the output should be the vector `-1, 0, 0, 0, 1`*)
+
+**2c.** (1 point) Set $\lambda = 2$, demonstrate your function on the vector `c(-7, -5, -3, 0, 3, 5, 7)`.
 
 ## Part 2. Lists (4 points)
 
@@ -85,6 +90,8 @@ kable_styling(kable(weather))
 ```
 
 **5a.** (2 points) Identify and list the observations and the variables in this data set.
+
+(*Hint: the variables are not `station`, `element`, `month1`, and `month2`. These are the column names in the untidy data, and need to be fixed!*)
 
 **5b.** (4 points) Use `kable()` to present a tidied up version of this data. (Hint: My table has 4 variables, 6 observations, and no `NA` values. I only kept one of the variables unchanged.)
 
