@@ -1,4 +1,4 @@
-<!--- Please do not touch the code below! It is for styling. --->
+<!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
 body{
@@ -18,7 +18,7 @@ h4.date {
   text-align: center;
 }
 </style>
-<!--- Begin here! Fill in text and R code for each of these questions. --->
+<!--- End styling code. --->
 
 ---
 title: "Project 1: Data Exploration and Visualization"
@@ -29,7 +29,7 @@ output: html_document
 
 ## Instructions
 
-For this project, you will be exploring and visualization data from [www.boardgamegeek.com](www.boardgamegeek.com).
+For this project, you will be exploring and visualization data from [boardgamegeek.com](https://www.boardgamegeek.com).
 Your goal is to observe and visualize interesting trends and patterns in the data, and to tell a cohesive and compelling story about the insights you gain.
 This project is intentionally open-ended!
 
