@@ -393,15 +393,27 @@ h4.date {
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
 <p>For this project, we will be exploring and visualization data from <a href="www.boardgamegeek.com">www.boardgamegeek.com</a>. I am interested in observing and visualizing interesting trends and patterns in the data. For example, what board games tend to be most popular? Has this changed over time? How do complexity and rating interact, if at all? These are just a few examples of the types of question I hope you will explore for this project. This project is intentionally open-ended. Exceptional projects will include interesting and unique insight and analysis into this data. I encourage you to use <a href="https://fivethirtyeight.com/features/designing-the-best-board-game-on-the-planet/">this 538 post</a> for inspiration, but please do not just copy their graphs and analyses.</p>
-<p>You may work with partner for this project if you choose. If you do so, you must both submit the same .Rmd and .html files on Canvas with both of your names at the top.</p>
+<p>You may work with partner for this project if you choose. If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.</p>
 <div id="details" class="section level3">
 <h3>Details</h3>
 <ul>
 <li>If you use this .Rmd as your starting template, please remove all instructions and details. I only want to receive your final written report.</li>
-<li>Final reports must be submitted as both a .Rmd and a .html</li>
-<li>The data are available at “<a href="https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv" class="uri">https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv</a>”. Note that you can use links within <code>read_csv()</code> to read .csv files online.</li>
-<li>I am only interested in games from 1950 or later, and with at least</li>
+<li>Final submissions must include .Rmd, .html, and .Rproj files</li>
+<li>The data are available at “<a href="https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv" class="uri">https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv</a>”. Note that you can use links within <code>read_csv()</code> to read .csv files online. I <strong>strongly</strong> recommend saving a version of the unprocessed .csv on your machine in a <code>Data</code> subfolder within your Project 1 folder, so you will be able to work offline.</li>
 </ul>
+</div>
+<div id="requirements" class="section level3">
+<h3>Requirements</h3>
+<p>Your projects will be evaluated on the quality of your visualizations and exploratory analyses. This includes, but is not limited to, the quality of your writing, the usefulness and clarity of your visualizations, and how interesting the insights you provide are.</p>
+<ul>
+<li>I am only interested in games from 1950 or later, and with at least 25 ratings, so you will need to <code>filter()</code> the raw data. (Make sure never to save processed data over your original raw .csv file!)</li>
+<li>You may notice that <code>category</code> and <code>mechanic</code> variables are untidy. I recommend using the <code>cSplit()</code> function within the <code>splitstackshape</code> package to fix these. Try setting both <code>direction = &quot;wide&quot;</code> and <code>direction = &quot;long&quot;</code> within your <code>cSplit()</code> call. Both might be useful to you, depending on what plot you want generate.</li>
+<li>Your project must include at least 6 visualizations. Feel free to add more to tell a more complete and compelling story, but each visualization must contribute to the substance of your report.</li>
+<li>Your must include at least 3 different types of visualizations. (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.)</li>
+<li>Each visualization must include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.)</li>
+<li>Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine, but it will only count towards 1 of your total visualizations.</li>
+</ul>
+<p>Keep in mind: there are <strong>no</strong> right answers for this project! This is real data, and I’m hoping for creative and interesting analyses rather than cookie cutter reports. Good luck!</p>
 </div>
 </div>
 

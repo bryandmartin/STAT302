@@ -37,15 +37,35 @@ Exceptional projects will include interesting and unique insight and analysis in
 I encourage you to use [this 538 post](https://fivethirtyeight.com/features/designing-the-best-board-game-on-the-planet/) for inspiration, but please do not just copy their graphs and analyses.
 
 You may work with partner for this project if you choose. 
-If you do so, you must both submit the same .Rmd and .html files on Canvas with both of your names at the top.
+If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.
 
 
 ### Details
 
 * If you use this .Rmd as your starting template, please remove all instructions and details. I only want to receive your final written report.
-* Final reports must be submitted as both a .Rmd and a .html
-* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read .csv files online.
-* I am only interested in games from 1950 or later, and with at least 
+* Final submissions must include .Rmd, .html, and .Rproj files
+* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read .csv files online. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder, so you will be able to work offline.
+
+### Requirements
+
+Your projects will be evaluated on the quality of your visualizations and exploratory analyses.
+This includes, but is not limited to, the quality of your writing, the usefulness and clarity of your visualizations, and how interesting the insights you provide are.
+
+
+* I am only interested in games from 1950 or later, and with at least 25 ratings, so you will need to `filter()` the raw data. (Make sure never to save processed data over your original raw .csv file!)
+* You may notice that `category` and `mechanic` variables are untidy. I recommend using the `cSplit()` function within the `splitstackshape` package to fix these. Try setting both `direction = "wide"` and `direction = "long"` within your `cSplit()` call. Both might be useful to you, depending on what plot you want generate.
+* Your project must include at least 6 visualizations. Feel free to add more to tell a more complete and compelling story, but each visualization must contribute to the substance of your report.
+* Your must include at least 3 different types of visualizations. (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.)
+* Each visualization must include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.)
+* Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine, but it will only count towards 1 of your total visualizations.
+
+Keep in mind: there are **no** right answers for this project! 
+This is real data, and I'm hoping for creative and interesting analyses rather than 
+cookie cutter reports. 
+Good luck!
+
+
+
 
 
 
