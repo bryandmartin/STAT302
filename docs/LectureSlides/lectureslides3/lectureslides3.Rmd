@@ -1,6 +1,6 @@
 ---
 title: "STAT 302, Week 3"
-subtitle: "Data Manipulation and Visualization"
+subtitle: "Data Visualization and Manipulation"
 author: "Bryan Martin"
 date: "Week of Jan 20, 2020"
 output:
