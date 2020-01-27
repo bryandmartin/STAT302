@@ -1707,7 +1707,6 @@ fish_encounters %>%
   )
 ```
 
----
 
 ---
 ## `pivot_wider()`
