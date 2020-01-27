@@ -91,7 +91,8 @@ layout: true
 
 ---
 
-**pipes** use the `%>%` operator to take the output from a previous function call and ``pipe'' it through to the next function.
+
+**pipes** use the `%>%` operator to take the output from a previous function call and "pipe" it through to the next function.
 This can really help with readability of code when we use multiple nested functions!
 
 We will use the `gapminder` data from Jenny Bryan to demonstrate throughout this section.
@@ -107,6 +108,7 @@ Let's preview the data.
 ```{r}
 gapminder
 ```
+
 
 ---
 
@@ -1262,4 +1264,510 @@ layout: false
 class: inverse
 
 .sectionhead[Part 3: Data Manipulation]
+
+---
+layout: true
+
+# <TT>select()</TT>: Column selection
+
+---
+
+Use `select()` to choose certain columns.
+
+```{r}
+gapminder %>% 
+  select(lifeExp, gdpPercap)
+```
+
+---
+Use `select()` to choose certain columns.
+We can also use `select()` to remove certain columns by putting a `-` symbol in front.
+
+```{r}
+gapminder %>% 
+  select(-lifeExp, -gdpPercap)
+```
+
+---
+## Helper functions
+
+`select()` has a number of helper functions to select columns (see `?select`).
+Notably:
+* `starts_with()` for prefixes
+* `ends_with()` for suffixes
+* `contains()` for strings
+
+```{r}
+gapminder %>%
+  select(starts_with("co")) %>%
+  head()
+```
+
+---
+
+## Helper functions
+
+`select()` has a number of helper functions to select columns (see `?select`).
+Notably:
+* `starts_with()` for prefixes
+* `ends_with()` for suffixes
+* `contains()` for strings
+
+```{r}
+gapminder %>%
+  select(ends_with("p")) %>%
+  head()
+```
+
+---
+
+## Helper functions
+
+`select()` has a number of helper functions to select columns (see `?select`).
+Notably:
+* `starts_with()` for prefixes
+* `ends_with()` for suffixes
+* `contains()` for strings
+
+```{r}
+gapminder %>%
+  select(contains("Per")) %>%
+  head()
+```
+---
+
+## Helper functions
+
+`select()` has a number of helper functions to select columns (see `?select`).
+Notably:
+* `starts_with()` for prefixes
+* `ends_with()` for suffixes
+* `contains()` for strings
+
+This can be particularly helpful when you have data in "wide" format! (such as `category_01`, `category_02`, `category_03`, ...)
+
+
+---
+layout: false
+layout: true
+
+# <TT>mutate()</TT>: create new columns
+
+
+Create and transform variables from existing variables using `mutate()`. 
+
+Syntax follows `NEW_VAR_NAME = ...`.
+
+---
+
+```{r}
+gapminder %>%
+  mutate(gdp = gdpPercap * pop) %>%
+  head()
+```
+
+---
+
+Note that we can use existing columns, including those we created within the same call to `mutate()`.
+
+```{r}
+gapminder %>%
+  mutate(gdp = gdpPercap * pop) %>%
+  mutate(logGDP = log(gdp)) %>% 
+  head()
+```
+
+---
+layout: false
+layout: true
+# <TT>ifelse()</TT>: conditional selection
+
+---
+
+`ifelse()` takes in a logical test and conditional responses, and returns a vector of values based on the output of the test. It can be very useful for data cleaning (among other uses)!
+
+`ifelse(test, yes, no)`
+
+* `test`: the logical test
+* `yes`: return values for when `test` is `TRUE`
+* `no`: return values for when `test` is `FALSE`
+
+```{r}
+demo <- -2:2
+ifelse(demo > 0, "strictly positive", "not strictly positive")
+```
+
+---
+
+`ifelse()` can be very useful within `mutate()`.
+For example, if we want to use the country code `USA` instead of `United States`, and store this variable as `country_clean`, we can use:
+
+```{r}
+gapminder %>%
+  mutate(country_clean =
+           ifelse(country == "United States",
+                  "USA", as.character(country))) %>%
+  filter(year == 2007,
+         continent == "Americas") %>%
+  select(country, country_clean, lifeExp, gdpPercap) %>%
+  tail()
+```
+
+---
+layout: false
+layout: true
+# <TT>%in%</TT>: value matching
+
+`%in%` is a binary operator, which returns a boolean vector indicating whether
+components in the left-hand side are found in the right-hand side.
+
+---
+
+```{r}
+1 %in% 1:5
+1 %in% -1:-5
+c(0, 1, 2, 7) %in% 1:5
+```
+
+---
+
+To negate the `%in%` operator, wrap the entire logical statement within `!(...)`.
+
+```{r}
+!(1 %in% 1:5)
+!(1 %in% -1:-5)
+!(c(0, 1, 2, 7) %in% 1:5)
+```
+
+
+---
+
+```{r}
+gapminder %>%
+  filter(continent %in% c("Americas", "Europe")) %>%
+  filter(year %in% c(2002, 2007)) %>%
+  head()
+```
+
+---
+layout: false
+layout: true
+# split-apply-combine
+
+---
+*split-apply-combine* is a data analysis strategy where you *split* the data up into pieces, *apply* some operation on each piece, and then *combine* all the pieces back together. 
+It's useful for breaking big problems into smaller manageable chunks!
+
+---
+
+## `group_by()`
+
+You can use `group_by()` to define a grouping of the rows of your data based on the columns.
+
+Notice that it doesn't change our data, except for that we can now see that it has 5 groups.
+
+```{r}
+grouped_gap <- gapminder %>%
+  group_by(continent)
+head(grouped_gap, 3)
+class(grouped_gap)
+```
+
+---
+
+## `group_by()`
+
+You can use `group_by()` to define a grouping of the rows of your data based on the columns.
+
+We can remove the groups with `ungroup()`.
+
+```{r}
+ungrouped_gap <- ungroup(grouped_gap)
+head(ungrouped_gap, 4)
+class(ungrouped_gap)
+```
+
+---
+
+## `summarize()`
+
+`summarize()` (or `summarise()`, if you prefer) will apply functions to rows of a data frame. If a data frame is grouped, the function will be applied by group.
+
+```{r}
+gapminder %>%
+  group_by(continent) %>%
+  summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
+            max_gdp = max(gdpPercap))
+```
+
+Notice that this creates an entirely new (and much smaller) data frame. Typically we want to store this object as a variable, but not as the same variable as our data!
+
+---
+
+## `arrange()`
+
+We can order the rows of the data using `arrange()`. Usually, you do this after some call to `summarize()`. 
+
+```{r}
+gapminder %>%
+  group_by(continent) %>%
+  summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
+            max_gdp = max(gdpPercap)) %>%
+  arrange(mean_lifeExp)
+```
+
+---
+
+## `arrange()`
+
+We can order the rows of the data using `arrange()`. Usually, you do this after some call to `summarize()`. We can use `desc()` to put in decreasing order.
+
+```{r}
+gapminder %>%
+  group_by(continent) %>%
+  summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
+            max_gdp = max(gdpPercap)) %>%
+  arrange(desc(mean_lifeExp))
+```
+
+
+---
+
+## `count()`
+
+If we want to count by groups, we can use the notation we've already earned.
+
+```{r}
+gapminder %>%
+  group_by(continent) %>%
+  summarize(count = n())
+```
+
+---
+
+## `count()`
+
+Alternatively, we can use the shorthand `count()`, with optional argument `sort` to order.
+
+```{r}
+gapminder %>%
+  count(continent, sort = FALSE)
+```
+
+---
+
+## `count()`
+
+We can also count combinations of categories by supplying multiple variables to `count()`.
+
+```{r}
+gapminder %>%
+  count(continent, country)
+```
+
+---
+
+## `count()`
+
+We can also count combinations of categories by supplying multiple variables to `count()`, we can then sort using `arrange()`.
+
+```{r}
+gapminder %>%
+  count(continent, country) %>%
+  arrange(country, desc(n))
+```
+
+
+---
+layout:false 
+
+# <TT>pull()</TT>: extract column as vector
+
+You can use `pull()` to extract a single column as a vector. Notice the difference between
+
+```{r}
+gapminder %>%
+  select(lifeExp) %>%
+  head(4)
+```
+
+```{r}
+gapminder %>%
+  pull(lifeExp) %>%
+  head(10)
+```
+
+
+---
+# <TT>rename()</TT>: ...renaming!
+
+`rename()` follows the syntax `rename(data, NEW_VAR_NAME = OLD_VAR_NAME)`
+
+```{r}
+gapminder %>%
+  rename(life_exp = lifeExp)
+```
+
+
+---
+layout: true
+
+# Re-arranging Data
+
+---
+
+## `pivot_longer()`
+
+Let's load the `relig_income` data from tidyverse.
+
+```{r}
+data(relig_income)
+head(relig_income)
+```
+
+---
+
+## `pivot_longer()`
+
+We can use `pivot_longer()` to go from data in "wide" form to data in "long" form.
+
+```{r}
+relig_income %>%
+  pivot_longer(contains("$"), names_to = "income",  values_to = "count")
+```
+
+---
+
+## `pivot_longer()`
+
+Looks like we missed a few of the income column names. Let's use matches with a regular expression.
+
+```{r}
+relig_income %>%
+  pivot_longer(matches("\\$|150|refused"), 
+               names_to = "income",  values_to = "count")
+```
+
+---
+## `pivot_longer()`
+
+Let's load the `billboard` data from tidyverse.
+
+```{r}
+data(billboard)
+billboard
+```
+
+---
+## `pivot_longer()`
+
+```{r}
+billboard %>%
+ pivot_longer(
+   cols = starts_with("wk"),
+   names_to = "week",
+   names_prefix = "wk",
+   values_to = "rank",
+   values_drop_na = TRUE
+ )
+```
+
+---
+## `pivot_wider()`
+
+Let's load the `fish_encounters` data from tidyverse.
+
+```{r}
+data(fish_encounters)
+head(fish_encounters)
+```
+
+---
+
+## `pivot_wider()`
+
+We can use `pivot_wider()` to go from data in "long" form to data in "wide" form.
+
+```{r}
+fish_encounters %>%
+  pivot_wider(names_from = station, values_from = seen)
+```
+
+
+---
+
+## `pivot_wider()`
+
+```{r}
+fish_encounters %>%
+  pivot_wider(
+    names_from = station,
+    values_from = seen,
+    values_fill = list(seen = 0)
+  )
+```
+
+---
+
+---
+## `pivot_wider()`
+
+Let's load the `us_rent_income` data from tidyverse.
+
+```{r}
+data(us_rent_income)
+head(us_rent_income)
+```
+
+---
+
+## `pivot_wider()`
+
+```{r}
+us_rent_income %>%
+  pivot_wider(names_from = variable, values_from = c(estimate, moe))
+```
+
+---
+layout: false
+layout: true
+
+# Joining Data
+
+---
+
+We can use SQL-like join statements in R!
+
+
+* `inner_join(x, y, by = "key")`: match observations only when exact keys are equal
+* `left_join(x, y, by = "key")`: keep all observations in `x`, match observations in `y` by keys, `NA` otherwise
+* `right_join(x, y, by = "key")`: keep all observations in `y`, match observations in `x` by keys, `NA` otherwise
+* `outer_join(x, y, by = "key")`: keep all observations in `x` and `y`, match keys where possible, `NA` otherwise
+
+
+.footnote[Usually, `left_join()` will suffice!]
+
+---
+
+.center[<img src="join-inner.png" alt="" height="100"/>]
+.center[<img src="join-outer.png" alt="" height="380"/>]
+
+
+.footnote[Images courtesy of Hadley Wickham. ([Link](https://r4ds.had.co.nz/relational-data.html))]
+
+---
+layout: false
+
+# dplyr cheatsheet
+
+* `filter()` subset rows
+* `select()` subset columns, use with `contains()`, `starts_with()`, `ends_with()`, ...
+* `mutate()` create columns
+* `group_by()`, `summarize()`, `count()` group and summarize groups
+* `rename()` rename columns
+* `pivot_longer()`, `pivot_wider()` reshape data
+* `inner_join()`, `left_join()`, `right_join()`, `outer_join()` combine data (like SQL)
+
+.pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
+
 
