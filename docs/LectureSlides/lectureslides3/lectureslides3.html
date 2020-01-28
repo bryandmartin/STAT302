@@ -456,8 +456,9 @@ ggplot(data = gapminder,
 
 ---
 
+.middler[
 ![](lectureslides3_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
-
+]
 
 ---
 
@@ -1315,8 +1316,8 @@ Note that we can use existing columns, including those we created within the sam
 
 ```r
 gapminder %&gt;%
-  mutate(gdp = gdpPercap * pop) %&gt;%
-  mutate(logGDP = log(gdp)) %&gt;% 
+  mutate(gdp = gdpPercap * pop,
+         logGDP = log(gdp)) %&gt;% 
   head()
 ```
 
@@ -1488,27 +1489,12 @@ It's useful for breaking big problems into smaller manageable chunks!
 ## `group_by()`
 
 You can use `group_by()` to define a grouping of the rows of your data based on the columns.
-
 Notice that it doesn't change our data, except for that we can now see that it has 5 groups.
 
 
 ```r
 grouped_gap &lt;- gapminder %&gt;%
   group_by(continent)
-head(grouped_gap, 3)
-```
-
-```
-## # A tibble: 3 x 6
-## # Groups:   continent [1]
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.
-```
-
-```r
 class(grouped_gap)
 ```
 
@@ -1516,36 +1502,64 @@ class(grouped_gap)
 ## [1] "grouped_df" "tbl_df"     "tbl"        "data.frame"
 ```
 
+```r
+grouped_gap
+```
+
+```
+## # A tibble: 1,704 x 6
+## # Groups:   continent [5]
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 1,694 more rows
+```
+
 ---
 
 ## `group_by()`
 
 You can use `group_by()` to define a grouping of the rows of your data based on the columns.
-
 We can remove the groups with `ungroup()`.
 
 
 ```r
 ungrouped_gap &lt;- ungroup(grouped_gap)
-head(ungrouped_gap, 4)
-```
-
-```
-## # A tibble: 4 x 6
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.
-## 4 Afghanistan Asia       1967    34.0 11537966      836.
-```
-
-```r
 class(ungrouped_gap)
 ```
 
 ```
 ## [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+```r
+ungrouped_gap
+```
+
+```
+## # A tibble: 1,704 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # … with 1,694 more rows
 ```
 
 ---

@@ -436,6 +436,7 @@ ggplot(data = gapminder,
 
 ---
 
+.middler[
 ```{r, echo = FALSE, fig.height = 5}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
@@ -451,7 +452,7 @@ ggplot(data = gapminder,
        x = "Year", y = "Life Expectancy", #<<
        legend = "Continent") #<<
 ```
-
+]
 
 ---
 
@@ -1372,8 +1373,8 @@ Note that we can use existing columns, including those we created within the sam
 
 ```{r}
 gapminder %>%
-  mutate(gdp = gdpPercap * pop) %>%
-  mutate(logGDP = log(gdp)) %>% 
+  mutate(gdp = gdpPercap * pop,
+         logGDP = log(gdp)) %>% 
   head()
 ```
 
@@ -1463,14 +1464,13 @@ It's useful for breaking big problems into smaller manageable chunks!
 ## `group_by()`
 
 You can use `group_by()` to define a grouping of the rows of your data based on the columns.
-
 Notice that it doesn't change our data, except for that we can now see that it has 5 groups.
 
 ```{r}
 grouped_gap <- gapminder %>%
   group_by(continent)
-head(grouped_gap, 3)
 class(grouped_gap)
+grouped_gap
 ```
 
 ---
@@ -1478,13 +1478,12 @@ class(grouped_gap)
 ## `group_by()`
 
 You can use `group_by()` to define a grouping of the rows of your data based on the columns.
-
 We can remove the groups with `ungroup()`.
 
 ```{r}
 ungrouped_gap <- ungroup(grouped_gap)
-head(ungrouped_gap, 4)
 class(ungrouped_gap)
+ungrouped_gap
 ```
 
 ---
