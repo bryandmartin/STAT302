@@ -280,7 +280,7 @@ str_length(c("a", "ab", "abc"))
 
 ---
 
-# <TT>str_trim()</TT>: trim whitespace on both ends
+# <TT>str_trim()</TT>: trim whitespace on ends
 
 
 ```{r}
