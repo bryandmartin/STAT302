@@ -1,0 +1,81 @@
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+---
+title: "Short Lab 3"
+author: "INSERT YOUR NAME HERE"
+date: "2/3/2020"
+output: html_document
+---
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+## Part 1. Read in text data
+
+For this short lab, we will be using Project Gutenberg’s The Complete Works of William Shakespeare. 
+Use the command `read_lines()` to read the text available at
+"https://www.gutenberg.org/files/100/100-0.txt".
+Make sure to store the text as a variable.
+
+**1a.** Print the first 5 lines.
+
+**1b.** Print the total number of lines.
+
+**1c.** Remove all empty lines, then print the total number of lines.
+
+(*Hint: to remove empty elements from a string vector x, you could use* `x <- x[x != ""]`)
+
+## Part 2. Regular expressions
+
+**2a.** Use a regular expression with `str_count()` to count how much punctuation is in this text file, in total.
+
+**2b.** Use a regular expression with `str_detect()` to count how many lines contain *either* the string "Romeo" or "Juliet".
+
+## Part 3. String Manipulation
+
+**3a.** Use `str_c()` to collapse the Shakespeare string vector into one large string. (Don't try to print it!)
+
+**3b.** Use `str_split()` to separate your string into words.
+
+(*Hint: you might get a list of length 1 that you have to convert to a vector. You could do this by using something like *`x <- unlist(x)` *or* `x <- x[[1]]`)
+
+**3c.** Use a combination of `table()` and `sort(..., decreasing = TRUE)` argument to get a count of the unique words in Shakespeare's complete works and print out the 10 most common words.
+
+## Part 4. Factors
+
+**4a.** Create an object that is a factor vector with 4 levels, where each of these levels is observed at least once.
+
+**4b.** Collapse two of your factor levels together into a new level "x".
+
+**4c.** Add a new, empty level to your factor and print out the vector.
+
+**4d.** Remove this empty level from your factor and print out the vector.
+
+## Part 5. Dates
+
+**5a.** Create a date-time object in R, with both a date and a time.
+
+**5b.** Extract the date from your object.
+
+**5c.** Extract the month from your object.
+
+**5d.** Change the hour of your object, then extract the hour from your object.
