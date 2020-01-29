@@ -1,0 +1,911 @@
+---
+title: "STAT 302, Week 4"
+subtitle: "Regular Expressions and Strings"
+author: "Bryan Martin"
+date: "Week of Jan 27, 2020"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow-night-bright
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["center","top"]
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "##")
+knitr::opts_chunk$set(cache = TRUE)
+library(kableExtra)
+```
+
+
+# Outline
+
+1. Regular Expressions
+2. Strings
+3. Factors
+4. Dates and Times
+
+.middler[**Goal:** Learn how to efficiently work with strings, factors, and dates!]
+
+---
+
+```{r}
+library(tidyverse)
+```
+
+---
+class: inverse
+
+.sectionhead[Part 1. Regular Expressions]
+
+---
+layout: true
+
+# Regular Expressions
+
+---
+
+Many, many thanks to the developers of `stringr`, who developed these excellent demonstrations of regular expressions.
+
+---
+
+Recall that strings in R are characters grouped together within double quotes `""` or single quotes `''`. However, there are characters that cannot be represented directly in an R string. For example, what if your string contains a double quote, or a line break?
+
+A line break in R is done using the regular expression `\n`. For example:
+
+```{r}
+cat("Line 1\nLine 2")
+```
+
+However, with regular expressions, the backslash `\` is a special character. Thus, in order to have `\` within a regular expression, we must precede the backslash with its own backslash! For example, the regular expression `\\` matches the string `\`. Thus, if we want to use a new line in a regular expression, we need to type `\\n`, giving us `\n`.
+
+Confusing? Don't worry, we will go through many examples.
+
+---
+
+```{r}
+see <- function(rx) {
+  str_extract_all("abc ABC 123\t.!?\\(){}\n", rx) %>%
+    unlist() %>%
+    str_c(collapse = "")
+}
+print("abc ABC 123\t.!?\\(){}\n")
+```
+
+```{r}
+see("a")
+```
+
+
+---
+
+
+```{r}
+see(".")
+```
+
+
+What happened here? `.` is a special character in a regular expression, meaning every character except a new line. If we want to search for `.`
+
+```{r}
+see("\\.")
+```
+
+
+```{r, error = TRUE}
+see("?")
+```
+`?` is also special character. So to search for that symbol
+
+```{r}
+see("\\?")
+```
+
+---
+
+Similarly for other special characters.
+
+```{r}
+see("\\}")
+see("\\(")
+```
+
+What if we want to search for the backslash itself?
+
+```{r}
+see("\\\\")
+```
+
+---
+
+We can search for special commands, such as...
+
+* new line `\n`
+
+```{r}
+see("\\n")
+```
+
+* Tabs `\t`
+
+```{r}
+see("\\t")
+```
+
+* Any white spaces `\s`
+
+```{r}
+see("\\s")
+```
+
+---
+
+* Any digit `\d`
+```{r}
+see("\\d")
+```
+* Any word character `\w`
+```{r}
+see("\\w")
+```
+* Any boundaries `\b` 
+```{r}
+see("\\b")
+```
+(note this doesn't return any characters, but try it with `str_view()` in your console)
+
+---
+
+We can search for groups of characters such as
+
+* digits `[:digit:]`
+```{r}
+see("[:digit:]")
+```
+* letters `[:alpha:]`
+```{r}
+see("[:alpha:]")
+```
+* letters and numbers `[:alnum:]`
+```{r}
+see("[:alnum:]")
+```
+
+---
+
+* lowercase letters `[:lower:]`
+```{r}
+see("[:lower:]")
+```
+* uppercase letters `[:upper:]`
+```{r}
+see("[:upper:]")
+```
+* punctuation `[:punct:]`
+```{r}
+see("[:punct:]")
+```
+
+---
+* letters, numbers, and punctuation `[:graph:]`
+```{r}
+see("[:graph:]")
+```
+* space characters `[:space:]`
+```{r}
+see("[:space:]")
+```
+* space and tab (not new line) `[:blank:]`
+```{r}
+see("[:blank:]")
+```
+
+---
+
+## Alternates
+
+```{r}
+alt <- function(rx) {
+  str_extract_all("abcde", rx) %>%
+    unlist() %>%
+    str_c(collapse = "")
+}
+```
+
+* or `|`
+
+```{r}
+alt("a|e")
+alt("ab|d")
+```
+
+---
+
+## Alternates
+
+* one of `[bae]`
+```{r}
+alt("[bae]")
+```
+* anything but `[^bae]`
+```{r}
+alt("[^bae]")
+```
+* range of values `[a-c]`
+```{r}
+alt("[a-c]")
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2: Strings]
+
+
+
+---
+# Strings
+
+## What are strings?
+
+A **character** is a symbol from a written language, such as a letter, a numeric, a symbol, or otherwise. A **string** is a collection of characters grouped together (such as a word).
+
+Even when we do quantitative work, lots of important and interesting data often comes in the form of strings, and knowing how to work with them is essential for data scientists and statisticians.
+
+
+---
+
+.middler[<img src="stringr.png" alt="" height="350"/>]
+
+---
+layout: false
+class: inverse
+
+.sectionhead[String Lengths]
+
+---
+
+# <TT>str_length()</TT>: number of characters
+
+```{r}
+str_length("a")
+str_length("abc")
+str_length(c("a", "ab", "abc"))
+```
+
+---
+
+# <TT>str_trim()</TT>: trim whitespace on both ends
+
+
+```{r}
+str_trim("cats and dogs")
+str_trim("    cats and dogs")
+str_trim("cats and dogs   ")
+str_trim("   cats and dogs    ")
+str_trim(c("cats", "    dogs", "cows    ", "   chickens    "))
+```
+---
+class: inverse
+
+
+.sectionhead[Subsetting Strings]
+
+---
+
+# <TT>str_sub()</TT>: substring by indices
+
+* Given one positive value: starting index
+* Given one negative value: starting index from end
+* Given two values: starting and ending index (can be positive or negative)
+
+```{r}
+strings <- c("strawberry", "banana", "blueberry", "apple", "blackberry", "lemon")
+str_sub(strings, 3)
+str_sub(strings, 1)
+str_sub(strings, -2)
+str_sub(strings, -5)
+```
+
+---
+
+# <TT>str_sub()</TT>: substring by indices
+
+* Given one positive value: starting index
+* Given one negative value: starting index from end
+* Given two values: starting and ending index (can be positive or negative)
+
+```{r}
+strings
+str_sub(strings, 1, 3)
+str_sub(strings, 2, 6)
+str_sub(strings, 3, -4)
+```
+
+---
+
+# <TT>str_subset()</TT>: subset by pattern
+
+```{r}
+strings
+str_subset(strings, "a")
+str_subset(strings, "berry")
+str_subset(strings, "apple")
+str_subset(strings, "appel")
+```
+
+
+---
+
+# <TT>str_extract()</TT>: extract by pattern
+
+
+```{r}
+strings
+str_extract(strings, "a")
+str_extract(strings, "berry")
+str_extract(strings, "apple")
+str_extract(strings, "[aeiou]")
+```
+
+---
+class: inverse
+
+.sectionhead[Matching]
+
+---
+
+# <TT>str_detect()</TT>: Booleans for matching
+
+```{r}
+strings
+str_detect(strings, "a")
+str_detect(strings, "berry")
+str_detect(strings, "[aeiou]")
+```
+
+---
+
+# <TT>str_which()</TT>: index for matching
+
+Note: this returns the index of the matching string, not the index of the matching character within the string!
+
+```{r}
+strings
+str_which(strings, "a")
+str_which(strings, "berry")
+str_which(strings, "[aeiou]")
+```
+
+---
+
+# <TT>str_locate()</TT>: position for matching
+
+Note: this returns the position index of the *first* matching string!
+
+
+```{r}
+strings
+str_locate(strings, "a")
+```
+
+
+---
+
+
+# <TT>str_locate()</TT>: position for matching
+
+Note: this returns the position index of the *first* matching string!
+
+```{r}
+str_locate(strings, "berry")
+str_locate(strings, "[aeiou]")
+```
+
+
+---
+
+# <TT>str_count()</TT>: count matches
+
+```{r}
+strings
+str_count(strings, "a")
+str_count(strings, "berry")
+str_count(strings, "[aeiou]")
+```
+
+
+---
+class: inverse
+
+.sectionhead[Joining and Splitting]
+
+---
+
+# <TT>str_c()</TT>: join multiple strings
+
+Use `sep = ` to set the separating string
+```{r}
+str_c(c("a", "b", "c"), c("1", "2", "3"))
+str_c(c("a", "b", "c"), c("1", "2", "3"), sep = "_")
+str_c(c("a", "b", "c"), c("1", "2", "3"), sep = "!@#$")
+```
+
+---
+
+# <TT>str_c()</TT>: collapse a string vector
+
+Use `collapse  = ` to set the combining string
+```{r}
+str_c(c("a", "b", "c"), collapse = "")
+str_c(c("a", "b", "c"), collapse = "_")
+str_c(c("a", "b", "c"), c("1", "2", "3"), collapse = "")
+```
+
+---
+
+# <TT>str_split_fixed()</TT>: split string
+
+`str_split_fixed(string, pattern, n)`, where `n` is the maximum number of pieces after splitting. Use `Inf` for all possible splits.
+
+```{r}
+str_split_fixed(c("a", "a b", "a b c"), " ", 2)
+str_split_fixed(c("a", "a b", "a b c"), " ", Inf)
+```
+
+---
+
+# <TT>str_split_fixed()</TT>: split string
+
+`str_split_fixed(string, pattern, n)`, where `n` is the maximum number of pieces after splitting.
+
+```{r}
+strings
+str_split_fixed(strings, "a", Inf)
+```
+
+---
+class: inverse
+
+.sectionhead[Mutate Strings]
+---
+
+# <TT>str_replace()</TT>: replace first match
+
+`str_replace(string, pattern, replacement)`
+
+```{r}
+strings
+str_replace(strings, "a", "A")
+str_replace(strings, "berry", "123")
+str_replace(strings, "[aeiou]", "y")
+```
+
+---
+
+# <TT>str_replace_all()</TT>: replace all matches
+
+`str_replace_all(string, pattern, replacement)`
+
+```{r}
+strings
+str_replace_all(strings, "a", "A")
+str_replace_all(strings, "berry", "123")
+str_replace_all(strings, "[aeiou]", "y")
+```
+
+---
+
+# Changing case
+
+* `str_to_lower()` make lowercase
+
+```{r}
+str_to_lower(c("A STRING", "A sTrInG", "A String", "a string", "A STRING!!1"))
+```
+
+* `str_to_upper()` make uppercase
+
+```{r}
+str_to_upper(c("A STRING", "A sTrInG", "A String", "a string", "A STRING!!1"))
+```
+
+* `str_to_title()` make title case
+
+```{r}
+str_to_title(c("A STRING", "A sTrInG", "A String", "a string", "A STRING!!1"))
+```
+
+---
+class: inverse
+
+.sectionhead[Order Strings]
+---
+
+# <TT>str_order()</TT>: get sorting vector for strings
+
+Options: `decreasing`, `na_last`, `numeric`
+
+```{r}
+strings
+str_order(strings)
+strings[str_order(strings)]
+strings[str_order(strings, decreasing = FALSE)]
+```
+
+---
+
+# <TT>str_sort()</TT>: sort string vector
+
+Options: `decreasing`, `na_last`, `numeric`
+
+```{r}
+strings
+str_sort(strings)
+str_sort(strings, decreasing = TRUE)
+```
+
+---
+
+# <TT>str_sort()</TT>: sort string vector
+
+Options: `decreasing`, `na_last`, `numeric`
+
+```{r}
+nums <- c("1", "2", "3", NA, "11", "120", "010")
+str_sort(nums)
+str_sort(nums, na_last = FALSE)
+str_sort(nums, numeric = TRUE)
+```
+
+---
+
+# <TT>stringr</TT> cheatsheet
+
+* Manage lengths: `str_length()`, `str_trim()`
+* Subsetting: `str_sub()`, `str_subset()`, `str_extract()`
+* Matching: `str_detect()`, `str_which()`, `str_locate()`, `str_count()`
+* Joining and Splitting: `str_c()`, `str_split_fixed()`
+* Mutate: `str_replace()`, `str_replace_all()`, `str_to_lower()`, `str_to_upper()`, `str_to_title()`
+
+.pushdown[.center[[And more! Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
+
+<img src="stringr.png" alt="" height="150"/>]]
+
+---
+class: inverse
+
+.sectionhead[Part 3. Factors]
+
+---
+
+.middler[<img src="forcats.png" alt="" height="350"/>]
+
+---
+
+# Factors 
+
+Recall...
+
+**factors** are categorical data that use integer representation.
+
+This can be efficient to store character vectors, because each string is only entered once. 
+Because of this, creating data frames (but not tibbles!) in R often default to set strings as factors. 
+
+---
+
+# <TT>factor()</TT>: create a factor
+
+```{r}
+(f1 <- factor(c("a", "b", "c", "a"), levels = c("a", "b", "c")))
+factor(c("a", "b", "c", "a"), levels = c("a", "b", "d"))
+(f2 <- factor(c("a", "b", "c", "a"), levels = c("a", "b", "c", "d")))
+```
+
+---
+
+# <TT>factor()</TT>: create a factor
+
+```{r}
+f1[5] <- "d"
+f1
+f2[5] <- "d"
+f2
+```
+
+---
+
+# <TT>fct_count()</TT>: count levels
+
+```{r}
+f1
+fct_count(f1)
+```
+
+---
+
+# <TT>fct_count()</TT>: count levels
+
+```{r}
+f2
+fct_count(f2)
+```
+
+---
+
+# <TT>fct_unique()</TT>: unique levels
+
+```{r}
+f1
+fct_unique(f1)
+f2
+fct_unique(f2)
+```
+
+---
+
+# <TT>fct_c()</TT>: combine factors
+
+This can be useful if all the levels were not included initially!
+
+```{r}
+f_small_1 <- factor(c("b", "a"), levels = c("a", "b"))
+f_small_2 <- factor(c("a", "c"), levels = c("a", "c"))
+fct_c(f_small_1, f_small_2)
+```
+Compare to
+```{r}
+c(f_small_1, f_small_2)
+```
+
+---
+
+# <TT>fct_relevel()</TT>: manually relevel factors
+
+```{r}
+f2
+fct_relevel(f2, c("b", "d", "a", "c"))
+fct_relevel(f2, c("b", "d", "a"))
+```
+
+---
+
+# <TT>fct_relevel()</TT>: manually relevel factors
+
+```{r}
+f2
+as.numeric(f2)
+fct_relevel(f2, c("b", "d", "a", "c")) %>% as.numeric
+```
+
+---
+
+# <TT>fct_drop()</TT>: drop unused levels
+
+By default, drops all unused levels. Alternatively, supply levels to drop.
+
+```{r}
+f3 <- factor(c("a", "b", "b", "a"), levels = c("a", "b", "c", "d"))
+fct_drop(f3)
+fct_drop(f3, only = "d")
+```
+
+---
+
+# <TT>fct_expand()</TT>: add levels
+
+By default, drops all unused levels. Alternatively, supply levels to drop.
+
+```{r}
+f3 <- factor(c("a", "b", "b", "a"), levels = c("a", "b"))
+fct_expand(f3, "c")
+fct_expand(f3, "c", "d")
+```
+
+---
+
+# <TT>fct_recode()</TT>: recode levels
+
+```{r}
+f2
+fct_recode(f2, x = "a")
+fct_recode(f2, x = "a", y = "b", z = "c", w = "d")
+```
+
+---
+
+# <TT>fct_collapse()</TT>: collapse levels
+
+```{r}
+f2
+fct_collapse(f2, x = c("a", "b"))
+```
+
+---
+
+# <TT>fct_other()</TT>: replace levels with "Other"
+
+
+```{r}
+f2
+fct_other(f2, keep = "a")
+fct_other(f2, keep = c("a", "b"))
+```
+
+---
+
+# <TT>forcats</TT> cheatsheet
+
+* Create a factor: `factor(..., levels = ...)`
+* Count levels: `fct_count()`
+* Unique levels: `fct_unique()`
+* Combine factor vectors: `fct_c()`
+* Relevel: `fct_relevel()`
+* Drop levels: `fct_drop()`
+* Add levels: `fct_expand()` 
+* Recode levels: `fct_recode()`
+* Collapse levels: `fct_collapse()`
+* "Other" level: `fct_other()`
+
+.center[[And more! Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
+
+<img src="forcats.png" alt="" height="150"/>]
+
+---
+class: inverse
+
+.sectionhead[Part 4: Dates and Times]
+
+---
+
+.middler[<img src="lubridate.png" alt="" height="350"/>]
+
+---
+
+```{r}
+library(lubridate)
+```
+
+---
+layout: true
+# Parsing Date-times
+
+---
+
+**Dates** and **date-times** are special classes of objects in R.
+`lubridate` does a fantastic job of taking a variety of input and converting them into standardized format using for dates:
+* **y** for year
+* **m** for month
+* **d** for day
+* **q** for quarter
+
+and for times:
+* **h** for hour
+* **m** for minute
+* **s** for second
+
+You can combine these into more functions and inputs than we are able to show, but we'll go through several examples.
+
+---
+
+Ordering can be changed arbitrarily.
+
+
+```{r}
+mdy("01-29-2020")
+dmy("29-01-2020")
+ymd("2020-01-29")
+ydm("2020-29-01")
+```
+
+---
+
+It accepts a variety of input formats.
+
+```{r}
+mdy("Jan 29, 2020")
+dmy("29th of January, 2020")
+mdy("01/29/20")
+ymd("20200129")
+ymd("2020-01-29")
+```
+
+---
+
+We can add times, and even quarters.
+
+```{r}
+yq("2020: Q1")
+yq("2020 Quarter 1")
+dmy_h("29 Jan 2020 at 2pm")
+mdy_hms("Jan 29th 2020, 4:10:43")
+```
+
+---
+layout: false
+layout: true
+# Extracting Date-time Components
+
+---
+
+When we have an object in date-time form, we can easily extract information.
+
+```{r}
+(x <- ymd_hms("2020-01-29, 3:29:59 pm", tz = "US/Pacific"))
+date(x)
+year(x)
+month(x)
+day(x)
+```
+
+---
+
+```{r}
+hour(x)
+minute(x)
+second(x)
+tz(x)
+```
+
+---
+
+```{r}
+wday(x) # day of week
+wday(x, label = TRUE)
+week(x) # week of year
+quarter(x) # quarter of year
+```
+
+---
+
+
+```{r}
+dst(x) # is it Daylight Savings time?
+leap_year(x) # is it a leap year?
+am(x)
+pm(x)
+```
+---
+
+We can also edit date-time objects.
+
+```{r}
+x
+hour(x) <- 13
+year(x) <- 2021
+x
+```
+
+---
+layout: false
+
+# Tell R when you have date-times!
+
+When working with date-time data, it is important that you tell R you are working with date-times using `lubridate`! If you do not, you may get an error that looks like this:
+
+```{r, error = TRUE}
+x <- "01/29/2020"
+day(x)
+y <- mdy(x)
+day(y)
+```
+
+---
+
+# <TT>lubridate</TT> cheatsheet
+
+* Dates: `y` year, `m` month, `d` day, `q` quarter
+* Times: `h` hour, `m` minute, `s` second
+* Extracting components: `date()`, `year()`, `month()`, `day()`, `hour()`, `minute()`, `second()`
+
+You can do much more that we didn't cover here, such as intervals, arithmetic, durations, rounding, and periods!
+
+.center[[Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
+
+<img src="lubridate.png" alt="" height="150"/>]
+

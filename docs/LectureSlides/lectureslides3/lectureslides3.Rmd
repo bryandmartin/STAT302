@@ -27,6 +27,8 @@ library(kableExtra)
 1. Introduction to tidyverse
 2. Data Visualization
 3. Data Manipulation
+4. Working with strings
+5. Working with dates
 
 .middler[**Goal:** Learn how to go from raw data to exploratory data analysis. (Project 1!)]
 
@@ -1767,5 +1769,6 @@ layout: false
 * `inner_join()`, `left_join()`, `right_join()`, `outer_join()` combine data (like SQL)
 
 .pushdown[.center[[Much, much more! (Click me for a cheat sheet!)](https://rstudio.com/resources/cheatsheets/)]]
+
 
 

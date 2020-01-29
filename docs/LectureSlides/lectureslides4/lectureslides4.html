@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302, Week 4</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bryan Martin" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, top, title-slide
+
+# STAT 302, Week 4
+## Regular Expressions and Strings
+### Bryan Martin
+### Week of Jan 27, 2020
+
+---
+
+
+
+
+
+# Outline
+
+1. Regular Expressions
+2. Strings
+3. Factors
+4. Dates and Times
+
+.middler[**Goal:** Learn how to efficiently work with strings, factors, and dates!]
+
+---
+
+
+```r
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ─────────────────────────── tidyverse 1.3.0 ──
+```
+
+```
+## ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
+## ✓ tibble  2.1.3     ✓ dplyr   0.8.3
+## ✓ tidyr   1.0.0     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.4.0
+```
+
+```
+## ── Conflicts ────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter()     masks stats::filter()
+## x dplyr::group_rows() masks kableExtra::group_rows()
+## x dplyr::lag()        masks stats::lag()
+```
+
+---
+class: inverse
+
+.sectionhead[Part 1. Regular Expressions]
+
+---
+layout: true
+
+# Regular Expressions
+
+---
+
+Many, many thanks to the developers of `stringr`, who developed these excellent demonstrations of regular expressions.
+
+---
+
+Recall that strings in R are characters grouped together within double quotes `""` or single quotes `''`. However, there are characters that cannot be represented directly in an R string. For example, what if your string contains a double quote, or a line break?
+
+A line break in R is done using the regular expression `\n`. For example:
+
+
+```r
+cat("Line 1\nLine 2")
+```
+
+```
+## Line 1
+## Line 2
+```
+
+However, with regular expressions, the backslash `\` is a special character. Thus, in order to have `\` within a regular expression, we must precede the backslash with its own backslash! For example, the regular expression `\\` matches the string `\`. Thus, if we want to use a new line in a regular expression, we need to type `\\n`, giving us `\n`.
+
+Confusing? Don't worry, we will go through many examples.
+
+---
+
+
+```r
+see &lt;- function(rx) {
+  str_extract_all("abc ABC 123\t.!?\\(){}\n", rx) %&gt;%
+    unlist() %&gt;%
+    str_c(collapse = "")
+}
+print("abc ABC 123\t.!?\\(){}\n")
+```
+
+```
+## [1] "abc ABC 123\t.!?\\(){}\n"
+```
+
+
+```r
+see("a")
+```
+
+```
+## [1] "a"
+```
+
+
+---
+
+
+
+```r
+see(".")
+```
+
+```
+## [1] "abc ABC 123\t.!?\\(){}"
+```
+
+
+What happened here? `.` is a special character in a regular expression, meaning every character except a new line. If we want to search for `.`
+
+
+```r
+see("\\.")
+```
+
+```
+## [1] "."
+```
+
+
+
+```r
+see("?")
+```
+
+```
+## Error in stri_extract_all_regex(string, pattern, simplify = simplify, : Syntax error in regexp pattern. (U_REGEX_RULE_SYNTAX)
+```
+`?` is also special character. So to search for that symbol
+
+
+```r
+see("\\?")
+```
+
+```
+## [1] "?"
+```
+
+---
+
+Similarly for other special characters.
+
+
+```r
+see("\\}")
+```
+
+```
+## [1] "}"
+```
+
+```r
+see("\\(")
+```
+
+```
+## [1] "("
+```
+
+What if we want to search for the backslash itself?
+
+
+```r
+see("\\\\")
+```
+
+```
+## [1] "\\"
+```
+
+---
+
+We can search for special commands, such as...
+
+* new line `\n`
+
+
+```r
+see("\\n")
+```
+
+```
+## [1] "\n"
+```
+
+* Tabs `\t`
+
+
+```r
+see("\\t")
+```
+
+```
+## [1] "\t"
+```
+
+* Any white spaces `\s`
+
+
+```r
+see("\\s")
+```
+
+```
+## [1] "  \t\n"
+```
+
+---
+
+* Any digit `\d`
+
+```r
+see("\\d")
+```
+
+```
+## [1] "123"
+```
+* Any word character `\w`
+
+```r
+see("\\w")
+```
+
+```
+## [1] "abcABC123"
+```
+* Any boundaries `\b` 
+
+```r
+see("\\b")
+```
+
+```
+## [1] ""
+```
+(note this doesn't return any characters, but try it with `str_view()` in your console)
+
+---
+
+We can search for groups of characters such as
+
+* digits `[:digit:]`
+
+```r
+see("[:digit:]")
+```
+
+```
+## [1] "123"
+```
+* letters `[:alpha:]`
+
+```r
+see("[:alpha:]")
+```
+
+```
+## [1] "abcABC"
+```
+* letters and numbers `[:alnum:]`
+
+```r
+see("[:alnum:]")
+```
+
+```
+## [1] "abcABC123"
+```
+
+---
+
+* lowercase letters `[:lower:]`
+
+```r
+see("[:lower:]")
+```
+
+```
+## [1] "abc"
+```
+* uppercase letters `[:upper:]`
+
+```r
+see("[:upper:]")
+```
+
+```
+## [1] "ABC"
+```
+* punctuation `[:punct:]`
+
+```r
+see("[:punct:]")
+```
+
+```
+## [1] ".!?\\(){}"
+```
+
+---
+* letters, numbers, and punctuation `[:graph:]`
+
+```r
+see("[:graph:]")
+```
+
+```
+## [1] "abcABC123.!?\\(){}"
+```
+* space characters `[:space:]`
+
+```r
+see("[:space:]")
+```
+
+```
+## [1] "  \t\n"
+```
+* space and tab (not new line) `[:blank:]`
+
+```r
+see("[:blank:]")
+```
+
+```
+## [1] "  \t"
+```
+
+---
+
+## Alternates
+
+
+```r
+alt &lt;- function(rx) {
+  str_extract_all("abcde", rx) %&gt;%
+    unlist() %&gt;%
+    str_c(collapse = "")
+}
+```
+
+* or `|`
+
+
+```r
+alt("a|e")
+```
+
+```
+## [1] "ae"
+```
+
+```r
+alt("ab|d")
+```
+
+```
+## [1] "abd"
+```
+
+---
+
+## Alternates
+
+* one of `[bae]`
+
+```r
+alt("[bae]")
+```
+
+```
+## [1] "abe"
+```
+* anything but `[^bae]`
+
+```r
+alt("[^bae]")
+```
+
+```
+## [1] "cd"
+```
+* range of values `[a-c]`
+
+```r
+alt("[a-c]")
+```
+
+```
+## [1] "abc"
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2: Strings]
+
+
+
+---
+# Strings
+
+## What are strings?
+
+A **character** is a symbol from a written language, such as a letter, a numeric, a symbol, or otherwise. A **string** is a collection of characters grouped together (such as a word).
+
+Even when we do quantitative work, lots of important and interesting data often comes in the form of strings, and knowing how to work with them is essential for data scientists and statisticians.
+
+
+---
+
+.middler[&lt;img src="stringr.png" alt="" height="350"/&gt;]
+
+---
+layout: false
+class: inverse
+
+.sectionhead[String Lengths]
+
+---
+
+# &lt;TT&gt;str_length()&lt;/TT&gt;: number of characters
+
+
+```r
+str_length("a")
+```
+
+```
+## [1] 1
+```
+
+```r
+str_length("abc")
+```
+
+```
+## [1] 3
+```
+
+```r
+str_length(c("a", "ab", "abc"))
+```
+
+```
+## [1] 1 2 3
+```
+
+---
+
+# &lt;TT&gt;str_trim()&lt;/TT&gt;: trim whitespace on both ends
+
+
+
+```r
+str_trim("cats and dogs")
+```
+
+```
+## [1] "cats and dogs"
+```
+
+```r
+str_trim("    cats and dogs")
+```
+
+```
+## [1] "cats and dogs"
+```
+
+```r
+str_trim("cats and dogs   ")
+```
+
+```
+## [1] "cats and dogs"
+```
+
+```r
+str_trim("   cats and dogs    ")
+```
+
+```
+## [1] "cats and dogs"
+```
+
+```r
+str_trim(c("cats", "    dogs", "cows    ", "   chickens    "))
+```
+
+```
+## [1] "cats"     "dogs"     "cows"     "chickens"
+```
+---
+class: inverse
+
+
+.sectionhead[Subsetting Strings]
+
+---
+
+# &lt;TT&gt;str_sub()&lt;/TT&gt;: substring by indices
+
+* Given one positive value: starting index
+* Given one negative value: starting index from end
+* Given two values: starting and ending index (can be positive or negative)
+
+
+```r
+strings &lt;- c("strawberry", "banana", "blueberry", "apple", "blackberry", "lemon")
+str_sub(strings, 3)
+```
+
+```
+## [1] "rawberry" "nana"     "ueberry"  "ple"      "ackberry" "mon"
+```
+
+```r
+str_sub(strings, 1)
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_sub(strings, -2)
+```
+
+```
+## [1] "ry" "na" "ry" "le" "ry" "on"
+```
+
+```r
+str_sub(strings, -5)
+```
+
+```
+## [1] "berry" "anana" "berry" "apple" "berry" "lemon"
+```
+
+---
+
+# &lt;TT&gt;str_sub()&lt;/TT&gt;: substring by indices
+
+* Given one positive value: starting index
+* Given one negative value: starting index from end
+* Given two values: starting and ending index (can be positive or negative)
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_sub(strings, 1, 3)
+```
+
+```
+## [1] "str" "ban" "blu" "app" "bla" "lem"
+```
+
+```r
+str_sub(strings, 2, 6)
+```
+
+```
+## [1] "trawb" "anana" "luebe" "pple"  "lackb" "emon"
+```
+
+```r
+str_sub(strings, 3, -4)
+```
+
+```
+## [1] "rawbe" "n"     "uebe"  ""      "ackbe" ""
+```
+
+---
+
+# &lt;TT&gt;str_subset()&lt;/TT&gt;: subset by pattern
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_subset(strings, "a")
+```
+
+```
+## [1] "strawberry" "banana"     "apple"      "blackberry"
+```
+
+```r
+str_subset(strings, "berry")
+```
+
+```
+## [1] "strawberry" "blueberry"  "blackberry"
+```
+
+```r
+str_subset(strings, "apple")
+```
+
+```
+## [1] "apple"
+```
+
+```r
+str_subset(strings, "appel")
+```
+
+```
+## character(0)
+```
+
+
+---
+
+# &lt;TT&gt;str_extract()&lt;/TT&gt;: extract by pattern
+
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_extract(strings, "a")
+```
+
+```
+## [1] "a" "a" NA  "a" "a" NA
+```
+
+```r
+str_extract(strings, "berry")
+```
+
+```
+## [1] "berry" NA      "berry" NA      "berry" NA
+```
+
+```r
+str_extract(strings, "apple")
+```
+
+```
+## [1] NA      NA      NA      "apple" NA      NA
+```
+
+```r
+str_extract(strings, "[aeiou]")
+```
+
+```
+## [1] "a" "a" "u" "a" "a" "e"
+```
+
+---
+class: inverse
+
+.sectionhead[Matching]
+
+---
+
+# &lt;TT&gt;str_detect()&lt;/TT&gt;: Booleans for matching
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_detect(strings, "a")
+```
+
+```
+## [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE
+```
+
+```r
+str_detect(strings, "berry")
+```
+
+```
+## [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE
+```
+
+```r
+str_detect(strings, "[aeiou]")
+```
+
+```
+## [1] TRUE TRUE TRUE TRUE TRUE TRUE
+```
+
+---
+
+# &lt;TT&gt;str_which()&lt;/TT&gt;: index for matching
+
+Note: this returns the index of the matching string, not the index of the matching character within the string!
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_which(strings, "a")
+```
+
+```
+## [1] 1 2 4 5
+```
+
+```r
+str_which(strings, "berry")
+```
+
+```
+## [1] 1 3 5
+```
+
+```r
+str_which(strings, "[aeiou]")
+```
+
+```
+## [1] 1 2 3 4 5 6
+```
+
+---
+
+# &lt;TT&gt;str_locate()&lt;/TT&gt;: position for matching
+
+Note: this returns the position index of the *first* matching string!
+
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_locate(strings, "a")
+```
+
+```
+##      start end
+## [1,]     4   4
+## [2,]     2   2
+## [3,]    NA  NA
+## [4,]     1   1
+## [5,]     3   3
+## [6,]    NA  NA
+```
+
+
+---
+
+
+# &lt;TT&gt;str_locate()&lt;/TT&gt;: position for matching
+
+Note: this returns the position index of the *first* matching string!
+
+
+```r
+str_locate(strings, "berry")
+```
+
+```
+##      start end
+## [1,]     6  10
+## [2,]    NA  NA
+## [3,]     5   9
+## [4,]    NA  NA
+## [5,]     6  10
+## [6,]    NA  NA
+```
+
+```r
+str_locate(strings, "[aeiou]")
+```
+
+```
+##      start end
+## [1,]     4   4
+## [2,]     2   2
+## [3,]     3   3
+## [4,]     1   1
+## [5,]     3   3
+## [6,]     2   2
+```
+
+
+---
+
+# &lt;TT&gt;str_count()&lt;/TT&gt;: count matches
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_count(strings, "a")
+```
+
+```
+## [1] 1 3 0 1 1 0
+```
+
+```r
+str_count(strings, "berry")
+```
+
+```
+## [1] 1 0 1 0 1 0
+```
+
+```r
+str_count(strings, "[aeiou]")
+```
+
+```
+## [1] 2 3 3 2 2 2
+```
+
+
+---
+class: inverse
+
+.sectionhead[Joining and Splitting]
+
+---
+
+# &lt;TT&gt;str_c()&lt;/TT&gt;: join multiple strings
+
+Use `sep = ` to set the separating string
+
+```r
+str_c(c("a", "b", "c"), c("1", "2", "3"))
+```
+
+```
+## [1] "a1" "b2" "c3"
+```
+
+```r
+str_c(c("a", "b", "c"), c("1", "2", "3"), sep = "_")
+```
+
+```
+## [1] "a_1" "b_2" "c_3"
+```
+
+```r
+str_c(c("a", "b", "c"), c("1", "2", "3"), sep = "!@#$")
+```
+
+```
+## [1] "a!@#$1" "b!@#$2" "c!@#$3"
+```
+
+---
+
+# &lt;TT&gt;str_c()&lt;/TT&gt;: collapse a string vector
+
+Use `collapse  = ` to set the combining string
+
+```r
+str_c(c("a", "b", "c"), collapse = "")
+```
+
+```
+## [1] "abc"
+```
+
+```r
+str_c(c("a", "b", "c"), collapse = "_")
+```
+
+```
+## [1] "a_b_c"
+```
+
+```r
+str_c(c("a", "b", "c"), c("1", "2", "3"), collapse = "")
+```
+
+```
+## [1] "a1b2c3"
+```
+
+---
+
+# &lt;TT&gt;str_split_fixed()&lt;/TT&gt;: split string
+
+`str_split_fixed(string, pattern, n)`, where `n` is the maximum number of pieces after splitting. Use `Inf` for all possible splits.
+
+
+```r
+str_split_fixed(c("a", "a b", "a b c"), " ", 2)
+```
+
+```
+##      [,1] [,2] 
+## [1,] "a"  ""   
+## [2,] "a"  "b"  
+## [3,] "a"  "b c"
+```
+
+```r
+str_split_fixed(c("a", "a b", "a b c"), " ", Inf)
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,] "a"  ""   ""  
+## [2,] "a"  "b"  ""  
+## [3,] "a"  "b"  "c"
+```
+
+---
+
+# &lt;TT&gt;str_split_fixed()&lt;/TT&gt;: split string
+
+`str_split_fixed(string, pattern, n)`, where `n` is the maximum number of pieces after splitting.
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_split_fixed(strings, "a", Inf)
+```
+
+```
+##      [,1]        [,2]      [,3] [,4]
+## [1,] "str"       "wberry"  ""   ""  
+## [2,] "b"         "n"       "n"  ""  
+## [3,] "blueberry" ""        ""   ""  
+## [4,] ""          "pple"    ""   ""  
+## [5,] "bl"        "ckberry" ""   ""  
+## [6,] "lemon"     ""        ""   ""
+```
+
+---
+class: inverse
+
+.sectionhead[Mutate Strings]
+---
+
+# &lt;TT&gt;str_replace()&lt;/TT&gt;: replace first match
+
+`str_replace(string, pattern, replacement)`
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_replace(strings, "a", "A")
+```
+
+```
+## [1] "strAwberry" "bAnana"     "blueberry"  "Apple"      "blAckberry"
+## [6] "lemon"
+```
+
+```r
+str_replace(strings, "berry", "123")
+```
+
+```
+## [1] "straw123" "banana"   "blue123"  "apple"    "black123" "lemon"
+```
+
+```r
+str_replace(strings, "[aeiou]", "y")
+```
+
+```
+## [1] "strywberry" "bynana"     "blyeberry"  "ypple"      "blyckberry"
+## [6] "lymon"
+```
+
+---
+
+# &lt;TT&gt;str_replace_all()&lt;/TT&gt;: replace all matches
+
+`str_replace_all(string, pattern, replacement)`
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_replace_all(strings, "a", "A")
+```
+
+```
+## [1] "strAwberry" "bAnAnA"     "blueberry"  "Apple"      "blAckberry"
+## [6] "lemon"
+```
+
+```r
+str_replace_all(strings, "berry", "123")
+```
+
+```
+## [1] "straw123" "banana"   "blue123"  "apple"    "black123" "lemon"
+```
+
+```r
+str_replace_all(strings, "[aeiou]", "y")
+```
+
+```
+## [1] "strywbyrry" "bynyny"     "blyybyrry"  "ypply"      "blyckbyrry"
+## [6] "lymyn"
+```
+
+---
+
+# Changing case
+
+* `str_to_lower()` make lowercase
+
+
+```r
+str_to_lower(c("A STRING", "A sTrInG", "A String", "a string", "A STRING!!1"))
+```
+
+```
+## [1] "a string"    "a string"    "a string"    "a string"    "a string!!1"
+```
+
+* `str_to_upper()` make uppercase
+
+
+```r
+str_to_upper(c("A STRING", "A sTrInG", "A String", "a string", "A STRING!!1"))
+```
+
+```
+## [1] "A STRING"    "A STRING"    "A STRING"    "A STRING"    "A STRING!!1"
+```
+
+* `str_to_title()` make title case
+
+
+```r
+str_to_title(c("A STRING", "A sTrInG", "A String", "a string", "A STRING!!1"))
+```
+
+```
+## [1] "A String"    "A String"    "A String"    "A String"    "A String!!1"
+```
+
+---
+class: inverse
+
+.sectionhead[Order Strings]
+---
+
+# &lt;TT&gt;str_order()&lt;/TT&gt;: get sorting vector for strings
+
+Options: `decreasing`, `na_last`, `numeric`
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_order(strings)
+```
+
+```
+## [1] 4 2 5 3 6 1
+```
+
+```r
+strings[str_order(strings)]
+```
+
+```
+## [1] "apple"      "banana"     "blackberry" "blueberry"  "lemon"     
+## [6] "strawberry"
+```
+
+```r
+strings[str_order(strings, decreasing = FALSE)]
+```
+
+```
+## [1] "apple"      "banana"     "blackberry" "blueberry"  "lemon"     
+## [6] "strawberry"
+```
+
+---
+
+# &lt;TT&gt;str_sort()&lt;/TT&gt;: sort string vector
+
+Options: `decreasing`, `na_last`, `numeric`
+
+
+```r
+strings
+```
+
+```
+## [1] "strawberry" "banana"     "blueberry"  "apple"      "blackberry"
+## [6] "lemon"
+```
+
+```r
+str_sort(strings)
+```
+
+```
+## [1] "apple"      "banana"     "blackberry" "blueberry"  "lemon"     
+## [6] "strawberry"
+```
+
+```r
+str_sort(strings, decreasing = TRUE)
+```
+
+```
+## [1] "strawberry" "lemon"      "blueberry"  "blackberry" "banana"    
+## [6] "apple"
+```
+
+---
+
+# &lt;TT&gt;str_sort()&lt;/TT&gt;: sort string vector
+
+Options: `decreasing`, `na_last`, `numeric`
+
+
+```r
+nums &lt;- c("1", "2", "3", NA, "11", "120", "010")
+str_sort(nums)
+```
+
+```
+## [1] "010" "1"   "11"  "120" "2"   "3"   NA
+```
+
+```r
+str_sort(nums, na_last = FALSE)
+```
+
+```
+## [1] NA    "010" "1"   "11"  "120" "2"   "3"
+```
+
+```r
+str_sort(nums, numeric = TRUE)
+```
+
+```
+## [1] "1"   "2"   "3"   "010" "11"  "120" NA
+```
+
+---
+
+# &lt;TT&gt;stringr&lt;/TT&gt; cheatsheet
+
+* Manage lengths: `str_length()`, `str_trim()`
+* Subsetting: `str_sub()`, `str_subset()`, `str_extract()`
+* Matching: `str_detect()`, `str_which()`, `str_locate()`, `str_count()`
+* Joining and Splitting: `str_c()`, `str_split_fixed()`
+* Mutate: `str_replace()`, `str_replace_all()`, `str_to_lower()`, `str_to_upper()`, `str_to_title()`
+
+.pushdown[.center[[And more! Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
+
+&lt;img src="stringr.png" alt="" height="150"/&gt;]]
+
+---
+class: inverse
+
+.sectionhead[Part 3. Factors]
+
+---
+
+.middler[&lt;img src="forcats.png" alt="" height="350"/&gt;]
+
+---
+
+# Factors 
+
+Recall...
+
+**factors** are categorical data that use integer representation.
+
+This can be efficient to store character vectors, because each string is only entered once. 
+Because of this, creating data frames (but not tibbles!) in R often default to set strings as factors. 
+
+---
+
+# &lt;TT&gt;factor()&lt;/TT&gt;: create a factor
+
+
+```r
+(f1 &lt;- factor(c("a", "b", "c", "a"), levels = c("a", "b", "c")))
+```
+
+```
+## [1] a b c a
+## Levels: a b c
+```
+
+```r
+factor(c("a", "b", "c", "a"), levels = c("a", "b", "d"))
+```
+
+```
+## [1] a    b    &lt;NA&gt; a   
+## Levels: a b d
+```
+
+```r
+(f2 &lt;- factor(c("a", "b", "c", "a"), levels = c("a", "b", "c", "d")))
+```
+
+```
+## [1] a b c a
+## Levels: a b c d
+```
+
+---
+
+# &lt;TT&gt;factor()&lt;/TT&gt;: create a factor
+
+
+```r
+f1[5] &lt;- "d"
+```
+
+```
+## Warning in `[&lt;-.factor`(`*tmp*`, 5, value = "d"): invalid factor level, NA
+## generated
+```
+
+```r
+f1
+```
+
+```
+## [1] a    b    c    a    &lt;NA&gt;
+## Levels: a b c
+```
+
+```r
+f2[5] &lt;- "d"
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+---
+
+# &lt;TT&gt;fct_count()&lt;/TT&gt;: count levels
+
+
+```r
+f1
+```
+
+```
+## [1] a    b    c    a    &lt;NA&gt;
+## Levels: a b c
+```
+
+```r
+fct_count(f1)
+```
+
+```
+## # A tibble: 4 x 2
+##   f         n
+##   &lt;fct&gt; &lt;int&gt;
+## 1 a         2
+## 2 b         1
+## 3 c         1
+## 4 &lt;NA&gt;      1
+```
+
+---
+
+# &lt;TT&gt;fct_count()&lt;/TT&gt;: count levels
+
+
+```r
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+```r
+fct_count(f2)
+```
+
+```
+## # A tibble: 4 x 2
+##   f         n
+##   &lt;fct&gt; &lt;int&gt;
+## 1 a         2
+## 2 b         1
+## 3 c         1
+## 4 d         1
+```
+
+---
+
+# &lt;TT&gt;fct_unique()&lt;/TT&gt;: unique levels
+
+
+```r
+f1
+```
+
+```
+## [1] a    b    c    a    &lt;NA&gt;
+## Levels: a b c
+```
+
+```r
+fct_unique(f1)
+```
+
+```
+## [1] a b c
+## Levels: a b c
+```
+
+```r
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+```r
+fct_unique(f2)
+```
+
+```
+## [1] a b c d
+## Levels: a b c d
+```
+
+---
+
+# &lt;TT&gt;fct_c()&lt;/TT&gt;: combine factors
+
+This can be useful if all the levels were not included initially!
+
+
+```r
+f_small_1 &lt;- factor(c("b", "a"), levels = c("a", "b"))
+f_small_2 &lt;- factor(c("a", "c"), levels = c("a", "c"))
+fct_c(f_small_1, f_small_2)
+```
+
+```
+## [1] b a a c
+## Levels: a b c
+```
+Compare to
+
+```r
+c(f_small_1, f_small_2)
+```
+
+```
+## [1] 2 1 1 2
+```
+
+---
+
+# &lt;TT&gt;fct_relevel()&lt;/TT&gt;: manually relevel factors
+
+
+```r
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+```r
+fct_relevel(f2, c("b", "d", "a", "c"))
+```
+
+```
+## [1] a b c a d
+## Levels: b d a c
+```
+
+```r
+fct_relevel(f2, c("b", "d", "a"))
+```
+
+```
+## [1] a b c a d
+## Levels: b d a c
+```
+
+---
+
+# &lt;TT&gt;fct_relevel()&lt;/TT&gt;: manually relevel factors
+
+
+```r
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+```r
+as.numeric(f2)
+```
+
+```
+## [1] 1 2 3 1 4
+```
+
+```r
+fct_relevel(f2, c("b", "d", "a", "c")) %&gt;% as.numeric
+```
+
+```
+## [1] 3 1 4 3 2
+```
+
+---
+
+# &lt;TT&gt;fct_drop()&lt;/TT&gt;: drop unused levels
+
+By default, drops all unused levels. Alternatively, supply levels to drop.
+
+
+```r
+f3 &lt;- factor(c("a", "b", "b", "a"), levels = c("a", "b", "c", "d"))
+fct_drop(f3)
+```
+
+```
+## [1] a b b a
+## Levels: a b
+```
+
+```r
+fct_drop(f3, only = "d")
+```
+
+```
+## [1] a b b a
+## Levels: a b c
+```
+
+---
+
+# &lt;TT&gt;fct_expand()&lt;/TT&gt;: add levels
+
+By default, drops all unused levels. Alternatively, supply levels to drop.
+
+
+```r
+f3 &lt;- factor(c("a", "b", "b", "a"), levels = c("a", "b"))
+fct_expand(f3, "c")
+```
+
+```
+## [1] a b b a
+## Levels: a b c
+```
+
+```r
+fct_expand(f3, "c", "d")
+```
+
+```
+## [1] a b b a
+## Levels: a b c d
+```
+
+---
+
+# &lt;TT&gt;fct_recode()&lt;/TT&gt;: recode levels
+
+
+```r
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+```r
+fct_recode(f2, x = "a")
+```
+
+```
+## [1] x b c x d
+## Levels: x b c d
+```
+
+```r
+fct_recode(f2, x = "a", y = "b", z = "c", w = "d")
+```
+
+```
+## [1] x y z x w
+## Levels: x y z w
+```
+
+---
+
+# &lt;TT&gt;fct_collapse()&lt;/TT&gt;: collapse levels
+
+
+```r
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+```r
+fct_collapse(f2, x = c("a", "b"))
+```
+
+```
+## [1] x x c x d
+## Levels: x c d
+```
+
+---
+
+# &lt;TT&gt;fct_other()&lt;/TT&gt;: replace levels with "Other"
+
+
+
+```r
+f2
+```
+
+```
+## [1] a b c a d
+## Levels: a b c d
+```
+
+```r
+fct_other(f2, keep = "a")
+```
+
+```
+## [1] a     Other Other a     Other
+## Levels: a Other
+```
+
+```r
+fct_other(f2, keep = c("a", "b"))
+```
+
+```
+## [1] a     b     Other a     Other
+## Levels: a b Other
+```
+
+---
+
+# &lt;TT&gt;forcats&lt;/TT&gt; cheatsheet
+
+* Create a factor: `factor(..., levels = ...)`
+* Count levels: `fct_count()`
+* Unique levels: `fct_unique()`
+* Combine factor vectors: `fct_c()`
+* Relevel: `fct_relevel()`
+* Drop levels: `fct_drop()`
+* Add levels: `fct_expand()` 
+* Recode levels: `fct_recode()`
+* Collapse levels: `fct_collapse()`
+* "Other" level: `fct_other()`
+
+.center[[And more! Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
+
+&lt;img src="forcats.png" alt="" height="150"/&gt;]
+
+---
+class: inverse
+
+.sectionhead[Part 4: Dates and Times]
+
+---
+
+.middler[&lt;img src="lubridate.png" alt="" height="350"/&gt;]
+
+---
+
+
+```r
+library(lubridate)
+```
+
+```
+## 
+## Attaching package: 'lubridate'
+```
+
+```
+## The following object is masked from 'package:base':
+## 
+##     date
+```
+
+---
+layout: true
+# Parsing Date-times
+
+---
+
+**Dates** and **date-times** are special classes of objects in R.
+`lubridate` does a fantastic job of taking a variety of input and converting them into standardized format using for dates:
+* **y** for year
+* **m** for month
+* **d** for day
+* **q** for quarter
+
+and for times:
+* **h** for hour
+* **m** for minute
+* **s** for second
+
+You can combine these into more functions and inputs than we are able to show, but we'll go through several examples.
+
+---
+
+Ordering can be changed arbitrarily.
+
+
+
+```r
+mdy("01-29-2020")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+dmy("29-01-2020")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+ymd("2020-01-29")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+ydm("2020-29-01")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+---
+
+It accepts a variety of input formats.
+
+
+```r
+mdy("Jan 29, 2020")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+dmy("29th of January, 2020")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+mdy("01/29/20")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+ymd("20200129")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+ymd("2020-01-29")
+```
+
+```
+## [1] "2020-01-29"
+```
+
+---
+
+We can add times, and even quarters.
+
+
+```r
+yq("2020: Q1")
+```
+
+```
+## [1] "2020-01-01"
+```
+
+```r
+yq("2020 Quarter 1")
+```
+
+```
+## [1] "2020-01-01"
+```
+
+```r
+dmy_h("29 Jan 2020 at 2pm")
+```
+
+```
+## [1] "2020-01-29 14:00:00 UTC"
+```
+
+```r
+mdy_hms("Jan 29th 2020, 4:10:43")
+```
+
+```
+## [1] "2020-01-29 04:10:43 UTC"
+```
+
+---
+layout: false
+layout: true
+# Extracting Date-time Components
+
+---
+
+When we have an object in date-time form, we can easily extract information.
+
+
+```r
+(x &lt;- ymd_hms("2020-01-29, 3:29:59 pm", tz = "US/Pacific"))
+```
+
+```
+## [1] "2020-01-29 15:29:59 PST"
+```
+
+```r
+date(x)
+```
+
+```
+## [1] "2020-01-29"
+```
+
+```r
+year(x)
+```
+
+```
+## [1] 2020
+```
+
+```r
+month(x)
+```
+
+```
+## [1] 1
+```
+
+```r
+day(x)
+```
+
+```
+## [1] 29
+```
+
+---
+
+
+```r
+hour(x)
+```
+
+```
+## [1] 15
+```
+
+```r
+minute(x)
+```
+
+```
+## [1] 29
+```
+
+```r
+second(x)
+```
+
+```
+## [1] 59
+```
+
+```r
+tz(x)
+```
+
+```
+## [1] "US/Pacific"
+```
+
+---
+
+
+```r
+wday(x) # day of week
+```
+
+```
+## [1] 4
+```
+
+```r
+wday(x, label = TRUE)
+```
+
+```
+## [1] Wed
+## Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat
+```
+
+```r
+week(x) # week of year
+```
+
+```
+## [1] 5
+```
+
+```r
+quarter(x) # quarter of year
+```
+
+```
+## [1] 1
+```
+
+---
+
+
+
+```r
+dst(x) # is it Daylight Savings time?
+```
+
+```
+## [1] FALSE
+```
+
+```r
+leap_year(x) # is it a leap year?
+```
+
+```
+## [1] TRUE
+```
+
+```r
+am(x)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+pm(x)
+```
+
+```
+## [1] TRUE
+```
+---
+
+We can also edit date-time objects.
+
+
+```r
+x
+```
+
+```
+## [1] "2020-01-29 15:29:59 PST"
+```
+
+```r
+hour(x) &lt;- 13
+year(x) &lt;- 2021
+x
+```
+
+```
+## [1] "2021-01-29 13:29:59 PST"
+```
+
+---
+layout: false
+
+# Tell R when you have date-times!
+
+When working with date-time data, it is important that you tell R you are working with date-times using `lubridate`! If you do not, you may get an error that looks like this:
+
+
+```r
+x &lt;- "01/29/2020"
+day(x)
+```
+
+```
+## Error in as.POSIXlt.character(x, tz = tz(x)): character string is not in a standard unambiguous format
+```
+
+```r
+y &lt;- mdy(x)
+day(y)
+```
+
+```
+## [1] 29
+```
+
+---
+
+# &lt;TT&gt;lubridate&lt;/TT&gt; cheatsheet
+
+* Dates: `y` year, `m` month, `d` day, `q` quarter
+* Times: `h` hour, `m` minute, `s` second
+* Extracting components: `date()`, `year()`, `month()`, `day()`, `hour()`, `minute()`, `second()`
+
+You can do much more that we didn't cover here, such as intervals, arithmetic, durations, rounding, and periods!
+
+.center[[Click me for a cheat sheet!](https://rstudio.com/resources/cheatsheets/)
+
+&lt;img src="lubridate.png" alt="" height="150"/&gt;]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
