@@ -527,7 +527,7 @@ class: inverse
 .sectionhead[Order Strings]
 ---
 
-# <TT>str_order()</TT>: get sorting vector for strings
+# <TT>str_order()</TT>: get sorting vector
 
 Options: `decreasing`, `na_last`, `numeric`
 
@@ -665,7 +665,7 @@ c(f_small_1, f_small_2)
 
 ---
 
-# <TT>fct_relevel()</TT>: manually relevel factors
+# <TT>fct_relevel()</TT>: manually relevel
 
 ```{r}
 f2
@@ -675,7 +675,7 @@ fct_relevel(f2, c("b", "d", "a"))
 
 ---
 
-# <TT>fct_relevel()</TT>: manually relevel factors
+# <TT>fct_relevel()</TT>: manually relevel
 
 ```{r}
 f2
@@ -728,7 +728,7 @@ fct_collapse(f2, x = c("a", "b"))
 
 ---
 
-# <TT>fct_other()</TT>: replace levels with "Other"
+# <TT>fct_other()</TT>: replace levels w/ "Other"
 
 
 ```{r}
