@@ -1357,7 +1357,7 @@ layout: true
 
 Create and transform variables from existing variables using `mutate()`. 
 
-Syntax follows `NEW_VAR_NAME = ...`.
+`mutate(NEW_VAR_NAME = ...)`.
 
 ---
 
@@ -1600,7 +1600,7 @@ gapminder %>%
 ---
 # <TT>rename()</TT>: ...renaming!
 
-`rename()` follows the syntax `rename(data, NEW_VAR_NAME = OLD_VAR_NAME)`
+`rename(data, NEW_VAR_NAME = OLD_VAR_NAME)`
 
 ```{r}
 gapminder %>%
