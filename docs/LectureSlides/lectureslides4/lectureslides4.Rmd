@@ -488,7 +488,7 @@ str_replace(strings, "[aeiou]", "y")
 
 ---
 
-# <TT>str_replace_all()</TT>: replace all matches
+# <TT>str_replace_all()</TT>: replace matches
 
 `str_replace_all(string, pattern, replacement)`
 
