@@ -535,7 +535,7 @@ Options: `decreasing`, `na_last`, `numeric`
 strings
 str_order(strings)
 strings[str_order(strings)]
-strings[str_order(strings, decreasing = FALSE)]
+strings[str_order(strings, decreasing = TRUE)]
 ```
 
 ---
