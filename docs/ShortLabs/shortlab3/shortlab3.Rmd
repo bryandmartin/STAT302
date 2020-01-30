@@ -56,6 +56,8 @@ Make sure to store the text as a variable.
 
 **3b.** Use `str_split()` to separate your string into words.
 
+(*Hint: you might get a list of length 1 that you have to convert to a vector. You could do this by using something like* `x <- unlist(x)` *or* `x <- x[[1]]`)
+
 **3c.** Use a combination of `table()` and `sort(..., decreasing = TRUE)` argument to get a count of the unique words in Shakespeare's complete works and print out the 10 most common words.
 
 ## Part 4. Factors
