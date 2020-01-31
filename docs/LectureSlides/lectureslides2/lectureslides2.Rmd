@@ -1109,7 +1109,7 @@ my_data[["var1"]]
 my_data[1]
 my_data[[1]]
 my_data[, 1]
-my_data[1,]
+my_data[1, ]
 ```
 
 
