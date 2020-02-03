@@ -22,6 +22,14 @@
   transform: translate(-50%, -50%);
 }
 
+.middler-nocent{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 95%;
+  transform: translate(-50%, -50%);
+}
+
 .pushdown{
   position: relative;
   top: 3em;

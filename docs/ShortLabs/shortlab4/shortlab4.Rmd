@@ -1,0 +1,81 @@
+---
+title: "Short Lab 4"
+author: "INSERT YOUR NAME HERE"
+date: "2/6/2020"
+output: html_document
+---
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+As usual, all code below should follow the style guidelines from the lecture slides.
+
+## Part 1. Course Feedback
+
+Please take a few minutes to provide thoughtful and constructive feedback for me and this course through the anonymous feedback form posted on Canvas. ([Link here, or available on the pinned Canvas discussion page.](https://canvas.uw.edu/courses/1358011/discussion_topics/5143524))
+
+Your opinions really do matter to me! It can be about my teaching, the content of the course, the labs, or anything. 
+I will read and respond to your feedback carefully.
+If I only know about your problems and concerns at the end of the quarter through the formal university teaching evaluation, it will be too late to adjust!
+
+Of course, I cannot grade you on this component of the short lab, nor will I know if you completed it. However, your feedback will be greatly appreciated.
+It will help improve the course for you and future generations of students.
+
+## Part 2. Probability and LaTeX
+
+For this section, you will need to use some LaTeX math within R Markdown. 
+To do so, surround your text by dollar signs `$`.
+I will post several examples in the raw .Rmd script for this lab online.
+Some commands you may find handy:
+
+* `\sim`: $\sim$
+* `^c`: $^c$, for example, $A^c$. In general use `^` for superset.
+* `_i`: $_i$, for example, $X_i$. In general use `_` for subset.
+* `\cap`, `\cup`: $\cap$, $\cup$
+* `\Omega`. `\sigma`, `\mu`, `\beta`, ...: $\Omega, \sigma, \mu, \beta, ...$
+* `\leq`, `\geq`, `\neq`: $\leq, \geq, \neq$
+* `\frac{a}{b}` and `\dfrac{a}{b}`: $\frac{a}{b}$ and $\dfrac{a}{b}$
+
+There are, of course, many many more commands you may find helpful. I *highly* encourage you to use Google when you want to to type something in LaTeX but you don't know how!
+
+**1a.** Write, in mathematic notation using LaTeX, "the probability of $A$ and $B$ conditional on $C$"
+
+**1b.** Write, in mathematic notation using LaTeX, "$X_i$ is Normally distributed with mean 0 and variance 1"
+
+**1c.** Write, in mathematic notation using LaTeX, "the expected value of $Y$ is two-thirds"
+
+## Part 3. Hypothesis Testing
+
+**2a.** Write the mathematical definition of a p-value, then explain it in words.
+
+**2b.** Write the mathematical definition of type 1 error, then explain it using your own words.
+
+**2c.** Write the mathematical definition of type 2 error, then explain it using your own words.
+
+I am interested in assessing the average height of students at UW. My scientific question of interest is whether the average student is *taller* than $66$ inches. I assume that heights are normally distributed with a standard deviation of $3$ inches.
+
+**3a.** What is my null hypothesis, mathematically and in words?
+
+**3b.** What is my alternative hypothesis, mathematically and in words?
+
+(*Hint: pay attention to my hypothesis, it is not two-sided!*)
+

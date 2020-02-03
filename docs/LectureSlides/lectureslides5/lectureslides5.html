@@ -14,7 +14,7 @@
 class: center, top, title-slide
 
 # STAT 302, Week 5
-## Hypothesis Testing and Statistical Models
+## Probability, Hypothesis Testing, and Statistical Models
 ### Bryan Martin
 ### Week of Feb 3, 2020
 
@@ -668,7 +668,247 @@ Note that we do **not** conclude that `\(H_0\)` is false, or that `\(H_a\)` is t
 
 ---
 layout: false
-# P-values, type 1 and type 2 error
+layout: true
+
+# P-values
+
+---
+
+We've already defined a p-value, without explicitly naming the term.
+
+.middler[**p-value:** probability of observing a result as or more extreme than what we observed, assuming the null hypothesis is true]
+
+---
+
+.middler-nocent[
+* Tells us whether our results/hypothesis is right or wrong?
+]
+
+---
+
+.middler-nocent[
+* ~~Tells us whether our results/hypothesis is right or wrong?~~
+]
+
+---
+
+.middler-nocent[
+* ~~Tells us whether our results/hypothesis is right or wrong?~~
+
+* Probability the null hypothesis is true?
+]
+
+---
+
+.middler-nocent[
+* ~~Tells us whether our results/hypothesis is right or wrong?~~
+
+* ~~Probability the null hypothesis is true?~~
+]
+
+---
+
+.middler-nocent[
+* ~~Tells us whether our results/hypothesis is right or wrong?~~
+
+* ~~Probability the null hypothesis is true?~~
+
+* Inverse probability of a publication?
+]
+
+---
+
+.middler-nocent[
+* ~~Tells us whether our results/hypothesis is right or wrong?~~
+
+* ~~Probability the null hypothesis is true?~~
+
+* ~~Inverse probability of a publication?~~
+]
+
+---
+
+.middler[**p-value:** probability of observing a result as or more extreme than what we observed, assuming the null hypothesis is true]
+
+---
+
+.middler[**p-value:** probability of observing a result &lt;u&gt;*as or more extreme*&lt;/u&gt; than what we observed, assuming the null hypothesis is true]
+
+
+---
+
+**p-value:** probability of observing a result &lt;u&gt;*as or more extreme*&lt;/u&gt; than what we observed, assuming the null hypothesis is true
+
+.center[&lt;img src="pval1.png" alt="" height="350"/&gt;]
+
+---
+
+.middler[**p-value:** probability of observing a result as or more extreme than what we observed, &lt;u&gt;*assuming the null hypothesis is true*&lt;/u&gt;]
+
+---
+
+**p-value:** probability of observing a result as or more extreme than what we observed, &lt;u&gt;*assuming the null hypothesis is true*&lt;/u&gt;
+
+.center[&lt;img src="pval2.png" alt="" height="350"/&gt;]
+
+---
+
+**p-value:** probability of observing a result as or more extreme than what we observed, assuming the null hypothesis is true
+
+**Premise:** If our results are extreme under the assumption of the null hypothesis, then perhaps our assumption is wrong
+
+That's it. Nothing more, nothing less, and every part of the definition is important.
+
+---
+layout: false
+
+# Why is 0.05 so special?
+
+---
+
+# Why is 0.05 so special?
+
+## It isn't. 
+
+A cut-off of 0.05 was deemed by racist and literal Nazi sympathizer Ronald Fisher in 1925 to indicate that "either there is something in the treatment, or a coincidence has occurred such as does not occur more than once in twenty trials."
+
+Academia has decided that this value is of critical importance for reasons that frustrate statisticians to this day.
+
+---
+layout: true
+
+# Type 1 error
+
+---
+
+.middler[## Why we should be cautious about small p-values]
+
+---
+
+.middler[## Why we should be cautious about small p-values]
+
+**Type 1 errors** are "false positives".
+
+We commit a type 1 error if we incorrectly reject the null hypothesis when the null hypothesis is actually true.
+
+---
+
+.middler[
+`\(\alpha = P(\text{reject} H_0 | H_0)\)`
+
+`\(1-\alpha = P(\text{don't reject} H_0 | H_0)\)`
+]
+
+---
+
+.middler[
+`\(.05 = P(\text{reject} H_0 | H_0)\)`
+
+`\(.95 = P(\text{don't reject} H_0 | H_0)\)`
+]
+
+---
+
+.center[&lt;img src="multipletesting.png" alt="" height="500"/&gt;]
+
+---
+layout: false
+
+.middler-nocent[
+* Why we should be cautious about small p-values
+]
+
+---
+
+.middler-nocent[
+* Why we should be cautious about small p-values
+
+* Why we should be cautious about large p-values
+]
+
+---
+layout: true
+
+# Type 2 Error
+---
+
+.middler[## Why we should be cautious about large p-values]
+
+---
+
+.middler[## Why we should be cautious about large p-values]
+
+**Type 2 errors** are "false negatives".
+
+We commit a type 2 error if we incorrectly fail to reject the null hypothesis when the null hypothesis is actually false.
+
+---
+
+.middler[
+`\(P(\text{fail to reject } H_0 | H_0 \text{ is false})\)`
+]
+
+---
+
+Type 2 error also gives us the concept of **power**, the probability of correctly rejecting the null.
+
+.middler[
+`\(\text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(type 2 error)\)`
+]
+
+---
+layout: false
+
+# Type 1 and 2 Errors
+
+.middler-nocent[
+* We can decrease the probability of a Type 2 errors by increasing our Type 1 error.
+  * Why?
+* We can decrease the probability of a Type 2 error *without sacrificing* Type 1 error by increasing our sample size.
+  * Why?
+]
+
+
+---
+
+# Type 1 and 2 Errors
+
+.middler[
+&lt;img src="errortable.png" alt="" height="500"/&gt;
+]
+
+---
+layout: true
+# Hypothesis Testing
+---
+
+.middler-nocent[
+* Why we should be cautious about small p-values
+
+* Why we should be cautious about large p-values
+]
+
+---
+
+.middler-nocent[
+* Why we should be cautious about small p-values
+
+* Why we should be cautious about large p-values
+]
+
+.middler[
+&lt;img src="oxy.gif" alt="" height="500"/&gt;
+]
+
+---
+
+.middler-nocent[
+* Why we should be cautious about small p-values
+
+* Why we should be cautious about large p-values
+
+* Why we should be cautious about medium p-values
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
