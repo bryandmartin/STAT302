@@ -48,8 +48,8 @@ I will post several examples in the raw .Rmd script for this lab online.
 Some commands you may find handy:
 
 * `\sim`: $\sim$
-* `^c`: $^c$, for example, $A^c$. In general use `^` for superset.
-* `_i`: $_i$, for example, $X_i$. In general use `_` for subset.
+* `^c`: $^c$, for example, $A^c$. In general use `^` for superscript.
+* `_i`: $_i$, for example, $X_i$. In general use `_` for subscript.
 * `\cap`, `\cup`: $\cap$, $\cup$
 * `\Omega`. `\sigma`, `\mu`, `\beta`, ...: $\Omega, \sigma, \mu, \beta, ...$
 * `\leq`, `\geq`, `\neq`: $\leq, \geq, \neq$
