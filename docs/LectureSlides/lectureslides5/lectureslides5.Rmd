@@ -834,7 +834,7 @@ $P(\text{fail to reject } H_0 | H_0 \text{ is false})$
 Type 2 error also gives us the concept of **power**, the probability of correctly rejecting the null.
 
 .middler[
-$\text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(type 2 error)$
+$\text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(\text{type 2 error})$
 ]
 
 ---
