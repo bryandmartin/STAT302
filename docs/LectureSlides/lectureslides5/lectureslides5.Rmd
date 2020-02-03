@@ -648,7 +648,7 @@ This is less than our pre-determined cut-off of 0.05, so we conclude that our re
 Note that we do **not** conclude that $H_0$ is false, or that $H_a$ is true! We only state our conclusion in terms of sufficient evidence to reject the null or insufficient evidence to reject the null!
 
 ---
-
+layout: false
 # P-values, type 1 and type 2 error
 
 
