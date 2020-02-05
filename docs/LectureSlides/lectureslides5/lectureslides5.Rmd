@@ -1204,7 +1204,7 @@ Given our response $Y$ and our predictors $X_1, \ldots, X_p$, a **linear regress
 
 ---
 
-# $\Huge \epsilon$: Error term
+# $\LARGE \epsilon$: Error term
 
 $\epsilon$, pronounced epsilon, represents the **error term** of our model.
 We can model $Y$ as a linear function of the $X$'s, but in the real world, the relationship won't always be perfect. There is noise! It can come from
@@ -1219,7 +1219,7 @@ In linear regression, we assume that this error term is normally distributed wit
 
 ---
 
-# $\Huge \beta_0$: Intercept
+# $\LARGE \beta_0$: Intercept
 
 $\beta_0$ is the **intercept term** of our model. Notice that 
 
@@ -1230,7 +1230,7 @@ This is also known as the y-intercept of our model.
 
 ---
 
-# $\Huge X_j$: Dependent variable
+# $\LARGE X_j$: Dependent variable
 
 $X_j$ represents the $j$<sup>th</sup> dependent variable in our model. Notice that 
 $$\large \mathbb{E}[Y|X_1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p$$
@@ -1242,7 +1242,7 @@ The conditional expectation of $Y$ increases by $\beta_j$!
 
 ---
 
-# $\Huge \beta_j$: Coefficient
+# $\LARGE \beta_j$: Coefficient
 
 $\beta_j$ represents the $j$<sup>th</sup> regression coefficient in our model.
 From the previous slide, we saw that for every 1 unit increase in $X_j$, holding all other variables constant, the expected value of the response increases by $\beta_j$.
