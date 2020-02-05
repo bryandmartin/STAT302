@@ -19,6 +19,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(comment = "##")
 knitr::opts_chunk$set(cache = TRUE)
 library(kableExtra)
+library(tidyverse)
 ```
 
 
@@ -28,7 +29,6 @@ library(kableExtra)
 2. Random Variables
 3. Hypothesis Testing
 4. Linear Models
-5. Generalized Linear Models (if time)
 
 .middler[**Goal:** Understand and learn how to apply statistical tests and models with real data!]
 
@@ -893,4 +893,625 @@ layout: true
 * Why we should be cautious about medium p-values
 ]
 
+---
+layout: true
 
+# Hypothesis Testing
+---
+
+
+There are many different types of hypothesis tests, but the most common tests have a very simple premise: take your **estimate**, compare it to your **null hypothesized value**, and weight the difference by the **standard error**.
+
+(Note: a standard error is just an estimate of the standard deviation)
+
+
+
+---
+
+## What does this look like?
+
+Let's say you are estimating the mean of some data, which you are calling $\mu$. 
+You are testing whether the mean is different than 10. Your **test statistic** is
+$$T=\dfrac{\hat{\mu}-10}{\text{se}(\hat{\mu})},$$
+Note: we put hats on our parameters to indicate our estimates of those parameters. 
+
+For example, $\mu$ is a parameter that represents some unknown population mean. $\hat{\mu}$ is our estimate of $\mu$, perhaps a sample mean of 11.2.
+
+---
+
+More generally, a common test statistic for an arbitrary parameter $\theta$ is
+$$T = \dfrac{\hat{\theta}-\theta_0}{\text{se}(\hat{\theta})},$$
+where $\theta_0$ is the hypothesized value of $\theta$ under $H_0$.
+
+We can also test multiple parameters at once (for example $H_0: \beta_1 = \beta_2 = 0$), but we will not go into the details in this course.
+
+---
+
+## Difference in Means
+
+We can also test for functions of our parameters. 
+For example, pretend we are interested in comparing the average height of two different species of trees.
+We denote the true average height of tree type 1 and 2 as $\mu_1$ and $\mu_2$, respectively.
+Our null hypothesis, as usual, is that there is no difference. Thus we set up our hypothesis test
+$$\begin{align*}
+H_0: \mu_1 &= \mu_2\\
+H_a: \mu_1 &\neq \mu_2
+\end{align*}$$
+
+Note that this is equivalent to 
+$$\begin{align*}
+H_0: \mu_1 - \mu_2 &= 0\\
+H_a: \mu_1 -\mu_2 &\neq 0
+\end{align*}$$
+
+Then one possibility for our test statistic is 
+$$T = \dfrac{\hat{\mu}_1 - \hat{\mu_2}-0}{\text{se}(\hat{\mu}_1 - \hat{\mu_2})}$$
+
+---
+
+## Bias
+
+**Bias:** The bias of an estimate is the expected difference between the estimate and the true value.
+$$\text{Bias}(\hat{\theta}) = \mathbb{E}(\hat{\theta}) - \theta$$
+
+Let's say we have $T$ from any of our examples above of the form 
+$$T = \dfrac{\hat{\theta}-\theta_0}{\text{se}(\hat{\theta})}.$$
+If our estimate is **unbiased**, that is, if 
+$$\mathbb{E}[\hat{\theta}]=\theta,$$
+what is $\mathbb{E}_{H_0}[T]$?
+
+--
+
+$0$! If our null hypothesis is true then $\theta = \theta_0$, and so the expectation of our numerator will be equal to $0$.
+
+---
+
+## We have a test statistic, now what?
+
+If we have a test statistic of the form
+$$T = \dfrac{\hat{\theta}-\theta_0}{\text{se}(\hat{\theta})},$$
+it is very common to model 
+$$T \stackrel{H_0}{\sim} N(0,1).$$
+We won't get into the reasons why in this course<sup>1</sup>.
+Modeling the test statistic with a standard normal distribution is sometimes called a **z-test**.
+
+This means that, *under the null hypothesis*, our test statistic is distributed $N(0,1).$
+
+.footnote[[1] Commonly, it is due to either the central limit theorem or properties of maximum likelihood estimators.]
+
+
+---
+
+$$T \stackrel{H_0}{\sim} N(0,1).$$
+
+What does the pdf of this distribution look like?
+
+.center[
+```{r, echo = FALSE, fig.height = 4}
+n01 <- ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1)) + ylab("") +
+  theme_bw(base_size = 20) + 
+  scale_y_continuous(expand = c(0, 0.005)) +
+  scale_x_continuous(expand = c(0, 0)) + 
+  labs(title = "N(0,1) Density Curve") +
+  theme(plot.title = element_text(hjust = 0.5))
+n01
+```
+]
+
+---
+
+$$T \stackrel{H_0}{\sim} N(0,1)$$
+
+What if we calculate a test statistic $T=1.64$?
+
+.center[
+```{r, echo = FALSE, message = FALSE, fig.height = 4}
+n02 <- n01 + geom_segment(x = 1.64, y = 0, xend = 1.64, yend = dnorm(1.64), 
+                   colour = "blue", linetype = "dotted", lwd = 1.3) +
+  scale_x_continuous(breaks = c(-3:1, 1.64, 2, 3), expand = c(0, 0),
+                     labels = c("-3", "-2", "-1", "0", "1", "T", "2", "3")) + 
+  theme(axis.text.x = element_text(color = c(rep("black", 5), "blue", "black", "black"))) +
+  theme(axis.ticks.x = element_line(color = c(rep("black", 5), "blue", "black", "black")))
+n02
+```
+]
+
+---
+
+If our test is
+
+$$\begin{align*}
+H_0: \theta &= \theta_0\\
+H_a: \theta &> \theta_0
+\end{align*}$$
+
+Then our p-value looks like
+
+.center[
+```{r, echo = FALSE, fig.height = 4}
+n03 <- n02 + stat_function(fun = dnorm, 
+                xlim = c(1.64, 3),
+                geom = "area",
+                fill = "lightblue") + 
+  geom_segment(x = 1.64, y = 0, xend = 1.64, yend = dnorm(1.64), 
+                   colour = "blue", linetype = "dotted", lwd = 1.3)
+n03
+```
+]
+
+---
+
+If our test is
+
+$$\begin{align*}
+H_0: \theta &= \theta_0\\
+H_a: \theta &\neq \theta_0
+\end{align*}$$
+
+Then our p-value looks like
+
+.center[
+```{r, echo = FALSE, message = FALSE, fig.height = 4}
+n03 + stat_function(fun = dnorm, 
+                xlim = c(-1.64, -3),
+                geom = "area",
+                fill = "lightblue") + 
+  geom_segment(x = -1.64, y = 0, xend = -1.64, yend = dnorm(-1.64), 
+                   colour = "blue", linetype = "dotted", lwd = 1.3) +
+  scale_x_continuous(breaks = c(-3, -2, -1.64, -1, 0 , 1, 1.64, 2, 3),
+                     expand = c(0, 0),
+                     labels = c("-3", "-2", "-T", "-1", "0", "1", "T", "2", "3")) + 
+  theme(axis.text.x = element_text(color = c(rep("black", 2), "blue",
+                                             rep("black", 3), "blue",
+                                             rep("black", 2)))) +
+  theme(axis.ticks.x = element_line(color = c(rep("black", 2), "blue",
+                                             rep("black", 3), "blue",
+                                             rep("black", 2))))
+```
+]
+
+---
+layout: false
+
+# t-tests
+
+Sometimes, instead of using a normal distribution to model our test statistic, we use a **t distribution**. Typically, this is done when the sample size is small (such as less than 30) or when we estimate our population standard deviation.
+
+A t distribution has heavier tails than a normal distribution, meaning the density is higher in the extreme regions away from the mean.
+Thus, using a t distribution is more conservative than using a normal distribution.
+
+*Why?*
+
+---
+
+# t-tests
+
+In the real world, we almost always estimate our population standard deviation. However, both t-tests and z-tests are commonly used.
+This is because as our sample size increases, the difference between a t-test and a z-test goes to $0$.
+In practice, we often have sample sizes large enough where there difference is marginal, and normal distributions are nicer to work with than t-distributions.
+
+.center[
+```{r, echo = FALSE, message = FALSE, fig.height = 4}
+myfac <- factor(c(2, 5, 10, 30), levels = c(2, 5, 10, 30))
+n01 + stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1), size = 1.2) +
+  stat_function(fun = dt, n = 101, args = list(df = 2), aes(color = myfac[1]), size = 1.1) +
+  stat_function(fun = dt, n = 101, args = list(df = 5), aes(color = myfac[2]), size = 1.1) +
+  stat_function(fun = dt, n = 101, args = list(df = 10), aes(color = myfac[3]), size = 1.1) +
+  stat_function(fun = dt, n = 101, args = list(df = 30), aes(color = myfac[4]), size = 1.1) +
+  scale_x_continuous(limits = c(-4, 4), expand = c(0, 0)) +
+  labs(title = "t distributions and N(0, 1)", color = "n") + 
+  scale_color_discrete(breaks = sort(myfac))
+```
+]
+
+---
+
+# <TT>t.test()</TT>: t-tests in R
+
+Conducting t-tests in R is very easy! Just use the function `t.test()`. 
+For a **two sample t-test** to compare the means of two samples, just provide the two samples in R. 
+Here I use randomly simulated data.
+This performs a test of the form:
+\[
+\begin{align}
+H_0: \mu_x &= \mu_y\\
+H_a: \mu_x &\neq  \mu_y 
+\]
+
+```{r}
+set.seed(302)
+x <- rnorm(10, mean = 0, sd = 1)
+y <- rnorm(10, mean = 1.5, sd = 1)
+t.test(x, y)
+```
+
+---
+
+Note that we can also test **one-sided** hypotheses:
+
+\[
+\begin{align}
+H_0: \mu_x &= \mu_y\\
+H_a: \mu_x &< \mu_y 
+\end{align}
+\]
+
+```{r}
+t.test(x, y, alternative = "less")
+```
+
+---
+
+# <TT>t.test()</TT>: t-tests in R
+
+We can also use a **one sample t-test** to compare the means of one sample to some hypothesized value.
+
+This performs a test of the form:
+\[
+\begin{align}
+H_0: \mu_x &= 0\\
+H_a: \mu_x &\neq 0
+\]
+
+```{r}
+t.test(x, mu = 0)
+```
+
+---
+class: inverse
+
+.sectionhead[Part 4. Linear Models]
+
+---
+
+# Regression
+
+Let's assume we have some data $X_1,\ldots,X_p, Y$ where $X_1,\ldots,X_p$ are $p$ **dependent variables/explanatory variables/covariates/predictors** and $Y$ is the **independent variables/response/outcome**.
+We want to know the relationship between our covariates and our response, we can do this with a method called **regression**.
+Regression provides us with a statistical method to conduct
+
+* **inference:** assess the relationship between our variables, our statistical model as a whole, predictor importance
+  * What is the relationship between sleep and GPA?
+  * Is parents' education or parents' income more important for explaining income?
+* **prediction:** predict new/future outcomes from new/future covariates
+  * Can we predict test scores based on hours spent studying?
+
+---
+layout: false
+
+# Linear Regression
+
+Given our response $Y$ and our predictors $X_1, \ldots, X_p$, a **linear regression model** takes the form:
+
+\\[
+\LARGE
+\begin{eqnarray}
+&Y &= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&\epsilon &\sim N(0,\sigma^2) 
+\end{eqnarray}
+\\]
+
+---
+
+# $\Huge \epsilon$: Error term
+
+$\epsilon$, pronounced epsilon, represents the **error term** of our model.
+We can model $Y$ as a linear function of the $X$'s, but in the real world, the relationship won't always be perfect. There is noise! It can come from
+
+* Measurement error in the $X$'s
+* Measurement error in the $Y$'s
+* Unobserved/missing variables in the model
+* Deviations in the true model from linearity
+* True randomness
+
+In linear regression, we assume that this error term is normally distributed with mean zero and variance $\sigma^2$.
+
+---
+
+# $\Huge \beta_0$: Intercept
+
+$\beta_0$ is the **intercept term** of our model. Notice that 
+
+$$\large \mathbb{E}[Y|X_1 = X_2 = \cdots = X_p = 0] = \beta_0$$
+
+Thus, $\beta_0$ is the expected value of our response if all the covariates are equal to $0$!
+This is also known as the y-intercept of our model.
+
+---
+
+# $\Huge X_j$: Dependent variable
+
+$X_j$ represents the $j$<sup>th</sup> dependent variable in our model. Notice that 
+$$\large \mathbb{E}[Y|X_1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p$$
+What happens to this expectation if we increase $X_j$ by 1 unit, holding everything else constant?
+
+--
+
+The conditional expectation of $Y$ increases by $\beta_j$!
+
+---
+
+# $\Huge \beta_j$: Coefficient
+
+$\beta_j$ represents the $j$<sup>th</sup> regression coefficient in our model.
+From the previous slide, we saw that for every 1 unit increase in $X_j$, holding all other variables constant, the expected value of the response increases by $\beta_j$.
+From this we can derive an interpretation.
+
+**Interpretation of $\beta_j$:** the expected difference in the response between two observations differing by one unit in $X_j$, with all other covariates identical.
+
+---
+
+# Linear Regression
+
+
+\\[
+\LARGE
+\begin{eqnarray}
+&Y &= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&\epsilon &\sim N(0,\sigma^2) 
+\end{eqnarray}
+\\]
+
+
+* $Y$: independent variable, outcome, response
+* $X_j$: dependent variable, covariate, predictor
+* $\beta_0$: Intercept
+* $\beta_j$: coefficient, the expected difference in the response between two observations differing by one unit in $X_j$, with all other covariates identical.
+* $\epsilon$: error, noise, with mean $0$ and variance $\sigma^2$
+
+---
+
+# <TT>lm():</TT> Linear Model
+
+We fit a linear regression model in R using `lm()`. 
+The first argument is a **formula**, which is a type of R object. 
+Formula's typically take the following form<sup>1</sup>: `Y ~ X_1 + X_2 + ... + X_p`.
+
+The independent variable, `Y` goes on the left-hand side of the tilde `~`, which marks the formula. 
+The dependent variables are added on the right-hand side.
+Using this formula will give us a model in the form of
+\\[
+\begin{eqnarray}
+&Y &= \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p + \epsilon,\\
+&\epsilon &\sim N(0,\sigma^2) 
+\end{eqnarray}
+\\]
+
+.footnote[[1] Strictly speaking, neither the independent variable nor the dependent variables are necessary to create a formula object.]
+
+
+---
+
+# <TT>lm():</TT> Linear Model
+
+```{r}
+data(mtcars)
+my_lm <- lm(mpg ~ hp + wt, data = mtcars)
+class(my_lm)
+my_lm
+```
+
+We can see from `names()` that `lm` objects contain a lot more than they print out by default.
+```{r}
+names(my_lm)
+```
+
+
+---
+
+# <TT>summary():</TT> Regression model summaries
+
+`summary()` gives us a summary of our `lm` object in R.
+
+* The quantiles of the residuals: hopefully, they match a normal distribution!
+* Coefficients, their standard errors, and their individual significances
+* (Adjusted) R-squared value: how much of the overall variability in the response is explained by the model?
+* F-statistic: hypothesis test for the significance of the overall model
+
+---
+
+# <TT>summary():</TT> Regression model summaries
+
+```{r}
+summary(my_lm)
+```
+
+
+---
+
+# <TT>plot():</TT> Regression model diagnostics
+
+
+Calling `plot(my_lm)` will return several diagnostic plots.
+Remember that we want our error term to look normally distributed with mean zero.
+Interpreting these is both a science and an art.
+We won't go into all the details for this class, but here are some tips:
+
+* **Residuals vs Fitted:** these are your errors (residuals) plotted over the predicted outcome (fitted). Errors should be random, so here you want to see randomly scattered points with no discernable pattern. You want the trend line to be approximately horizontal.
+* **Normal Q-Q plot:** These are the quantiles of your errors against the quantiles of a normal distribution. In theory, your errors should be normally distributed, so you are hoping that points are mostly along the 45-degree $y=x$ line.
+* **Scale-location:** This looks at the magnitude of standardized residuals over the predicted outcome. Similar interpretation as residuals vs fitted. This can make it slightly easier to identify undesireable patterns.
+* **Residuals vs leverage:** This can help identify highly influential points, such as outliers. If points are outside dotted red lines, then removing them would noticeably alter your results. *Never just remove outliers!* If it's real data, it's valid and removing it will bias your results. If it's clearly mis-entered data, fine. It is much more important to understand why outliers are there than to remove them.
+
+---
+
+# <TT>plot():</TT> Regression model diagnostics
+
+```{r, eval = FALSE}
+plot(my_lm)
+```
+
+.center[
+```{r, echo = FALSE}
+plot(my_lm, which = 1)
+```
+]
+
+---
+
+# <TT>plot():</TT> Regression model diagnostics
+
+```{r, eval = FALSE}
+plot(my_lm)
+```
+
+.center[
+```{r, echo = FALSE}
+plot(my_lm, which = 2)
+```
+]
+
+---
+
+# <TT>plot():</TT> Regression model diagnostics
+
+```{r, eval = FALSE}
+plot(my_lm)
+```
+
+.center[
+```{r, echo = FALSE}
+plot(my_lm, which = 3)
+```
+]
+---
+
+# <TT>plot():</TT> Regression model diagnostics
+
+```{r, eval = FALSE}
+plot(my_lm)
+```
+
+.center[
+```{r, echo = FALSE}
+plot(my_lm, which = 5)
+```
+]
+
+--- 
+
+# <TT>coef():</TT> Extract coefficients
+
+Use `coef()` to extract estimated coefficients as a vector.
+
+```{r}
+coef(my_lm)
+```
+
+---
+
+# <TT>fitted():</TT> Extract fitted values
+
+Use `fitted()` to extract the fitted/estimated values for the response. 
+This can be useful to compare how our fitted values compare to the estimated values to help assess model fit.
+
+```{r, fig.height = 3.5, eval = FALSE}
+mod_fits <- fitted(my_lm)
+my_df <- data.frame(actual = mtcars$mpg, fitted = mod_fits)
+ggplot(my_df, aes(x = fitted, y = actual)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
+  theme_bw(base_size = 15) +
+  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+.center[
+```{r, fig.height = 3.5, echo = FALSE}
+mod_fits <- fitted(my_lm)
+my_df <- data.frame(actual = mtcars$mpg, fitted = mod_fits)
+ggplot(my_df, aes(x = fitted, y = actual)) +
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, col = "red", lty = 2) + 
+  theme_bw(base_size = 15) +
+  labs(x = "Fitted values", y = "Actual values", title = "Actual vs. Fitted") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+]
+
+---
+
+# <TT>predict():</TT> Predict new outcomes
+
+Use `predict()` to predict new outcomes given new explanatory variables.
+For example, pretend we observe two new cars with horsepowers of `100` and `150`, respectively, and weights of `3000` and `3500`, respectively.
+
+```{r}
+# Note: wt is in 1000s of lbs!
+new_obs <- data.frame(hp = c(100, 150), wt = c(3, 3.5))
+predict(my_lm, new_obs)
+```
+
+We'll come back to prediction in future lectures!
+
+---
+layout: true
+
+# Formula Tools
+---
+
+## `- 1`
+
+Use `- 1` to remove an intercept from your model. Only do this if you are very sure that what you are doing is appropriate! I don't recommend doing this in practice.
+
+```{r}
+no_intercept <- lm(mpg ~ hp + wt - 1, data = mtcars)
+summary(no_intercept)
+```
+
+---
+
+## `:`
+
+Use `X1:X2` to include an interaction effect in your model. This is useful if you have reason to believe two covariates interact, such as gender and education in a wage model.
+In our case, we'll assume horsepower and weight interact in their effect on mpg.
+Note that by including an interaction effect, the marginal effects are automatically included!
+
+```{r}
+interact <- lm(mpg ~ hp:wt, data = mtcars)
+summary(interact)
+```
+
+---
+
+## `.`
+
+Use `~ .` to include all the dependent variables in your data set. 
+
+```{r}
+include_all <- lm(mpg ~ ., data = mtcars)
+summary(include_all)
+```
+
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Generalized Linear Models (briefly)]
+
+---
+
+# Generalized Linear Models
+
+Linear models are powerful, but they are not always appropriate! For example, we typically wouldn't want to model a binary outcome using a linear model, because the error term would not make sense in the context of a binary outcome.
+For this, we use **logistic regression**, which models the relationship
+$$
+\LARGE
+\log \dfrac{P(Y = 1|X)}{P(Y = 0|X)} = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p
+$$
+
+---
+
+# Generalized Linear Models
+
+Logistic regression is an example of a **generalized linear model**, which extend the linear model beyond the assumptions of linear models, such as iid normal errors. Other examples include:
+
+* Poisson regression
+* Binomial regression 
+* Beta regression
+* Gamma regression
+
+We model these using `glm()` in R, which also works with calls to `summary()`, `fitted()`, `predict()`, and other utility functions.
+Importantly, the interpretations of the coefficients is different when you use a generalized linear model!
