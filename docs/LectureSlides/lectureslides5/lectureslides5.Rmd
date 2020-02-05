@@ -1134,6 +1134,8 @@ t.test(x, y)
 
 ---
 
+# <TT>t.test()</TT>: t-tests in R
+
 Note that we can also test **one-sided** hypotheses:
 
 \\[
