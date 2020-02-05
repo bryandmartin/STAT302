@@ -42,14 +42,14 @@ Your function should have the following parameters:
 
 * `x` a numeric vector of data.
 * `alternative` a character string specifying the alternative hypothesis. This should only accept `"two.sided"`, `"less"`, or `"greater"`. Otherwise, your function should throw an informative error.
-* `mu` a number indicating the null hypothesis value of the mean
+* `mu` a number indicating the null hypothesis value of the mean.
 
 Your function should return a `list` with elements:
 
-* `test_stat`: the numeric test statistic
-* `df`: the degrees of freedom
-* `alternative`: the value of the parameter `alternative`
-* `p_val`: the numeric p-value
+* `test_stat`: the numeric test statistic.
+* `df`: the degrees of freedom.
+* `alternative`: the value of the parameter `alternative`.
+* `p_val`: the numeric p-value.
 
 You should use the following information:
 
@@ -64,8 +64,8 @@ Write a function `my_lm()` that fits a linear model in R. To prove it works, use
 
 Your function should have the following parameters:
 
-* `formula`: a `formula` class object, similar to `lm()`
-* `data`: input data frame
+* `formula`: a `formula` class object, similar to `lm()`.
+* `data`: input data frame.
 
 Your function should return a `table` similar to the coefficent table from `summary()` with rows for each coefficient (including the `(Intercept)`!) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. There should be row and column names.
 
@@ -79,18 +79,18 @@ $$
 \beta = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
 $$
 * Recall matrix operations `solve()`, `t()`, and `%*%`.
-* The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!)
+* The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!).
 * You can estimate $\sigma^2$ using the formula
 $$
 \hat{\sigma}^2 = \sum_i \dfrac{(Y_i - \mathbf{X}_i \beta)^2}{\text{df}}.
 $$
 * You can estimate the standard error for your coefficients using the formula
 $$
-se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}
+se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}.
 $$
-Note that within the brackets of the right-hand side is a matrix and $[i,i]$ represents the $i$<sup>th</sup> row and the $i$<sup>th</sup> column index. 
+Note that within the brackets of the right-hand side is a matrix and $[i,i]$ represents the element of the matrix located at the $i$<sup>th</sup> row and $i$<sup>th</sup> column indices. 
 * Use `diag()` to extract diagonal components from a matrix.
-* `Pr(>|t|)` comes from the two-sided t test that 
+* `Pr(>|t|)` comes from the two-sided t test.
 $$
 \begin{align}
 H_0: \beta_j &= 0\\

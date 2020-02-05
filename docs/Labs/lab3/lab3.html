@@ -398,14 +398,14 @@ h4.date {
 <ul>
 <li><code>x</code> a numeric vector of data.</li>
 <li><code>alternative</code> a character string specifying the alternative hypothesis. This should only accept <code>&quot;two.sided&quot;</code>, <code>&quot;less&quot;</code>, or <code>&quot;greater&quot;</code>. Otherwise, your function should throw an informative error.</li>
-<li><code>mu</code> a number indicating the null hypothesis value of the mean</li>
+<li><code>mu</code> a number indicating the null hypothesis value of the mean.</li>
 </ul>
 <p>Your function should return a <code>list</code> with elements:</p>
 <ul>
-<li><code>test_stat</code>: the numeric test statistic</li>
-<li><code>df</code>: the degrees of freedom</li>
-<li><code>alternative</code>: the value of the parameter <code>alternative</code></li>
-<li><code>p_val</code>: the numeric p-value</li>
+<li><code>test_stat</code>: the numeric test statistic.</li>
+<li><code>df</code>: the degrees of freedom.</li>
+<li><code>alternative</code>: the value of the parameter <code>alternative</code>.</li>
+<li><code>p_val</code>: the numeric p-value.</li>
 </ul>
 <p>You should use the following information:</p>
 <ul>
@@ -420,8 +420,8 @@ h4.date {
 <p>Write a function <code>my_lm()</code> that fits a linear model in R. To prove it works, use or simulate any data. Use this data to fit a linear model using both <code>my_lm()</code> and <code>lm()</code>. The results of <code>my_lm()</code> should match the coefficient table from the <code>summary</code> of your <code>lm()</code> output.</p>
 <p>Your function should have the following parameters:</p>
 <ul>
-<li><code>formula</code>: a <code>formula</code> class object, similar to <code>lm()</code></li>
-<li><code>data</code>: input data frame</li>
+<li><code>formula</code>: a <code>formula</code> class object, similar to <code>lm()</code>.</li>
+<li><code>data</code>: input data frame.</li>
 </ul>
 <p>Your function should return a <code>table</code> similar to the coefficent table from <code>summary()</code> with rows for each coefficient (including the <code>(Intercept)</code>!) and columns for the <code>Estimate</code>, <code>Std. Error</code>, <code>t value</code>, and <code>Pr(&gt;|t|)</code>. There should be row and column names.</p>
 <p>You should use the following information:</p>
@@ -433,15 +433,15 @@ h4.date {
 \beta = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
 \]</span></li>
 <li>Recall matrix operations <code>solve()</code>, <code>t()</code>, and <code>%*%</code>.</li>
-<li>The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!)</li>
+<li>The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!).</li>
 <li>You can estimate <span class="math inline">\(\sigma^2\)</span> using the formula <span class="math display">\[
 \hat{\sigma}^2 = \sum_i \dfrac{(Y_i - \mathbf{X}_i \beta)^2}{\text{df}}.
 \]</span></li>
 <li>You can estimate the standard error for your coefficients using the formula <span class="math display">\[
-se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}
-\]</span> Note that within the brackets of the right-hand side is a matrix and <span class="math inline">\([i,i]\)</span> represents the <span class="math inline">\(i\)</span><sup>th</sup> row and the <span class="math inline">\(i\)</span><sup>th</sup> column index.</li>
+se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}.
+\]</span> Note that within the brackets of the right-hand side is a matrix and <span class="math inline">\([i,i]\)</span> represents the element of the matrix located at the <span class="math inline">\(i\)</span><sup>th</sup> row and <span class="math inline">\(i\)</span><sup>th</sup> column indices.</li>
 <li>Use <code>diag()</code> to extract diagonal components from a matrix.</li>
-<li><code>Pr(&gt;|t|)</code> comes from the two-sided t test that <span class="math display">\[
+<li><code>Pr(&gt;|t|)</code> comes from the two-sided t test. <span class="math display">\[
 \begin{align}
 H_0: \beta_j &amp;= 0\\
 H_a: \beta_j &amp;\neq 0
