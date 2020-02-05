@@ -1534,7 +1534,7 @@ This will be helpful for Lab 3!
 ---
 class: inverse
 
-.sectionhead[Generalized Linear Models (briefly)]
+.sectionhead[Generalized Linear Models (very, very briefly)]
 
 ---
 
