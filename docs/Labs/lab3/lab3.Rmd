@@ -1,0 +1,101 @@
+---
+title: "Lab 3"
+author: "STAT 302"
+date: "2/10/2020"
+output: html_document
+---
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*If you collaborated with anyone, you must include "Collaborated with: FIRSTNAME LASTNAME" at the top of your lab!*
+
+## Part 1. t-test (10 points)
+
+Write a function `my_t.test()` that performs a one sample t-test in R. To prove it works, use or simulate any data. Use this data for a two-sided t-test using both `my_t.test()` and `t.test()`. The results should match. Do the same for a one-sided t-test.
+
+Your function should have the following parameters:
+
+* `x` a numeric vector of data.
+* `alternative` a character string specifying the alternative hypothesis. This should only accept `"two.sided"`, `"less"`, or `"greater"`. Otherwise, your function should throw an informative error.
+* `mu` a number indicating the null hypothesis value of the mean
+
+Your function should return a `list` with elements:
+
+* `test_stat`: the numeric test statistic
+* `df`: the degrees of freedom
+* `alternative`: the value of the parameter `alternative`
+* `p_val`: the numeric p-value
+
+You should use the following information:
+
+* To get the standard error in a one sample t-test, take the standard deviation (`sd()`) of your input and divide it by the square root of the sample size.
+* Use `pt()` to get the area under the curve for a t-distribution. Be sure to use the parameter `lower.tail`!
+* The degrees of freedom for this test (`df` within `pt()`) is equal to the sample size - 1.
+* The p-value should never be less than 0 or greater than 1.
+
+## Part 2. Linear model (10 points)
+
+Write a function `my_lm()` that fits a linear model in R. To prove it works, use or simulate any data. Use this data to fit a linear model using both `my_lm()` and `lm()`. The results of `my_lm()` should match the coefficient table from the `summary` of your `lm()` output.
+
+Your function should have the following parameters:
+
+* `formula`: a `formula` class object, similar to `lm()`
+* `data`: input data frame
+
+Your function should return a `table` similar to the coefficent table from `summary()` with rows for each coefficient (including the `(Intercept)`!) and columns for the `Estimate`, `Std. Error`, `t value`, and `Pr(>|t|)`. There should be row and column names.
+
+You should use the following information:
+
+* Use `model.matrix()` to extract the model matrix $\mathbf{X}$. It takes as input parameters a formula and data.
+* Use `model.response()` to extract the model response $\mathbf{Y}$. It takes as input a model form object.
+* Use `model.form()` to extract a model form object. It takes as input parameters a formula and data.
+* You can solve for linear regression coefficients using the formula 
+$$
+\beta = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
+$$
+* Recall matrix operations `solve()`, `t()`, and `%*%`.
+* The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!)
+* You can estimate $\sigma^2$ using the formula
+$$
+\hat{\sigma}^2 = \sum_i \dfrac{(Y_i - \mathbf{X}_i \beta)^2}{\text{df}}.
+$$
+* You can estimate the standard error for your coefficients using the formula
+$$
+se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}
+$$
+Note that within the brackets of the right-hand side is a matrix and $[i,i]$ represents the $i$<sup>th</sup> row and the $i$<sup>th</sup> column index. 
+Use `diag()` to extract diagonal components from a matrix.
+* `Pr(>|t|)` comes from the two-sided t test that 
+$$
+\begin{align}
+H_0: \beta_j &= 0\\
+H_a: \beta_j &\neq 0
+\end{align}
+$$
+* Use `pt()` to get the area under the curve for a t-distribution. Because the distribution is symmetric, you can multiply this value by $2$ to get the two-sided test output.
+

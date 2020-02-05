@@ -742,6 +742,10 @@ We've already defined a p-value, without explicitly naming the term.
 
 ---
 
+.middler[**p-value:** probability of observing a result as or more extreme than what we observed, assuming the null hypothesis is true]
+
+---
+
 .middler[**p-value:** probability of observing a result as or more extreme than what we observed, &lt;u&gt;*assuming the null hypothesis is true*&lt;/u&gt;]
 
 ---
@@ -795,17 +799,17 @@ We commit a type 1 error if we incorrectly reject the null hypothesis when the n
 ---
 
 .middler[
-`\(\alpha = P(\text{reject} H_0 | H_0)\)`
+`\(\LARGE \alpha = P(\text{reject } H_0 | H_0)\)`
 
-`\(1-\alpha = P(\text{don't reject} H_0 | H_0)\)`
+`\(\LARGE 1-\alpha = P(\text{don't reject } H_0 | H_0)\)`
 ]
 
 ---
 
 .middler[
-`\(.05 = P(\text{reject} H_0 | H_0)\)`
+`\(\LARGE .05 = P(\text{reject } H_0 | H_0)\)`
 
-`\(.95 = P(\text{don't reject} H_0 | H_0)\)`
+`\(\LARGE .95 = P(\text{don't reject } H_0 | H_0)\)`
 ]
 
 ---
@@ -846,7 +850,7 @@ We commit a type 2 error if we incorrectly fail to reject the null hypothesis wh
 ---
 
 .middler[
-`\(P(\text{fail to reject } H_0 | H_0 \text{ is false})\)`
+`\(\LARGE P(\text{fail to reject } H_0 | H_0 \text{ is false})\)`
 ]
 
 ---
@@ -854,7 +858,7 @@ We commit a type 2 error if we incorrectly fail to reject the null hypothesis wh
 Type 2 error also gives us the concept of **power**, the probability of correctly rejecting the null.
 
 .middler[
-`\(\text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(\text{type 2 error})\)`
+`\(\LARGE \text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(\text{type 2 error})\)`
 ]
 
 ---
@@ -1080,11 +1084,13 @@ Conducting t-tests in R is very easy! Just use the function `t.test()`.
 For a **two sample t-test** to compare the means of two samples, just provide the two samples in R. 
 Here I use randomly simulated data.
 This performs a test of the form:
-\[
+
+\\[
 `\begin{align}
 H_0: \mu_x &amp;= \mu_y\\
 H_a: \mu_x &amp;\neq  \mu_y 
-\]
+\end{align}`
+\\]
 
 
 ```r
@@ -1112,12 +1118,12 @@ t.test(x, y)
 
 Note that we can also test **one-sided** hypotheses:
 
-\[
+\\[
 `\begin{align}
 H_0: \mu_x &amp;= \mu_y\\
 H_a: \mu_x &amp;&lt; \mu_y 
 \end{align}`
-\]
+\\]
 
 
 ```r
@@ -1145,11 +1151,13 @@ t.test(x, y, alternative = "less")
 We can also use a **one sample t-test** to compare the means of one sample to some hypothesized value.
 
 This performs a test of the form:
-\[
+
+\\[
 `\begin{align}
 H_0: \mu_x &amp;= 0\\
 H_a: \mu_x &amp;\neq 0
-\]
+\end{align}`
+\\]
 
 
 ```r
@@ -1548,7 +1556,10 @@ summary(no_intercept)
 
 Use `X1:X2` to include an interaction effect in your model. This is useful if you have reason to believe two covariates interact, such as gender and education in a wage model.
 In our case, we'll assume horsepower and weight interact in their effect on mpg.
-Note that by including an interaction effect, the marginal effects are automatically included!
+
+Typically (always?), you if you include an interaction effect, you also want to include the marginal effects. You can do this automatically using `X1*X2`.
+
+---
 
 
 ```r
@@ -1579,9 +1590,40 @@ summary(interact)
 
 ---
 
+
+```r
+interact &lt;- lm(mpg ~ hp*wt, data = mtcars)
+summary(interact)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ hp * wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.0632 -1.6491 -0.7362  1.4211  4.5513 
+## 
+## Coefficients:
+##             Estimate Std. Error t value           Pr(&gt;|t|)    
+## (Intercept) 49.80842    3.60516  13.816 0.0000000000000501 ***
+## hp          -0.12010    0.02470  -4.863 0.0000403624302068 ***
+## wt          -8.21662    1.26971  -6.471 0.0000005199287280 ***
+## hp:wt        0.02785    0.00742   3.753           0.000811 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.153 on 28 degrees of freedom
+## Multiple R-squared:  0.8848,	Adjusted R-squared:  0.8724 
+## F-statistic: 71.66 on 3 and 28 DF,  p-value: 0.0000000000002981
+```
+
+---
+
 ## `.`
 
-Use `~ .` to include all the dependent variables in your data set. 
+Use `~ .` to include all non-response variables in the input data as dependent variables.
 
 
 ```r
@@ -1619,9 +1661,36 @@ summary(include_all)
 ## F-statistic: 13.93 on 10 and 21 DF,  p-value: 0.0000003793
 ```
 
-
 ---
 layout: false
+
+# Matrix Notation
+
+We can fully write out a linear regression model
+
+\\[
+`\begin{equation}
+\begin{bmatrix} y_1 \\ y_2\\ \vdots \\ y_n \end{bmatrix} = 
+\begin{bmatrix} 1 &amp; x_{1,1} &amp; \cdots &amp; x_{1,k}\\
+1 &amp; x_{2,1} &amp; \cdots &amp; x_{2, k}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_{n,1} &amp; \cdots &amp; x_{n, k}\end{bmatrix}
+\begin{bmatrix} \beta_0 \\ \beta_1 \\ \vdots \\ \beta_{k} \end{bmatrix} +
+\begin{bmatrix} \epsilon_1 \\ \epsilon_2 \\ \vdots \\ \epsilon_{n} \end{bmatrix}
+\end{equation}`
+\\]
+
+This can also be expressed in matrix form:
+
+`$$\mathbf{Y} = \mathbf{X}\beta + \epsilon$$`
+* `\(\mathbf{Y} \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the response
+* `\(\mathbf{X} \in \mathbb{R}^{n \times (k+1)}\)`: a `\(((k+1)\times n)\)` matrix of the predictors (including intercept)
+* `\(\beta \in \mathbb{R}^((k+1)\times 1)\)`: a `\((k+1)\)`-dimensional vector of regression parameters
+* `\(\epsilon \in \mathbb{R}^{n \times 1}\)`: an n-dimensional vector of the error term
+
+This will be helpful for Lab 3!
+
+---
 class: inverse
 
 .sectionhead[Generalized Linear Models (briefly)]
@@ -1630,7 +1699,7 @@ class: inverse
 
 # Generalized Linear Models
 
-Linear models are powerful, but they are not always appropriate! For example, we typically wouldn't want to model a binary outcome using a linear model, because the error term would not make sense in the context of a binary outcome.
+Linear models are powerful, but they are not always appropriate! For example, we typically wouldn't want to model a binary outcome using a linear model, because the noise term would not make sense in the context of a binary outcome.
 For this, we use **logistic regression**, which models the relationship
 $$
 \LARGE
