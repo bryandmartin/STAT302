@@ -439,7 +439,8 @@ h4.date {
 \]</span></li>
 <li>You can estimate the standard error for your coefficients using the formula <span class="math display">\[
 se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}
-\]</span> Note that within the brackets of the right-hand side is a matrix and <span class="math inline">\([i,i]\)</span> represents the <span class="math inline">\(i\)</span><sup>th</sup> row and the <span class="math inline">\(i\)</span><sup>th</sup> column index. Use <code>diag()</code> to extract diagonal components from a matrix.</li>
+\]</span> Note that within the brackets of the right-hand side is a matrix and <span class="math inline">\([i,i]\)</span> represents the <span class="math inline">\(i\)</span><sup>th</sup> row and the <span class="math inline">\(i\)</span><sup>th</sup> column index.</li>
+<li>Use <code>diag()</code> to extract diagonal components from a matrix.</li>
 <li><code>Pr(&gt;|t|)</code> comes from the two-sided t test that <span class="math display">\[
 \begin{align}
 H_0: \beta_j &amp;= 0\\

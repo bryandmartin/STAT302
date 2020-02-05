@@ -89,7 +89,7 @@ $$
 se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}
 $$
 Note that within the brackets of the right-hand side is a matrix and $[i,i]$ represents the $i$<sup>th</sup> row and the $i$<sup>th</sup> column index. 
-Use `diag()` to extract diagonal components from a matrix.
+* Use `diag()` to extract diagonal components from a matrix.
 * `Pr(>|t|)` comes from the two-sided t test that 
 $$
 \begin{align}
