@@ -840,7 +840,7 @@ $\LARGE P(\text{fail to reject } H_0 | H_0 \text{ is false})$
 Type 2 error also gives us the concept of **power**, the probability of correctly rejecting the null.
 
 .middler[
-$\LARGE \text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(\text{type 2 error})$
+$\Large \text{Power} = P(\text{reject } H_0 | H_0 \text{ is false}) = 1 - P(\text{type 2 error})$
 ]
 
 ---
@@ -1321,7 +1321,7 @@ names(my_lm)
 
 ---
 
-# <TT>summary():</TT> Regression model summaries
+# <TT>summary():</TT> Model summaries
 
 ```{r}
 summary(my_lm)
