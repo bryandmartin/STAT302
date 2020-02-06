@@ -1230,9 +1230,9 @@ This is also known as the y-intercept of our model.
 
 ---
 
-# $\large X_j$: Dependent variable
+# $\large X_j$: Independent variable
 
-$X_j$ represents the $j$<sup>th</sup> dependent variable in our model. Notice that 
+$X_j$ represents the $j$<sup>th</sup> independent variable in our model. Notice that 
 $$\large \mathbb{E}[Y|X_1,\ldots, X_p] = \beta_0 + \beta_1 X_1 + \cdots + \beta_p X_p$$
 What happens to this expectation if we increase $X_j$ by 1 unit, holding everything else constant?
 
@@ -1264,8 +1264,8 @@ From this we can derive an interpretation.
 \\]
 
 
-* $Y$: independent variable, outcome, response
-* $X_j$: dependent variable, covariate, predictor
+* $Y$: dependent variable, outcome, response
+* $X_j$: independent variable, covariate, predictor
 * $\beta_0$: Intercept
 * $\beta_j$: coefficient, the expected difference in the response between two observations differing by one unit in $X_j$, with all other covariates identical.
 * $\epsilon$: error, noise, with mean $0$ and variance $\sigma^2$
@@ -1278,8 +1278,8 @@ We fit a linear regression model in R using `lm()`.
 The first argument is a **formula**, which is a type of R object. 
 Formula's typically take the following form<sup>1</sup>: `Y ~ X_1 + X_2 + ... + X_p`.
 
-The independent variable, `Y` goes on the left-hand side of the tilde `~`, which marks the formula. 
-The dependent variables are added on the right-hand side.
+The dependent variable, `Y` goes on the left-hand side of the tilde `~`, which marks the formula. 
+The independent variables are added on the right-hand side.
 Using this formula will give us a model in the form of
 \\[
 \begin{eqnarray}
@@ -1288,7 +1288,7 @@ Using this formula will give us a model in the form of
 \end{eqnarray}
 \\]
 
-.footnote[[1] Strictly speaking, neither the independent variable nor the dependent variables are necessary to create a formula object.]
+.footnote[[1] Strictly speaking, neither the dependent variable nor the independent variables are necessary to create a formula object.]
 
 
 ---
@@ -1497,7 +1497,7 @@ summary(interact)
 
 ## `.`
 
-Use `~ .` to include all non-response variables in the input data as dependent variables.
+Use `~ .` to include all non-response variables in the input data as independent variables.
 
 ```{r}
 include_all <- lm(mpg ~ ., data = mtcars)
@@ -1525,10 +1525,15 @@ We can fully write out a linear regression model
 
 This can also be expressed in matrix form:
 
-$$\mathbf{Y} = \mathbf{X}\beta + \epsilon$$
+\\[
+\begin{align}
+\mathbf{Y} &= \mathbf{X}\beta + \epsilon,\\
+\epsilon&\sim N(0,1)
+\end{align}
+\\]
 * $\mathbf{Y} \in \mathbb{R}^{n \times 1}$: an n-dimensional vector of the response
 * $\mathbf{X} \in \mathbb{R}^{n \times (k+1)}$: a $((k+1)\times n)$ matrix of the predictors (including intercept)
-* $\beta \in \mathbb{R}^((k+1)\times 1)$: a $(k+1)$-dimensional vector of regression parameters
+* $\beta \in \mathbb{R}^{((k+1)\times 1)}$: a $(k+1)$-dimensional vector of regression parameters
 * $\epsilon \in \mathbb{R}^{n \times 1}$: an n-dimensional vector of the error term
 
 This will be helpful for Lab 3!
