@@ -74,7 +74,7 @@ Your function should return a `table` similar to the coefficent table from `summ
 You should use the following information:
 
 * Use `model.matrix()` to extract the model matrix $\mathbf{X}$. It takes as input parameters a formula and data.
-* Use `model.response()` to extract the model response $\mathbf{Y}$. It takes as input a model form object.
+* Use `model.response()` to extract the model response $\mathbf{Y}$. It takes as input a model frame object.
 * Use `model.frame()` to extract a model frame object. It takes as input parameters a formula and data.
 * You can solve for linear regression coefficients using the formula 
 $$
