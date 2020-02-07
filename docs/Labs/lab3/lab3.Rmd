@@ -73,7 +73,7 @@ You should use the following information:
 
 * Use `model.matrix()` to extract the model matrix $\mathbf{X}$. It takes as input parameters a formula and data.
 * Use `model.response()` to extract the model response $\mathbf{Y}$. It takes as input a model form object.
-* Use `model.form()` to extract a model form object. It takes as input parameters a formula and data.
+* Use `model.frame()` to extract a model frame object. It takes as input parameters a formula and data.
 * You can solve for linear regression coefficients using the formula 
 $$
 \hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
