@@ -414,6 +414,7 @@ h4.date {
 <li>The degrees of freedom for this test (<code>df</code> within <code>pt()</code>) is equal to the sample size - 1.</li>
 <li>The p-value should never be less than 0 or greater than 1.</li>
 </ul>
+<p>(<em>Hint: Be careful about whether you use <code>lower.tail = TRUE</code> or <code>lower.tail = FALSE</code> in the two-sided test! One safe option is to use <code>lower.tail = FALSE</code> with the absolute value (<code>abs()</code>) of your test statistic.</em>)</p>
 </div>
 <div id="part-2.-linear-model-10-points" class="section level2">
 <h2>Part 2. Linear model (10 points)</h2>
@@ -449,6 +450,7 @@ H_a: \beta_j &amp;\neq 0
 \]</span></li>
 <li>Use <code>pt()</code> to get the area under the curve for a t-distribution. Because the distribution is symmetric, you can multiply this value by <span class="math inline">\(2\)</span> to get the two-sided test output.</li>
 </ul>
+<p>(<em>Hint: As before, be careful about whether you use <code>lower.tail = TRUE</code> or <code>lower.tail = FALSE</code>! One safe option is to use <code>lower.tail = FALSE</code> with the absolute value (<code>abs()</code>) of your test statistic. Make sure you never end up with a p-value greater than 1!</em>)</p>
 </div>
 
 

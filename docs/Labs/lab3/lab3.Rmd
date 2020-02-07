@@ -58,6 +58,8 @@ You should use the following information:
 * The degrees of freedom for this test (`df` within `pt()`) is equal to the sample size - 1.
 * The p-value should never be less than 0 or greater than 1.
 
+(*Hint: Be careful about whether you use `lower.tail = TRUE` or `lower.tail = FALSE` in the two-sided test! One safe option is to use `lower.tail = FALSE` with the absolute value (`abs()`) of your test statistic.*)
+
 ## Part 2. Linear model (10 points)
 
 Write a function `my_lm()` that fits a linear model in R. To prove it works, use or simulate any data. Use this data to fit a linear model using both `my_lm()` and `lm()`. The results of `my_lm()` should match the coefficient table from the `summary` of your `lm()` output.
@@ -97,5 +99,8 @@ H_0: \beta_j &= 0\\
 H_a: \beta_j &\neq 0
 \end{align}
 $$
-* Use `pt()` to get the area under the curve for a t-distribution. Because the distribution is symmetric, you can multiply this value by $2$ to get the two-sided test output.
+* Use `pt()` to get the area under the curve for a t-distribution. Because the distribution is symmetric, you can multiply this value by $2$ to get the two-sided test output. 
+
+(*Hint: As before, be careful about whether you use `lower.tail = TRUE` or `lower.tail = FALSE`! One safe option is to use `lower.tail = FALSE` with the absolute value (`abs()`) of your test statistic. Make sure you never end up with a p-value greater than 1!*)
+
 
