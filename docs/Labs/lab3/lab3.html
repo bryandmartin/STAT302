@@ -430,7 +430,7 @@ h4.date {
 <li>Use <code>model.response()</code> to extract the model response <span class="math inline">\(\mathbf{Y}\)</span>. It takes as input a model form object.</li>
 <li>Use <code>model.form()</code> to extract a model form object. It takes as input parameters a formula and data.</li>
 <li>You can solve for linear regression coefficients using the formula <span class="math display">\[
-\beta = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
+\hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
 \]</span></li>
 <li>Recall matrix operations <code>solve()</code>, <code>t()</code>, and <code>%*%</code>.</li>
 <li>The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!).</li>
@@ -438,8 +438,8 @@ h4.date {
 \hat{\sigma}^2 = \sum_i \dfrac{(Y_i - \mathbf{X}_i \beta)^2}{\text{df}}.
 \]</span></li>
 <li>You can estimate the standard error for your coefficients using the formula <span class="math display">\[
-se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}.
-\]</span> Note that within the brackets of the right-hand side is a matrix and <span class="math inline">\([i,i]\)</span> represents the element of the matrix located at the <span class="math inline">\(i\)</span><sup>th</sup> row and <span class="math inline">\(i\)</span><sup>th</sup> column indices.</li>
+se(\hat{\beta}_j) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[j,j]}.
+\]</span> Note that within the brackets of the right-hand side is a matrix and <span class="math inline">\([j,j]\)</span> represents the element of the matrix located at the <span class="math inline">\(j\)</span><sup>th</sup> row and <span class="math inline">\(j\)</span><sup>th</sup> column indices.</li>
 <li>Use <code>diag()</code> to extract diagonal components from a matrix.</li>
 <li><code>Pr(&gt;|t|)</code> comes from the two-sided t test. <span class="math display">\[
 \begin{align}

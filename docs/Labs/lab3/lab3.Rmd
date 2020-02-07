@@ -76,7 +76,7 @@ You should use the following information:
 * Use `model.form()` to extract a model form object. It takes as input parameters a formula and data.
 * You can solve for linear regression coefficients using the formula 
 $$
-\beta = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
+\hat{\beta} = (\mathbf{X}^T\mathbf{X})^{-1} \mathbf{X}^T\mathbf{Y}.
 $$
 * Recall matrix operations `solve()`, `t()`, and `%*%`.
 * The degrees of freedom (df) you should use for your tests are equal to your sample size minus the number of covariates (including intercept!).
@@ -86,9 +86,9 @@ $$
 $$
 * You can estimate the standard error for your coefficients using the formula
 $$
-se(\hat{\beta}_i) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[i,i]}.
+se(\hat{\beta}_j) = \left[\sqrt{\hat{\sigma}^2(\mathbf{X}^T\mathbf{X})^{-1}}\right]_{[j,j]}.
 $$
-Note that within the brackets of the right-hand side is a matrix and $[i,i]$ represents the element of the matrix located at the $i$<sup>th</sup> row and $i$<sup>th</sup> column indices. 
+Note that within the brackets of the right-hand side is a matrix and $[j,j]$ represents the element of the matrix located at the $j$<sup>th</sup> row and $j$<sup>th</sup> column indices. 
 * Use `diag()` to extract diagonal components from a matrix.
 * `Pr(>|t|)` comes from the two-sided t test.
 $$
