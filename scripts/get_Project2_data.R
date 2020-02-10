@@ -58,6 +58,7 @@ idea_90 <- read_csv("../Data/HS090_members.csv") %>%
 # Members' Votes
 votes_90 <- read_csv("../Data/HS090_votes.csv") %>% 
   filter(chamber == "House") %>%
+  filter(icpsr != 99903) %>%
   mutate(vote = recode(cast_code,
                        `1` = 1, `2` = 1, `3` = 1,
                        `4` = -1, `5` = -1, `6` = -1,
@@ -83,6 +84,7 @@ idea_90 <- read_csv("../Data/HS090_members.csv") %>%
 # Members' Votes
 votes_90 <- read_csv("../Data/HS090_votes.csv") %>% 
   filter(chamber == "Senate") %>%
+  filter(icpsr != 99903) %>%
   mutate(vote = recode(cast_code,
                        `1` = 1, `2` = 1, `3` = 1,
                        `4` = -1, `5` = -1, `6` = -1,
