@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302, Week 6</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bryan Martin" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, top, title-slide
+
+# STAT 302, Week 6
+## Singular Value Decomposition
+### Bryan Martin
+### Week of Feb 10, 2020
+
+---
+
+
+
+
+
+# Outline
+
+1. Singular Value Decomposition (SVD)
+2. Dimension Reduction
+2. Image Analysis
+3. Cluster Analysis
+4. Project 2
+
+.middler[**Goal:** Learn how to interpret and use the SVD in practice! (Project 2)]
+
+---
+class: inverse
+
+.sectionhead[Part 1. Singular Value Decomposition (SVD)]
+
+---
+layout: true
+
+# SVD
+
+---
+
+## Motivation
+
+Often times, we are interested in identifying patterns or other interesting information in *high-dimensional* data, as is often done in clustering. Or we want to preserve the inherent structure in our data while reducing the complexity and size, such as image compression. Other times, we may want to assess variable importance. SVD provides a powerful tool to do all of these things, and more!
+
+* Image compression
+* De-noising
+* Clustering / pattern detection
+* Variable selection
+* Recommendation systems
+
+--
+
+.middler[&lt;img src="magic.gif" alt="" height="450"/&gt;]
+
+---
+
+## Definition
+
+A **singular value decomposition**, or **SVD**, is a decomposition (obviously). It is not a function or transformation! 
+
+`$$\mathbf{X} = \mathbf{U} \mathbf{D} \mathbf{V}^T$$`
+
+* **Input:** Any `\(n \times p\)` matrix `\(\mathbf{X}\)`
+* **Output:**
+  * `\(\mathbf{U}\)`: `\(n \times n\)` orthogonal&lt;sup&gt;[1]&lt;/sup&gt; matrix
+  * `\(\mathbf{D}\)`: `\(n \times p\)` matrix
+  * `\(\mathbf{V}\)`: `\(p \times p\)` orthogonal matrix
+
+Note that `\(\mathbf{U}\)`, `\(\mathbf{D}\)`, and `\(\mathbf{V}\)` are all **unique**!
+
+While this definition of SVD is true for all matrices, in practice, we almost always encounter the SVD in *reduced form*.
+
+$$\ $$
+
+[1] A matrix `\(\mathbf{A}\)` is orthogonal if `\(\mathbf{A}^T\mathbf{A}=\mathbf{A}\mathbf{A}^T = \mathbf{I}\)`, where `\(\mathbf{I}\)` is the identity matrix.
+
+---
+layout: false
+
+# Tall Matrix - Full SVD
+
+.middler[&lt;img src="tall_full.png" alt="" height="300"/&gt;]
+
+---
+
+# Tall Matrix - Reduced SVD
+
+.middler[&lt;img src="tall_red.png" alt="" height="300"/&gt;]
+
+---
+
+# Wide Matrix - Full SVD
+
+.middler[&lt;img src="wide_full.png" alt="" height="300"/&gt;]
+
+---
+
+# Wide Matrix - Reduced SVD
+
+.middler[&lt;img src="wide_red.png" alt="" height="220"/&gt;]
+
+
+
+
+---
+# Components of SVD
+
+.center[&lt;img src="tall_red.png" alt="" height="180"/&gt;]
+
+* `\(\mathbf{U}\)`: left singular vectors, `\(\mathbf{u}\)`
+  * Interpretation: map our `\(n\)` observations to `\(p\)` "concepts"
+* `\(\mathbf{D}\)`: singular values, `\(\sigma\)`
+  * Interpretation: strengths of each "concept"
+* `\(\mathbf{V}\)`: right singular vectors, `\(\mathbf{v}\)`
+  * Interpretation: map our `\(p\)` variables to `\(p\)` "concepts"
+
+
+---
+
+# Matrix Rank
+
+The **rank** of a matrix is equal to
+
+* the maximum number of **linearly independent** row vectors in the matrix
+* the maximum number of **linearly independent** column vectors in the matrix
+
+These definitions are equivalent.
+
+Note that for a matrix `\(\mathbf{X}\in \mathbb{R}^{n \times p}\)`, the maximum possible 
+`\(\text{rank}(\mathbf{X}) = \text{min(n,p)}\)`. If `\(\mathbf{X}\)` has this rank, it is called a **full rank** matrix.
+
+---
+
+# Rank-k Approximation
+
+Among the most useful properties of the SVD is that it provides us with a method to calculate the *optimal*&lt;sup&gt;[1]&lt;/sup&gt; rank `\(k\)` approximation to a matrix `\(\mathbf{X}\)`.
+
+\\[
+`\begin{equation}
+\tilde{\mathbf{X}}_k =\tilde{\mathbf{U}}_k\tilde{\mathbf{D}}_k\tilde{\mathbf{V}}_k^T = \sum_{i=1}^{k} \sigma_i \mathbf{u}_i\mathbf{v}_i^T
+\end{equation}`
+\\]
+
+* `\(\tilde{\mathbf{X}}_k\)`: best rank `\(k\)` approximation to `\(\mathbf{X}\)`
+* `\(\tilde{\mathbf{U}}_k\)`: first `\(k\)` singular vectors (columns) of `\(\mathbf{U}\)`
+* `\(\tilde{\mathbf{D}}_k\)`: leading `\(k\times k\)` sub-block of `\(\mathbf{D}\)`
+* `\(\tilde{\mathbf{V}}_k^T\)`: first `\(k\)` singular vectors (rows) of `\(\mathbf{V}^T\)` 
+
+Note that we can also write out this approximation by summing up the product first `\(k\)` singular values and singular vectors
+
+
+.footnote[[1] Optimal in the L&lt;sub&gt;2&lt;/sub&gt; sense. Not important for this class, but happy to talk about what this means in more detail if you are curious.]
+
+
+---
+
+layout: true
+
+# Interpretation - Movie Ratings
+
+---
+
+.middler[&lt;img src="movies.png" alt="" height="300"/&gt;]
+
+.footnote[Thanks to [Mining of Massive Datasets, Chapter 11](http://www.mmds.org/) for this motivating data]
+
+---
+
+.middler[&lt;img src="movie_svd.png" alt="" height="400"/&gt;]
+
+---
+
+## `\(\mathbf{U}\)` as "user-to-concept"
+
+.center[&lt;img src="movie_u.png" alt="" height="400"/&gt;]
+
+.footnote[Note: Sign of the values aren't super important, except in how they contrast within singular vector. Focus on the magnitudes.]
+
+---
+
+## `\(\mathbf{D}\)` as "strength of concept"
+
+.center[&lt;img src="movie_d.png" alt="" height="400"/&gt;]
+
+---
+
+## `\(\mathbf{V}^T\)` as "movie-to-concept"
+
+.center[&lt;img src="movie_v.png" alt="" height="400"/&gt;]
+
+.footnote[Note: Sign of the values aren't super important, except in how they contrast within singular vector. Focus on the magnitudes.]
+
+---
+layout: false
+
+# A note on "concepts"
+
+The concepts we are discussing are not objective. 
+There is no "truth" inherent in our concepts of sci-fi and romance.
+Even in this contrived and simplified example, we are reducing the movies to core ideas or genres that we are calling concepts.
+In the real world these concepts are not so clear, we can only intuit them in so far as our data allows. 
+
+For example, in our case without any previous knowledge, we might see from `\(\mathbf{V}^T\)` that Matrix, Alien, and Star Wars are all closely related to something that Casablanca and Titanic are not. 
+This gives us a concept of Sci-fi!
+Likewise, we could do the same to "derive" our concept of romance.
+
+After all, what's that third concept supposed to be?
+
+---
+class: inverse
+
+.sectionhead[Part 2. Dimension Reduction]
+
+---
+layout: true
+
+# Dimension Reduction
+---
+
+Maybe we think our third concept is just noise, what can we do?
+
+Set it equal to `\(0\)`!
+
+.center[&lt;img src="dimred1.png" alt="" height="300"/&gt;]
+
+---
+
+Maybe we think our third concept is just noise, what can we do?
+
+Set it equal to `\(0\)`!
+
+.center[&lt;img src="dimred2.png" alt="" height="346"/&gt;]
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

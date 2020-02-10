@@ -1,5 +1,6 @@
 library(tidyverse)
 # Data from voteview.com/data
+# Read in Member Ideology and Members' Votes data, keep default names
 
 # Member Ideology
 idea_116 <- read_csv("../Data/HS116_members.csv") %>%
