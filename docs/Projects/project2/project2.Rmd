@@ -39,6 +39,7 @@ Exceptional projects will examine the data in multiple different ways in order t
 * How does partisanship compare in the 90th Congress vs. the 116th Congress?
 * Does partisanship vary by age? By state? By region?
 * Who are the most "extreme" partisans in Congress?
+* How does California compare to Alabama?
 
 
 Your projects will be evaluated on the quality of your analyses.
@@ -62,7 +63,7 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
   * 90th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_90_raw.csv"
   * 116th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/house_116_raw.csv"
   * 116th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_116_raw.csv"
-* In your visualizations, consider using color to distinguish between concepts such as political party.
+* In your visualizations, consider using color to distinguish between groups where appropriate, such as blue for Democrats and red for Republicans.
 
 
 ### Requirements
