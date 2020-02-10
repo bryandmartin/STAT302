@@ -28,9 +28,9 @@ class: center, top, title-slide
 
 1. Singular Value Decomposition (SVD)
 2. Dimension Reduction
-2. Image Analysis
-3. Cluster Analysis
-4. Project 2
+3. Image Analysis
+4. Cluster Analysis
+5. Project 2
 
 .middler[**Goal:** Learn how to interpret and use the SVD in practice! (Project 2)]
 
@@ -240,6 +240,386 @@ Set it equal to `\(0\)`!
 .center[&lt;img src="dimred2.png" alt="" height="346"/&gt;]
 
 ---
+
+Maybe we think our third concept is just noise, what can we do?
+
+Set it equal to `\(0\)`!
+
+.center[&lt;img src="dimred3.png" alt="" height="300"/&gt;]
+
+---
+
+Maybe we think our third concept is just noise, what can we do?
+
+Set it equal to `\(0\)`!
+
+.center[&lt;img src="dimred4.png" alt="" height="300"/&gt;]
+
+---
+layout: false
+
+# Recommendation System
+
+What if we have rankings for a new user, and we want to make an educated guess about what genres they prefer for recommendations?
+
+.center[&lt;img src="rec1.png" alt="" height="300"/&gt;]
+
+Note: We can use a similar procedure multiplying several users' ratings of a new movie by `\(\mathbf{U}\)` users-to-concepts vectors in order to put movies into certain genres!
+
+---
+class: inverse
+
+.sectionhead[Part 3. Image Analysis]
+
+---
+layout: true
+
+# Image Analysis
+
+---
+
+We'll use the package `jpeg` for this section. There are other options for handling images in R, I encourage you to Google them if you end up working with images!
+
+
+```r
+library(jpeg)
+
+# Load my image
+tmp &lt;- "https://raw.githubusercontent.com/bryandmartin/STAT302/master/images/cameraman.jpg"
+
+# Read image into R
+img &lt;- readJPEG(readBin(tmp, "raw",1e6))
+dim(img)
+```
+
+```
+## [1] 256 256
+```
+
+```r
+img[1:5, 1:5]
+```
+
+```
+##           [,1]      [,2]      [,3]      [,4]      [,5]
+## [1,] 0.6196078 0.6156863 0.6196078 0.6078431 0.6196078
+## [2,] 0.6196078 0.6156863 0.6196078 0.6117647 0.6196078
+## [3,] 0.6156863 0.6117647 0.6156863 0.6117647 0.6196078
+## [4,] 0.6117647 0.6117647 0.6156863 0.6156863 0.6196078
+## [5,] 0.6117647 0.6117647 0.6117647 0.6235294 0.6196078
+```
+
+---
+
+Note my image is `\(256 \times 256\)` pixels because it is grayscale. Thus, it is just a matrix! The values in the matrix represent the intensity (darkness) of the grayscale.
+
+If I had loaded a color version of this image, it would have been an array of size `\(256 \times 256 \times 3\)`, with one channel for red, blue, and green colors.
+
+---
+
+Here I create a function to display an image. Don't worry too much about the details. It is mostly just initializing an empty plot as a place to display my image.
+
+
+```r
+img_plot &lt;- function(img, ...) {
+  # type = 'n' plots empty points
+  # labels are empty using xlab and ylab
+  # xaxt and yaxt remove the ticks
+  # `...` allows me to set arbitrary graph parameters, like main
+  plot(1:2, type = "n", xlab = " ", ylab = " ", xaxt = "n", yaxt = "n", ...)
+  rasterImage(img, 1.0, 1.0, 2.0, 2.0)
+}
+```
+
+
+---
+
+
+
+```r
+img_plot(img, main = "Cameraman")
+```
+
+.center[
+![](lectureslides6_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+---
+
+First we create a function to generate the best rank `\(k\)` approximation of any matrix `\(A\)`.
+
+
+```r
+SVD_approx &lt;- function(A, k) {
+  # Generate components of SVD
+  a_svd &lt;- svd(A)
+  sing_vals &lt;- a_svd$d
+  U &lt;- a_svd$u
+  V &lt;- a_svd$v
+  # Turn singular values into diagonal matrix. Be careful if k = 1!
+  if (k == 1) {
+    D &lt;- matrix(sing_vals[1], nrow = 1, ncol = 1)
+  } else {
+    D &lt;- diag(sing_vals[1:k])
+  }
+  # Calculate best rank-k approximation
+  A_approx &lt;- U[, 1:k] %*% D %*% t(V[, 1:k])
+  return(A_approx)
+}
+```
+
+---
+
+Next we make a function that uses `SVD_approx()` to plot the best rank `\(k\)` approximation to our image.
+Note that pixel intensity values must be between `\(0\)` and `\(1\)`, so we cap all values to fall within that range.
+
+
+```r
+img_approx &lt;- function(img, k){
+  approx_mat &lt;- SVD_approx(img, k)
+  # Cap minimum intensity
+  approx_mat[approx_mat &lt; 0] &lt;- 0
+  # Cap maximum intensity
+  approx_mat[approx_mat &gt; 1] &lt;- 1
+  img_plot(approx_mat, main = paste0("Best rank ", k, " approximation"))
+  # Comment out return for purposes of slides
+  # We don't want to store the approximation, only plot it
+  # return(approx_mat)
+}
+```
+
+---
+
+
+```r
+img_approx(img, 200)
+```
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+```r
+img_approx(img, 1)
+img_approx(img, 2)
+img_approx(img, 3)
+```
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-8-1.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-8-2.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-8-3.png" width="33%" /&gt;
+
+---
+
+
+```r
+img_approx(img, 5)
+img_approx(img, 10)
+img_approx(img, 25)
+```
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-9-1.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-9-2.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-9-3.png" width="33%" /&gt;
+
+---
+layout: false
+layout: true
+
+# How many singular values?
+
+---
+
+We will define the **energy** of a matrix as the sum of the squared singular values,
+\\[
+\text{energy}(\mathbf{A}) = \sum_i \sigma^2_i.
+\\]
+We can plot the energy stored in each singular value, as well as the cumulative energy as follows:
+
+
+```r
+svd_img &lt;- svd(img)
+sing_vals2 &lt;- svd_img$d^2
+energy_df &lt;- data.frame("sing_vals" = sing_vals2,
+                        "energy" = cumsum(sing_vals2)/sum(sing_vals2))
+dim(energy_df)
+```
+
+```
+## [1] 256   2
+```
+
+Thus we have a total of 256 singular values, meaning our image matrix is of rank 256! 
+
+---
+
+
+```r
+ggplot(energy_df, aes(x = 1:nrow(energy_df), y = sing_vals)) +
+  geom_point() +
+  theme_bw(base_size = 20) +
+  labs(y = "Singular Values", x = "k")
+ggplot(energy_df, aes(x = 1:nrow(energy_df), y = energy)) +
+  geom_point() +
+  theme_bw(base_size = 20) +
+  labs(y = "Cumulative Energy", x = "k")
+```
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-11-1.png" width="40%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-11-2.png" width="40%" /&gt;
+
+---
+
+In general, if we are using SVD to do dimension reduction, a common rule of thumb is that we want to retain 90% of the energy. 
+However, for image compression, this likely will be too much compression!
+
+
+```r
+# which.max will return index of first TRUE
+k &lt;- which.max(energy_df$energy &gt; .90)
+img_approx(img, k)
+```
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+---
+
+What if we want to retain 99.8% of the energy in our image?
+
+
+```r
+k &lt;- which.max(energy_df$energy &gt; .998)
+img_approx(img, k)
+```
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-13-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+---
+
+We were able to retain 99.8% of the energy in our image using only 68 singular values!
+Thus, we are able to reduce the dimensionality of our matrix by 73.4375%.
+This is a similar concept to how JPEG compression works!&lt;sup&gt;1&lt;/sup&gt;
+
+.footnote[[1] A similar concept, but not the same algorithm. JPEG compression uses something called the discrete cosine transformation, not SVD.]
+
+---
+layout: false
+layout: true
+
+# Clustering
+---
+
+What if we want to get a sense of the inherent groupings, or **clusters**, in our data?
+
+Let's load the `foreign` package to read in a `.dta` file.
+
+
+```r
+library(foreign)
+cereal &lt;- read.dta("http://statistics.ats.ucla.edu/stat/data/cerealnut.dta")
+head(cereal)
+```
+
+```
+##                  brand calories protein fat  Na fiber carbs sugar   K
+## 1             Cheerios      110       6   2 290   2.0  17.0     1 105
+## 2          Cocoa Puffs      110       1   1 180   0.0  12.0    13  55
+## 3   Honey Nut Cheerios      110       3   1 250   1.5  11.5    10  90
+## 4                  Kix      110       2   1 260   0.0  21.0     3  40
+## 5         Lucky Charms      110       2   1 180   0.0  12.0    12  55
+## 6 Oatmeal Raisin Crisp      130       3   2 170   1.5  13.5    10 120
+```
+
+---
+
+We have data of nutritional information about various cereals.
+Here, we are interested in analyzing which cereals are similar to each other.
+We can do this using exploratory analysis with SVD!
+
+For now, we'll stick to a simple visual analysis (more on clustering later in the course).
+Thus, we will only plot our data along two dimensions.
+
+Because we are interested in cereal clusters, we want to look at the cereal-to-concept values.
+Because cereals are our observations, this is the columns of `\(\mathbf{U}\)`.
+
+---
+
+
+
+```r
+library(ggrepel)
+# remove the text brand labels
+cereal_svd &lt;- svd(cereal[, -1])
+cereal_df &lt;- data.frame("x" = cereal_svd$u[, 1],
+                        "y" = cereal_svd$u[, 2],
+                        "label" = cereal$brand)
+ggplot(cereal_df, aes(x = x, y = y, label = label)) +
+  geom_point() +
+  theme_bw(base_size = 20) +
+  geom_text_repel(size = 4)
+```
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-15-1.png" width="36%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-16-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+* bran cereals
+* sugary cereals
+* raisin cereals
+* cereals with honey
+
+---
+
+What factors contributed most to each dimension? Look at the columns of `\(\mathbf{V}\)` (the rows of `\(\mathbf{V}^T\)`).
+
+
+```r
+cereal_df &lt;- data.frame("x" = cereal_svd$v[, 1],
+                        "y" = cereal_svd$v[, 2],
+                        "label" = colnames(cereal)[-1])
+ggplot(cereal_df, aes(x = x, y = y, label = label)) +
+  geom_point() +
+  theme_bw(base_size = 20) +
+  geom_text_repel(size = 4)
+```
+
+---
+
+.middler[
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-18-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
+
+* Bran cereals have the most potassium
+* Saltier cereals farther to the left
+
+---
+
+We can also look at the nutrient-to-concept "scores" of each dimension.
+Recall that to calculate user-to-concept scores in the movie ranking data we multiplied `\(\mathbf{X} \mathbf{V}\)`.
+To calculate nutrient-to-concept "scores", we calculate `\(\mathbf{U}^T \mathbf{X}\)`.
+
+
+```r
+scores &lt;- t(cereal_svd$u) %*% as.matrix(cereal[,-1])
+cereal_df &lt;- data.frame("x" = scores[1, ],
+                        "y" = scores[2, ],
+                        "label" = colnames(cereal)[-1])
+ggplot(cereal_df, aes(x = x, y = y, label = label)) +
+  geom_point() +
+  theme_bw(base_size = 20) +
+  geom_text_repel(size = 4)
+```
+
+---
+
+.middler[
+&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-20-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+]
+Compare to the previous plot. This allows us to see the relative impact of each nutrient on our concepts.
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 5. Project 2]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

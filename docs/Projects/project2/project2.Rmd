@@ -1,5 +1,5 @@
 ---
-title: "Project 2: Network Analysis with SVD"
+title: "Project 2: SVD Analysis of Partisanship in U.S. Congress"
 author: "INSERT YOUR NAME(S) HERE"
 date: "2/19/2020"
 output: html_document
@@ -29,18 +29,24 @@ h4.date {
 
 ## Instructions
 
-For this project, you will be exploring and visualization data from [boardgamegeek.com](https://www.boardgamegeek.com).
-Your goal is to observe and visualize interesting trends and patterns in the data, and to tell a cohesive and compelling story about the insights you gain.
-This project is intentionally open-ended!
+For this project, you will be exploring U.S. Congress voting data [voteview.com](https://www.voteview.com).
+Your goal is to examine the partisanship of U.S. Congress using SVD analysis.
+Like Project 1, this project is intentionally open-ended!
 
-Exceptional projects will include creative and unique insights into the board game data. For example, have the most popular types of board games changed over time? How do complexity and rating interact, if at all? Do the number of players and playing time seem to be associated with user rating and complexity? These are just a few examples of the types of question I hope you will explore for this project.
+Exceptional projects will examine the data in multiple different ways in order to draw interesting conclusions. For example, you might examine:
 
-Your projects will be evaluated on the quality of your visualizations and exploratory analyses.
+* How does partisanship compare in the House of Representatives vs. the Senate?
+* How does partisanship compare in the 90th Congress vs. the 116th Congress?
+* Does partisanship vary by age? By state? By region?
+* Who are the most "extreme" partisans in Congress?
+
+
+Your projects will be evaluated on the quality of your analyses.
 This includes, but is not limited to, the quality of your writing, the usefulness and clarity of your visualizations, and how interesting the insights you provide are.
-Your submission should read as one continuous and cohesive report, rather than six distinct and unconnected sections. 
+Your submission should read as one continuous and cohesive report, rather than distinct and unconnected sections. 
 To this end, your report should include an introductory paragraph as well as a conclusion/summary paragraph at the end.
-The target audience of your report is an educated reader who is uninformed about the details of the data, but is interested in learning more about board games.
-I encourage you to use [this 538 post](https://fivethirtyeight.com/features/designing-the-best-board-game-on-the-planet/) for inspiration, but please do not just copy their graphs and analyses.
+The target audience of your report is an educated reader who is uninformed about the details of the data, but is interested in learning more about partisanship in Congress.
+I highly encourage you to use [this research article (Porter et al., 2005)](HouseOfRepresentatives.pdf) for inspiration. In particular, pay attention to how they label their primary two "concepts".
 
 You have the option to work with a partner for this project and submit a group report. 
 If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Canvas with both of your names at the top of the .html.
@@ -49,18 +55,22 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
 ### Details
 
 * If you use this .Rmd as your starting template, please remove all instructions, details, and requirements. I only want to receive your final written report.
-* Your Project 1 directory should include an R Project associated with your report and analysis.
+* Your Project 2 directory should include an R Project associated with your report and analysis.
 * Final submissions must include .Rmd, .html, and .Rproj files
-* The data are available at "https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project1/board_game_raw.csv". Note that you can use links within `read_csv()` to read online .csv files. I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 1 folder so you will be able to work offline.
+* I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 2 folder so you will be able to work offline. The data are available at:
+  * 90th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/house_90_raw.csv"
+  * 90th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_90_raw.csv"
+  * 116th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/house_116_raw.csv"
+  * 116th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_116_raw.csv"
+* In your visualizations, consider using color to distinguish between concepts such as political party.
+
 
 ### Requirements
 
-* I am only interested in games published in 1950 or later and with at least 25 ratings, so you will need to `filter()` the raw data. (Make sure never to save processed data over your original raw .csv file!)
-* You may notice that `category` and `mechanic` variables are untidy. I recommend using the `cSplit()` function within the `splitstackshape` package to fix these. Try setting both `direction = "wide"` and `direction = "long"` within your `cSplit()` call. Both might be useful to you, depending on what plot you want generate.
-* Your project should include at least 6 visualizations. Feel free to add more to tell a more complete and compelling story, but each visualization should contribute to the substance of your report.
-* Your project should include at least 3 different types of visualizations (e.g. scatterplots, box plots, bar plots, histograms, line plots, etc.).
-* Each visualization should include a caption that fully explains how to understand your visualization (i.e. explain all the components, legends, etc.). A good guideline is that someone who has not read your report should be able to look at just a visualization and its caption and fully understand what that visualization is showing.
-* Each visualization, in order to contribute to your 6 visualization requirement, must be accompanied by at least one paragraph of text. This text should include an interpretation of your visualization as well as what is interesting about your visualization. A strong visualization will be accompanied by text explaining what patterns or insights it helps us glean from the data. Sometimes, you may find that you need two or more visualizations to make a single point. This is fine (and likely preferred if you think it's necessary), but it will only count towards 1 of your total visualizations.
+* Your report should provide insight about at least 4 different aspects of the data.
+* Each of these insights should be accompanied by either a visualization, a numerical analysis, or both.
+* The text of your report (not your visualizations!) should include an explanation of the mathematical details of what you are using/visualizing in your analysis. For example, if you plot your first two left singular vectors, make sure you mathematically define in your report what is being plotted!
+* If and when you visualize data in two dimensions, your report should include a discussion of how much of the energy is maintained and lost in this visualization. This discussion can also include a visualization, or it can be numerical.
 * At the end of your report, you should include a code appendix with all of your code, from downloading the data to generating the figures. This code should be well-commented and follow the style guidelines we learned in class. Use comments to label which blocks of code correspond to which visualizations. *You should have no code in the main body of your report!* (Remember: you can use `echo = FALSE` to hide code.)
 
 Keep in mind: **there are no right answers for this project!**
