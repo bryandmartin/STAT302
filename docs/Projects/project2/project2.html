@@ -417,6 +417,14 @@ h4.date {
 <li>116th Senate: <br>“<a href="https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_116_raw.csv" class="uri">https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_116_raw.csv</a>”</li>
 </ul></li>
 <li>In your visualizations, consider using color to distinguish between groups where appropriate, such as blue for Democrats and red for Republicans.</li>
+<li><code>rc</code> columns stand for roll calls. Each vote has it’s own roll call. The code is as follows:
+<ul>
+<li><code>1</code>: “Yea” vote</li>
+<li><code>-1</code>: “Nay” vote</li>
+<li><code>0</code>: Present or not a member of chamber during roll call</li>
+<li><code>NA</code>: Missing data for unknown reason</li>
+</ul></li>
+<li>It would be reasonable for you to either remove <code>NA</code>’s, or set them all equal to <code>0</code>. Make sure you explain your decision.</li>
 </ul>
 </div>
 <div id="requirements" class="section level3">

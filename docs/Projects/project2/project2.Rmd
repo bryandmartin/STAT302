@@ -65,6 +65,12 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
   * 116th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/house_116_raw.csv"
   * 116th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_116_raw.csv"
 * In your visualizations, consider using color to distinguish between groups where appropriate, such as blue for Democrats and red for Republicans.
+* `rc` columns stand for roll calls. Each vote has it's own roll call. The code is as follows:
+  * `1`: "Yea" vote
+  * `-1`: "Nay" vote
+  * `0`: Present or not a member of chamber during roll call
+  * `NA`: Missing data for unknown reason
+* It would be reasonable for you to either remove `NA`'s, or set them all equal to `0`. Make sure you explain your decision.
 
 
 ### Requirements
