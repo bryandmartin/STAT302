@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302, Week 7</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bryan Martin" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, top, title-slide
+
+# STAT 302, Week 7
+## Debugging and Version Control
+### Bryan Martin
+### Week of Feb 17, 2020
+
+---
+
+
+
+
+
+# Outline
+
+1. Debugging
+2. Version Control
+
+.middler[**Goal:** Learn how to understand and fix R errors independently and get started with git!]
+
+---
+class: inverse
+
+.sectionhead[Part 1. Debugging]
+
+---
+
+# Acknowledgement
+
+This section heavily borrows from materials by Hadley Wickham, Jennifer Bryan, and Jim Hester.
+
+* [Hadley Wickham's Advanced R - Debugging](https://adv-r.hadley.nz/debugging.html)
+* [Jennifer Bryan and Jim Hester's What they Forgot to Teach You About R - Debugging R Code](https://rstats.wtf/debugging-r-code.html)
+
+Our [cheatsheet](https://github.com/ajmcoqui/debuggingRStudio/blob/b70a3575a3ff5e7867b05fb5e84568abba426c4b/RStudio_Debugging_Cheatsheet.pdf) comes from Amanda Gadrow.
+
+---
+
+# Step 1: Google!
+
+Seriously. Always. When you see an error code you don't understand, Google it!
+
+Not only that, Google the **exact text** of your error message (except for any references to filepaths, etc.).
+R has millions of users and an incredibly active online community. If you encounter any error message, chances are someone has had to debug that exact error in the past.
+
+---
+
+# Step 2: Reset!
+
+You will be amazed at how many issues will be solved by closing and re-opening R. This will be especially true when we get into package building. 
+
+Sometimes, things get weird with your workspace, and you just need to start with a clean slate. It can be frustrating, because you don't know what was causing the issue, but also a relief, because it will be fixed!
+
+Resetting will:
+
+* Clear your workspace (better than `rm(list = ls()`!)
+* Reset your options to their defaults (an easy one to miss!)
+* Clear your search path (the order R looks for things)
+
+---
+
+# Step 3: Repeat!
+
+When you encounter a bug, try to repeat it! Likely, it came about for a reason. 
+
+When you do repeat it, you should repeat it with a minimal working example. This means you should remove as much code and simplify as much data as possible.
+
+* Small and simple inputs
+* No extraneous packages
+* No unnecessary function calls
+
+Example: did your function break with a large data matrix of real-world data stored within a package? How about if you just use a `\(3 \times 3\)` matrix of `\(1\)`'s? 
+
+---
+
+# Step 4: Locate!
+
+If you weren't able to fix a bug the "easy" way (found the solution on Google or just needed a reset), and you have a minimal working example demonstrating your bug, then you are ready for the really hard part: 
+finding the bug.
+
+Often (not always), once you find a bug, it is rather easy to fix.
+
+.center[&lt;img src="findyou.gif" alt="" height="250"/&gt;&lt;img src="bugs.gif" alt="" height="250"/&gt;
+]
+
+
+--
+
+.center[Finding bugs??? Come on. This is top-notch gif humor.]
+
+---
+layout: true
+# &lt;TT&gt;traceback()&lt;/TT&gt;: call stack
+
+---
+
+Sometimes functions(in functions(in functions(in functions(...)))) can get complicated...
+
+
+```r
+f &lt;- function(a) g(a)
+g &lt;- function(b) h(b)
+h &lt;- function(c) i(c)
+i &lt;- function(d) {
+  if (!is.numeric(d)) {
+    stop("`d` must be numeric", call. = FALSE)
+  }
+  d + 10
+}
+f(5)
+```
+
+```
+## [1] 15
+```
+
+```r
+f(1:3)
+```
+
+```
+## [1] 11 12 13
+```
+
+---
+
+.center[&lt;img src="traceback.png" alt="" height="50"/&gt;]
+
+
+
+
+```r
+f("a")
+```
+
+
+```r
+traceback() # Or, just click traceback within RStudio
+```
+
+
+```
+## Error: `d` must be numeric
+```
+
+```
+## 5: stop("`d` must be numeric", call. = FALSE)
+## 4: i(c)
+## 3: h(b)
+## 2: g(a)
+## 1: f("a")
+```
+
+This is called a **call stack**.
+
+---
+
+
+```
+## Error: `d` must be numeric
+```
+
+```
+## 5: stop("`d` must be numeric", call. = FALSE)
+## 4: i(c)
+## 3: h(b)
+## 2: g(a)
+## 1: f("a")
+```
+
+Read from bottom to top:
+1. First call was to `f("a")`
+2. Second call was `g(a)`
+3. Third call was `h(b)`
+4. Fourth call was `i(c)`
+5. Fifth and last call was our error message, so we know `i(c)` triggered our error!
+
+But we're not done yet...
+
+We now know that our error occurred within `i(c)`, but we don't know *where* within `i(c)` our error occurred.
+
+---
+
+Note that we can also set `traceback()` as our default error handler using
+
+```r
+options(error = traceback)
+```
+and `traceback()` will automatically be called whenever we encounter an error. 
+I personally don't like doing this, but to each their own.
+
+---
+
+Note this is done in your **Console**, not your **Editor** pane! This is typically not a part of your reproducible workflow, this is you figuring out your own problems until you fix what actually belongs in your workflow.
+
+Once you have the bug fixed, *then* put the debugged code in your Editor pane. 
+In general, most debugging will be done through the **Console**!
+
+---
+layout: false
+layout: true
+# &lt;TT&gt;print(), cat(), str()&lt;/TT&gt;: messages
+---
+
+Take your function, throw in a `print()` statement to see what the function is seeing.
+
+
+
+
+```r
+i &lt;- function(d) {
+  print(d)
+  if (!is.numeric(d)) {
+    stop("`d` must be numeric", call. = FALSE)
+  }
+  d + 10
+}
+f("a")
+```
+
+```
+## [1] "a"
+```
+
+```
+## Error: `d` must be numeric
+```
+
+This is a quick and easy way to find bugs quickly. Probably the most common first step when manually debugging!
+---
+
+Take your function, throw in a `cat()` statement to see what the function is seeing. 
+
+
+
+```r
+i &lt;- function(d) {
+  cat("The value of input parameter d is:", d, "\n")
+  cat("The class of input parameter d is:", class(d), "\n")
+  if (!is.numeric(d)) {
+    stop("`d` must be numeric", call. = FALSE)
+  }
+  d + 10
+}
+f("a")
+```
+
+```
+## The value of input parameter d is: a 
+## The class of input parameter d is: character
+```
+
+```
+## Error: `d` must be numeric
+```
+
+I like to use `cat()` when I want to print myself more informative error messages, or when I want to print out multiple messages so that I can tell them apart.
+---
+
+Take your function, throw in a `str()` statement to see what the function is seeing.
+
+
+```r
+i &lt;- function(d) {
+  str(d)
+  if (!is.numeric(d)) {
+    stop("`d` must be numeric", call. = FALSE)
+  }
+  d + 10
+}
+f("a")
+```
+
+```
+##  chr "a"
+```
+
+```
+## Error: `d` must be numeric
+```
+
+More specifically, `str()` can be used to see *the structure of* what the function is seeing. 
+This can often be more informative if the structure is not what you expect (a common source of bugs!).
+
+---
+
+The main downside to these approaches is that it can get messy quickly if you use multiple print statements, and you cannot further investigate the object.
+
+---
+layout: false
+layout: true
+
+# &lt;TT&gt;browser()&lt;/TT&gt;: Interactive debugger
+
+---
+
+Sometimes, it may not be enough to just use print statements and locate a bug. You can get more information and interact with that information using `browser()`, an interactive debugger.
+
+Within RStudio, you can also get right to an interactive debugger by clicking `Rerun with Debug`.
+
+.center[&lt;img src="traceback.png" alt="" height="50"/&gt;]
+
+---
+
+Alternatively, we can plug `browser()` into our function, similarly to the print statements.
+
+
+```r
+i &lt;- function(d) {
+  browser()
+  if (!is.numeric(d)) {
+    stop("`d` must be numeric", call. = FALSE)
+  }
+  d + 10
+}
+f("a")
+```
+
+&lt;br/&gt;
+&lt;br/&gt;
+.center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
