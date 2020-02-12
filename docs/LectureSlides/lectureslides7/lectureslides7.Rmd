@@ -287,11 +287,27 @@ i <- function(d) {
 f("a")
 ```
 
+
+---
+
+After you run a function with `browser()`, you will be *inside* of your function with an interactive debugger!
+
+You will know it worked if you see a special prompt: `Browse[1]>`.
+
+We can see:
+
+* The environment within the function using the Environment pane
+* The call stack using the new Traceback pane
+* Special interactive debugging commands
+
+.center[<img src="debug.png" alt="" height="50"/>]
+
 <br/>
-<br/>
+
 .center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
 
 ```{r, echo = FALSE, eval = FALSE}
+# BROWSER DEMO
 f <- function(a) g(a)
 g <- function(b) h(b)
 h <- function(c) i(c)
@@ -304,5 +320,55 @@ i <- function(d) {
 }
 f("a")
 ```
+
+---
+
+## Interactive debugging commands
+
+.center[<img src="debug.png" alt="" height="40"/>]
+
+* Next, `n`: executes the next step in the function. (If you have a variable named `n`, use `print(n)` to display its value.)
+
+* Step into, <img src="stepin.png" alt="" height="22"/> or `s`: works like next, but if the next step is a function, it will step into that function so you can explore it interactively. (Easy to get lost!)
+
+* Finish, <img src="finish.png" alt="" height="22"/> or `f`: finishes execution of the current loop or function. Useful to skip over long for loops you don't need to interact with.
+
+* Continue, `c`: leaves the debugger and continues execution of the function. Useful if you’ve fixed the bad state and want to check that the function proceeds correctly.
+
+* Stop, `Q`: exits the debugger and returns to the R prompt.
+
+---
+
+## Interactive debugging commands
+
+.center[<img src="debug.png" alt="" height="40"/>]
+
+* Enter (no text): repeat the previous interactive debugging command. Defaults to Next `n` if you haven't used any debugging commands yet.
+
+* `where`: prints stack trace of active calls (the interactive equivalent of `traceback`).
+
+---
+
+## Other useful things to do
+
+* `ls()`: List the current environment. You can use this to browse everything that the function is able to see at that moment.
+
+* `str()`, `print()`: examine objects as the function sees them.
+
+---
+
+## A Note
+
+If you execute the step of a function where the error occurs, you will exit interactive debugging mode, the error message will print, and you will be returned to the R prompt!
+This can get annoying, because it stops you from interacting right when you hit the bug.
+
+What I often do is execute my function within an interactive debugger until I hit the error so I know exactly where the error occurs. Then I execute my function again within an interactive debugger, stopping just before I trigger the error.
+To check I'm in the right place, I then copy and paste the next line of code into my `Browse` console.
+This will trigger the error without exiting the interactive debugger.
+
+Once I am there, I am now interacting with the exact environment R is using before the error is triggered.
+I then usually examine one-by-one each object in the environment to make sure the structure matches up with what I expect.
+Usually doing this allows me to identify what object does not look what I expect and why, allowing me to fix it.
+However, if I still can't figure it out, I then `s` "Step into" the next function and repeat this process.
 
 
