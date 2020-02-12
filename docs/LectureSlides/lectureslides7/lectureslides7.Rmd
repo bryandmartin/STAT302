@@ -99,7 +99,7 @@ Often (not always), once you find a bug, it is rather easy to fix.
 
 --
 
-.center[Finding bugs??? Come on. This is top-notch gif humor.]
+.center[Finding bugs???]
 
 ---
 layout: true
@@ -133,7 +133,7 @@ saveTraceback <- local({
   saver <- function(e) {
     calls <- sys.calls()
     deparsed <- lapply(calls, deparse)
-    deparsed <- deparsed[-length(deparsed)+0:1] # leave off last 2
+    deparsed <- deparsed[-length(deparsed) + 0:1] # leave off last 2
     lastjunk <- max(grep("withCallingHandlers", deparsed))
     deparsed <- deparsed[-seq_len(lastjunk)]
     savedTraceback <<- deparsed
@@ -182,19 +182,25 @@ We now know that our error occurred within `i(c)`, but we don't know *where* wit
 
 ---
 
-Note that we can also set `traceback()` as our default error handler using
+Note this is done in your **Console**, not your **Editor** pane! This is typically not a part of your reproducible workflow, this is you figuring out your own problems until you fix what actually belongs in your workflow.
+
+Once you have the bug fixed, *then* put the debugged code in your Editor pane. 
+In general, most debugging will be done through the **Console**!
+
+---
+layout: false
+
+# Stop on error: <TT>traceback</TT>
+
+We can also set `traceback()` as our default error handler using
 ```{r, eval = FALSE}
 options(error = traceback)
 ```
 and `traceback()` will automatically be called whenever we encounter an error. 
 I personally don't like doing this, but to each their own.
 
----
 
-Note this is done in your **Console**, not your **Editor** pane! This is typically not a part of your reproducible workflow, this is you figuring out your own problems until you fix what actually belongs in your workflow.
 
-Once you have the bug fixed, *then* put the debugged code in your Editor pane. 
-In general, most debugging will be done through the **Console**!
 
 ---
 layout: false
@@ -256,7 +262,8 @@ This can often be more informative if the structure is not what you expect (a co
 
 ---
 
-The main downside to these approaches is that it can get messy quickly if you use multiple print statements, and you cannot further investigate the object.
+The main downside to these approaches is that it can get messy quickly if you use multiple print statements, and you cannot further investigate the object. 
+However, many bugs come down to typos or other trivial errors, and print statements are often all you need!
 
 ---
 layout: false
@@ -302,11 +309,14 @@ We can see:
 
 .center[<img src="debug.png" alt="" height="50"/>]
 
-<br/>
+
+---
 
 .center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
 
-```{r, echo = FALSE, eval = FALSE}
+<br/>
+
+```{r, eval = FALSE}
 # BROWSER DEMO
 f <- function(a) g(a)
 g <- function(b) h(b)
@@ -370,5 +380,225 @@ Once I am there, I am now interacting with the exact environment R is using befo
 I then usually examine one-by-one each object in the environment to make sure the structure matches up with what I expect.
 Usually doing this allows me to identify what object does not look what I expect and why, allowing me to fix it.
 However, if I still can't figure it out, I then `s` "Step into" the next function and repeat this process.
+
+---
+
+.center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
+
+<br/>
+
+```{r, eval = FALSE}
+# BROWSER DEMO 2
+loop_fun <- function(x) {
+  # browser()
+  n <- length(x)
+  y <- rep(NA, n)
+  z <- rep(NA, n)
+  for (i in 1:n) {
+    y[i] <- x[i] * 2
+    z[i] <- y[i] * 2
+  }
+  return(list("y" = y, "z" = z))
+}
+loop_fun(1:5)
+loop_fun(diag(1:5))
+```
+---
+layout: false
+layout: true
+# Breakpoints
+---
+
+Breakpoints are an RStudio-specific tool that work as an alternative to `browser()`.
+A breakpoint at a line is equivalent to a `browser()` call before that line, but with the benefit that you don't need to change your source code and worry about leaving a `browser()` where it doesn't belong.
+Personally, I find them a bit more tedious because they require sourcing and saving, and I prefer working with code directly rather than IDE's.
+
+To set a break point, just click the empty space next to a line number.
+If your file is not saved, it will prompt you to save it. 
+You will then then see an empty circle, indicating that RStudio will remember the breakpoint, but it has not been enabled.
+
+
+In order to enable a breakpoint, you need to save and source file.
+You can then enable as many breakpoints as you want with a single click.
+However, as soon as you edit the file at all (even if you don't save), it will no longer be considered sourced, and you will have to resource it to enable breakpoints.
+
+.center[<img src="breakpoint1.png" alt="" height="75"/> &nbsp; &nbsp;  <img src="breakpoint2.png" alt="" height="60"/>]
+
+---
+
+.center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
+
+<br/>
+
+```{r, eval = FALSE}
+# BREAKPOINT DEMO
+loop_fun <- function(x) {
+  # browser()
+  n <- length(x)
+  y <- rep(NA, n)
+  z <- rep(NA, n)
+  for (i in 1:n) {
+    y[i] <- x[i] * 2
+    z[i] <- y[i] * 2
+  }
+  return(list("y" = y, "z" = z))
+}
+loop_fun(1:5)
+loop_fun(diag(1:5))
+```
+
+---
+layout: false
+
+# Stop on error: <TT>recover</TT>
+
+Note that we can also set an interactive debugger as our default error handler using `recover`
+```{r, eval = FALSE}
+options(error = recover)
+```
+This works similarly to `options(error = traceback)` except you will now be able to select a frame and interactively debug within the frames.
+Again, I personally don't like doing this because often a quick bug I can identify right away from the error message without needing to enter an interactive debugger, so I don't like to have it do this on every error.
+
+---
+
+# Stop on error: <TT>recover</TT>
+
+
+.center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
+
+<br/>
+
+```{r, eval = FALSE}
+# RECOVER DEMO
+f <- function(a) g(a)
+g <- function(b) h(b)
+h <- function(c) i(c)
+i <- function(d) {
+  if (!is.numeric(d)) {
+    stop("`d` must be numeric", call. = FALSE)
+  }
+  d + 10
+}
+# options(error = recover)
+f("a")
+```
+
+---
+
+# <TT>debug()</TT>: debug a function
+
+If you want to enter the debugger for a function within a package, you can't just insert a `browser()`. 
+Even for your own functions, it may be more convenient to debug the entire function rather than edit the source code.
+When a function is in debug mode, it will remain in debug mode until you call `undebug()`.
+
+---
+
+.center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
+
+<br/>
+
+```{r, eval = FALSE}
+# DEBUG DEMO
+debug(lm)
+lm(mpg ~ wt, data = mtcars)
+debug(f)
+f("a")
+undebug(lm)
+undebug(f)
+```
+
+---
+
+# <TT>debugonce()</TT>: debug a function
+
+It can get tedious to `undebug()` every function you flagged with `debug()`.
+As an alternative, you can call `debugonce()`, which will automatically undebug the function as soon as you exit the interactive debugger.
+
+```{r, eval = FALSE}
+debugonce(lm)
+lm(mpg ~ wt, data = mtcars)
+debugonce(f)
+f("a")
+```
+
+---
+
+# <TT>trace()</TT>: debug at chosen place
+
+`trace()` is an alternative to `debug()`. It is similar in that a function will be traced until you call `untrace()`. 
+It is more flexible in that it allows you to choose where you want to debug a function, but it can also be more complicated to use.
+
+```{r}
+trace(print, quote(if (is.numeric(x) && x >= 3) cat("hi\n")), print = FALSE)
+print(1)
+print(3)
+untrace(print)
+```
+
+---
+
+# <TT>trace()</TT>: debug at chosen place
+
+.center[.huge[[Demo](https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/LectureSlides/lectureslides7/lectureslides7.Rmd)]]
+
+<br/>
+
+```{r, eval = FALSE}
+# TRACE DEMO
+fun <- function() {
+  for (i in 1:10000) {
+    if (i == 9876) {
+      stop("Oh no!")
+    }
+  }
+}
+
+# x <- as.list(body(fun))
+# x
+# as.list(x[[2]])
+# as.list(x[[c(2, 4)]])
+# as.list(x[[c(2, 4, 2)]])
+# as.list(x[[c(2, 4, 2, 3)]])
+trace(fun, browser, at = list(c(2, 4, 2, 3)))
+fun()
+```
+
+---
+
+# Debugging Summary
+
+.middler-nocent[
+### 1. Google!
+### 2. Reset!
+### 3. Repeat!
+
+### 4. Locate:
+* Call stack: `traceback()`
+* Non-interactive messages: `print()`, `cat()`, `str()`
+* Interactive debugging: breakpoints, `browser()`, `debug()`,
+`debugonce()`, `trace()`, breakpoints
+* Interactive debugging commands: Next `n`, Step into <img src="stepin.png" alt="" height="22"/> `s`, Finish <img src="finish.png" alt="" height="22"/> `f`, Continue `c`, Stop `Q`, `where`
+* Stop on error: `traceback` (non-interactive), `recover` (interactive)
+]
+
+---
+
+# Debugging Resources
+
+.middler-nocent[
+* [Advanced R Debugging - Hadley Wickham ](https://adv-r.hadley.nz/debugging.html)
+* [What they Forgot to Teach You About R - Jennifer Bryan and Jim Hester](https://rstats.wtf/debugging-r-code.html)
+* [Debugging Techniques in RStudio - Amanda Gadrow](https://resources.rstudio.com/wistia-rstudio-conf-2018-2/debugging-techniques-in-rstudio-amanda-gadrow-4)
+* [Debugging with RStudio Article - Jonathan McPherson](https://support.rstudio.com/hc/en-us/articles/200713843)
+* [Introduction to debugging in R and RStudio - Jim Hester](https://www.jimhester.com/talk/2019-crug-debugging/)
+
+<br/>
+
+.center[[Cheatsheet](https://github.com/ajmcoqui/debuggingRStudio/blob/b70a3575a3ff5e7867b05fb5e84568abba426c4b/RStudio_Debugging_Cheatsheet.pdf)]
+]
+
+---
+
+.middler[<img src="bugsquash.gif" alt="" height="450"/>]
 
 
