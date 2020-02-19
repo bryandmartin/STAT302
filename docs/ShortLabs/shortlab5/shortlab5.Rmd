@@ -28,9 +28,15 @@ h4.date {
 
 
 
-Follow the instructions on Lecture Slides 7 (60 -- ???).
+Follow the instructions on Lecture Slides 7 (60 -- 68).
 
 Please type only the link to your repository using the template below. Fill in both the square brackets `[]` and the parentheses `()` with your link.
 
 
 [YOUR LINK HERE](YOUR LINK HERE)
+
+Here's a checklist of what we should see at the link above:
+
+1. A `README.md` file with two lines indicating that it has been edited through shell on your local computer as well as through RStudio.
+2. A `.Rmd` file for Short Lab 5.
+3. A `.html` file for Short Lab 5.
