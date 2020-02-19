@@ -601,4 +601,389 @@ fun()
 
 .middler[<img src="bugsquash.gif" alt="" height="450"/>]
 
+---
+class: inverse
+
+.sectionhead[Part 2. Version Control]
+
+---
+
+# Acknowledgement
+
+Much of this section, particularly the install guide and getting started section, borrow heavily from the fantastic [Happy Git and Github for the useR](https://happygitwithr.com/) by Jenny Bryan and others.
+
+---
+layout: true
+# Version Control
+---
+
+Have you ever had a paper/code look like this:
+
+* draft1.docx
+* Draft2.docx
+* draft2_profcomments.docx
+* draft_final.docx
+* draftFINAL.docx
+* finaldraftFinal.docx
+* finalDraftFinal-comments.docx
+* actualfinaldraft.docx
+* actualfinaldraft2.docx
+* thetruerealfinaliamdonewiththispaper.docx
+* aaaaaaaguhgh.docx
+* fdajsglasjdfFINISHED.docx
+
+$\hspace{5em} \vdots$
+
+---
+
+.center[
+<img src="phdcomics.png" alt="" height="575"/>
+]
+
+---
+
+.middler-nocent[
+* At some point, this is going to interfere with your workflow
+* Reversion can get difficult and border on impossible
+* *Date modified* sorting can only get you so far
+* Susceptible to computer crashes
+* Makes working with collaborators a pain (who did what? when?)
+]
+
+---
+
+Cloud-based services, like Dropbox and Google Drive, can help you with some of these challenges. 
+In particular, they can make working with collaborators easier, because all changes will be synchronized and you will be able to always see the most recent version.
+
+However, how will you know:
+
+* Who changed what?
+* When specific components were changed?
+* What was on a previous version?
+
+---
+
+We want something that:
+
+1. Keeps old versions indefinitionally (tracking changes, reversions become easy)
+2. Keeps track of who changed what and when they changed it
+3. Changes are automatically integrated into the most recent version, and conflicts receive warnings
+4. Work with mutliple collaborators
+
+---
+layout: false
+
+# Git
+
+**git** is an open-source version control system. 
+git tracks all changes to all files in a project over time so there is a comprehensive record of each version of the project.
+
+Each project is stored inside of a **repository** (similar structure to when we work with R projects!). The repository contains all relevant files to the project.
+
+For large software projects, this usually means our repository contains folders and subfolders with source code, write-ups, data, etc.
+
+---
+# Data Analysis Repository Example
+
+A possible (recommended) structure is to use `Data`/`Code`/`Analysis`/`Output`.
+
+* `Data`: Raw and unprocessed data files. Put files in here to load, never edit the files within `Data`!
+* `Code`: Put .R (or .py, etc.) files here. They can be loaded into .Rmd files or your writing, so that the same code files can be used across multiple files
+* `Analysis`: Put .Rmd (or other text) files here. These files allow you to present your results.
+* `Output`: Figures (.pdf, .png, etc), saved analysis output (.Rdata, .rda), and other files containing code output. You code should save output in a systematic way (not through the menu bar!) so that revisions are automatically worked throughout your analysis
+
+---
+# Github
+
+git is software that can be used locally. 
+You do not need access to the internet to do proper version control on your computer. 
+However, if you want to share your work or collaborate with others, it is best to use an online repository hub such as **Github**.
+
+Like RStudio with R, Github adds many user-friendly features to git. 
+
+* Effective collaboration
+* Code distribution
+* Allow others to comment on your code and suggest changes (pull requests/issues)
+* Building your coding portfolio!
+
+---
+class: inverse
+
+.sectionhead[Please follow along with any slides marked with (*).]
+
+---
+# Install Git (*)
+
+Installing and connecting all the software you need is truly half the battle.
+
+* **Mac:** Congratulations, you are using a good operating system for software development and you are probably already done. Open the `Terminal` app and type `git --version` to find out which version you have and `which git` to find out where it is. If you see an offer to install command line tools, do so!
+  * If for some reason you don't have git pre-installed, you can download it from [here](http://git-scm.com/downloads).
+
+* **Linux:** Congratulations, you are using a good operating system for software development and you are probably already done. Open your console and type type `git --version` to find out which version you have and `which git` to find out where it is. If you don't have it, then it's easy to install.
+  * Ubuntu or Debian Linux: `sudo apt-get install git`
+  * Fedora or RedHat Linux: `sudo yum install git`
+  
+---
+
+# Install Git - Windows (*)
+  
+* **Windows:** Whew... 
+
+ * Install [Git for Windows](https://gitforwindows.org/) (also known as `msysgit` or "Git Bash")
+ * **Important note:** When asked about "Adjusting your PATH environment", make sure to select "Git from the command line and also from 3rd-party software".
+ * Note that RStudio for Windows prefers for Git to be installed below `C:/Program Files` and this appears to be the default. This implies, for example, that the Git executable on my Windows system is found at `C:/Program Files/Git/bin/git.exe`. Unless you have specific reasons to otherwise, follow this convention.
+ 
+To quote Jenny Bryan: "Windows is not the ideal platform for scientific computing and software development. A lot of the functionality is going to feel janky and strapped on. Because it is."
+
+Hopefully, after following the instructions above, you have a Git Bash shell. To check this, open your shell and type `echo $SHELL`. You should see something like `usr/bin/bash`.
+
+---
+
+# Shell
+
+The **shell** is a program on your computer that runs other programs. 
+Sometimes people use the terms `Terminal`, `Console`, `Command Line`, and `Shell` interchangably.
+
+You can open a shell within RStudio:
+  * *Tools > Terminal* to launch a shell within RStudio. This will often be sufficient for our purposes
+  * *Tools > Shell* to launch a shell external to RStudio.
+  * **Windows:** For this class, we will focus on the **Git Bash** shell, which should have come with your install of Git for Windows. First, confirm that RStudio detected the presence of Git Bash. This should have happened automatically if you installed in the default location, but check by going to *Tools > Global Options > Terminal* and make sure you see "Git Bash" under "New terminals open with:".
+  
+---
+
+# Shell
+  
+To open a shell outside of RStudio:
+  * Mac/Linux: Search for the application `Terminal` on your computer and open it.
+  * Windows: The easiest way is to open "Git" within the Windows menu and select "Git Bash". You may sometimes need to run Git Bash as an administrator, in which case you should right click and select that option.
+  
+---
+
+# Basic Shell Commands
+
+* `pwd` (**p**rint **w**orking **d**irectory). Shows the current working directory of your shell.
+* `ls` (**l**ist **f**iles). Shows the files in the current working directory. Use `ls -a` to also list hidden files, such as .Rhistory and .git.
+* `cd` (**c**hange **d**irectory). Allows you to navigate through your directories by changing the shell’s working directory.
+  * You can still use relative paths such as `..` and `.`
+  * `~` is still your home directory
+  * You can drag and drop a file or folder into the shell window to paste the absolute path
+  * You can use `Tab` to autocomplete unambiguous directory and file names. 
+* Navigate previous commands with arrow-up and arrow-down
+* Search for previous commands with `ctrl + r`
+
+---
+
+# Basic git commands 
+
+These commands are used within shell
+
+* `git status` Informs you of your current branch, any changes or untracked files, and whether you are in sync with your remotes.
+* `git remote -v` lists all remotes. Very useful for making sure git knows about your remote and that the remote address is correct.
+* `git remote add origin GITHUB_URL` adds the remote `GITHUB_URL` with nickname origin.
+* `git add FILENAME` astages changes to the file. Will add the file to the tracked files if it isn't already. Use `git add .` to add all untracked files (but be careful with this!)
+* `git commit -m "COMMIT MESSAGE"` commit all staged changes
+* `git pull` pulls from remote to local copy
+* `git push` pushes from local copy to remote
+* `git init` creates an empty git repo within your current directory
+
+---
+
+# Register a GitHub Account (*)
+
+Go to [https://github.com](https://github.com) and register a free account!
+Remember, GitHub can become a part of your professional portfolio, and it likely will if you plan to do any coding as part of your career. So choose your username **carefully**! Some rules of thumb:
+
+* Incorporate your actual name to increase visibility and recognizability
+* Shorter is better than younger
+* You should be willing to show your boss
+* Make it timeless (don't include your current university affiliation, etc)
+* All lowercase is recommended
+
+All users get unlimited free private repositories with up to three collaborators. As students, I highly recommend you sign up for free student benefits at [https://education.github.com/](https://education.github.com/), which includes unlimited free private repositories with unlimited collaborators.
+
+---
+
+# Register a GitHub Account (*)
+
+.center[<img src="github.png" alt="" height="500"/>]
+
+---
+
+# Set up git (*)
+
+Run the following in your shell (filling in your information, of course):
+
+```{bash, eval = FALSE}
+git config --global user.name 'Firstname Lastname'
+git config --global user.email 'email@website.com'
+git config --global --list
+```
+
+**Note:** The email should be the email associated with your GitHub account!
+
+I also suggest you set up your default editor. At some point when you have a merge conflict, git will push you into an editor to resolve it. It should be the one you prefer! (I use Sublime Text on a Mac)
+
+For example, if you like `emacs`, you can do
+
+```{bash, eval = FALSE}
+git config --global core.editor "emacs"
+```
+
+Check out [Software Carpentry's guide](https://swcarpentry.github.io/git-novice/02-setup/) for more examples of what line to run for different editor-operating system combinations.
+
+---
+
+# Recommended: Install a git client (*)
+
+I highly recommend installing a GUI for git. 
+I like [GitKraken](https://www.gitkraken.com/), and it works on all common operating systems.
+
+See [https://happygitwithr.com/git-client.html](https://happygitwithr.com/git-client.html) to see Jenny Bryan's writeup of more git clients as well as why they are helpful.
+
+---
+class: inverse
+
+.sectionhead[The next few things will be your submission for Short Lab 5]
+
+---
+# Create a git repo (*)
+
+.middler-nocent[
+1. Go to GitHub and click the green "New Repository" button. 
+2. Repository name: `shortlab5` or similar, following the naming conventions you've used in the class so far.
+3. Description: Whatever you want, but fill in something.
+4. Public or Private. If private, you **must** add `bryandmartin` and `zhangz73` as collaborators.
+5. YES initialize the repository with a README.
+]
+
+---
+# Clone your git repo (*)
+
+.middler-nocent[
+1. Open a shell window.
+2. **Change your working directory to your `ShortLabs` (or similar) parent folder for your short labs.**
+3. Clone the repo by entering (filling in the relevant info):
+  ```{bash, eval = FALSE}
+  git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+  ```
+  Note that you can get the direct link by navigating to your repo and clicking the green "Clone or download" button and copying the text there.
+
+4. Explore your repo by entering (filling in the relevant info):
+  ```{bash, eval = FALSE}
+  cd YOUR-REPOSITORY
+  ls
+  head README.md
+  git remote show origin
+  git status
+  ```
+]
+
+---
+
+# Commit and push a local change (*)
+
+1. Edit your README within shell by using the following line.
+  ```{bash, eval = FALSE}
+  echo "A line I wrote using the shell on my local computer" >> README.md
+  ```
+
+2. Check the status
+  ```{bash, eval = FALSE}
+  git status
+  ```
+
+3. Stage your commit and check the status
+  ```{bash, eval = FALSE}
+  git add .
+  git status
+  ```
+
+4. Commit and push and check the status
+  ```{bash, eval = FALSE}
+  git commit -m "A commit from my local computer"
+  git push
+  git status
+  ```
+  
+Now check the repository online at GitHub. What changed?
+
+
+
+
+---
+
+# Add Short Lab 5 (*)
+
+
+1. Navigate to [the shortlab section of the course webpage](https://bryandmartin.github.io/STAT302/shortlabs.html).
+2. Download the .Rmd for Short Lab 5
+3. Using your standard file browser, copy the .Rmd into the git repo you created for the previous slides.
+4. In Short Lab 5, fill in the required text for the link to your repo
+5. Knit/Compile Short Lab 5
+6. Add, commit, and push the change to your remote repository following the relevant steps from the previous slide.
+
+Now check the repository online at GitHub. If you see a README, .Rmd, and .html, then congratulations, you are done with this step!
+
+---
+
+# Note on credentials (*)
+
+Hopefully, with your second pushed commit, you weren't prompted to re-enter your GitHub credentials. If this is true, then you can skip this slide.
+
+If you were prompted to re-enter your GitHub credentials, then please follow the instruction in [Chapter 10 of happygitwithr](https://happygitwithr.com/credential-caching.html).
+
+
+---
+
+# Use git through RStudio (*)
+
+After you have confirmed that the online GitHub repository matches what you expect:
+
+1. Delete the local repository on your computer.
+2. *File > New Project > Version Control > Git*. In the "repository URL", paste the HTTPS URL for your repository.
+3. **Create this project within your `ShortLabs` parent directory for short labs!**
+4. Click "Open in new session"
+
+**This is the recommended set up for all of your R projects!** 
+
+That is, first create on GitHub, then clone through RStudio. (Not clone through shell and then delete and then re-clone, this was done for demonstration purposes only.)
+
+---
+
+# Edit your repo through RStudio (*)
+
+You should now have re-created the `shortlab3` (or similar) sub-folder within `ShortLabs`, and it should be associated with an R project.
+If it is not already open, open that R project by double clicking on the project file.
+
+**You should now see a `Git` pane within RStudio!**
+
+1. Within the `Files` pane of RStudio, open `README.md`.
+2. Add a new line of text "A commit from RStudio" to `README.md` and save.
+3. Click `Diff` within the `Git` pane.
+4. Click the box under `Staged` for the changed file (top left box).
+5. Add a commit message within the box (top right).
+6. Click push (top right).
+
+
+---
+
+# Finished with Short Lab 5? (*)
+
+Now check the repository online at GitHub. You should see a README, .Rmd, and .html.
+Your README should include two lines indicating that it was edited from both the shell on your local computer and RStudio.
+
+If this is true, then congratulations, you are done with this Short Lab 5!
+
+If this is not true, then let me know and we will work through it together!
+
+Don't forget, if you created a private repository, be sure to add both `bryandmartin` and `zhangz73` as collaborators.
+
+---
+
+# More on git and GitHub
+
+I highly encourage you to check out [Happy Git and Github for the useR](https://happygitwithr.com/) by Jenny Bryan and others for more details on much of what we went over for this section.
+
+There are also several helpful public cheatsheets available for [git](https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet).
+
 

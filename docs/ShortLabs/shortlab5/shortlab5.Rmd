@@ -1,0 +1,36 @@
+---
+title: "Short Lab 5"
+author: "INSERT YOUR NAME HERE"
+date: "2/24/2020"
+output: html_document
+---
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+
+Follow the instructions on Lecture Slides 7 (60 -- ???).
+
+Please type only the link to your repository using the template below. Fill in both the square brackets `[]` and the parentheses `()` with your link.
+
+
+[YOUR LINK HERE](YOUR LINK HERE)
