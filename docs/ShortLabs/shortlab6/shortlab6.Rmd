@@ -63,7 +63,7 @@ ggarrange(g_train, g_test) # from ggpubr, to put side-by-side
 
 **1b.** For each model from (a), record the training error. Then predict `y_test` from `x_test` and also record the test error.
 
-**1c.** Present the 10 values for both training error and test error on a single table. Comment on what you notice about the relative magnitudes of training and test error.
+**1c.** Present the 10 values for both training error and test error on a single table. Comment on what you notice about the relative magnitudes of training and test error, as well as the trends in both types of error as $k$ increases.
 
 **1d.** If you were going to choose a model based on training error, which would you choose? Plot the data, colored by split. Add a line to the plot representing your selection for model fit. Add a subtitle to this plot with the (rounded!) test error.
 (*Hint: You can use as much of my code as you want for this and part (e). See Lecture Slides 8!*)
