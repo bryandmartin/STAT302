@@ -348,10 +348,163 @@ ggarrange(g_train5, g_test5)
 
 ---
 layout: false
+layout: true
 
 # Bias-Variance Tradeoff
 
 ---
+
+.middler-nocent[
+The formula for test error can be decomposed as a function of the bias and variance of our estimates.
+
+* **Bias:** the expected difference between our estimate and the truth
+
+* **Variance:** the variability of our estimate of the truth
+]
+
+---
+
+.center[&lt;img src="bvtradeoff.png" alt="" height="450"/&gt;]
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+
+---
+
+.middler-nocent[
+* **Bias:** underfitting, error from missing relevant relationships
+
+* **Variance:** overfitting, error from high sensitivity
+]
+
+---
+
+.middler[&lt;img src="underover1.png" alt="" height="300"/&gt;]
+
+.footnote[[Image Source](https://medium.com/greyatom/what-is-underfitting-and-overfitting-in-machine-learning-and-how-to-deal-with-it-6803a989c76)]
+
+
+---
+
+.middler[&lt;img src="underover2.png" alt="" height="300"/&gt;]
+
+.footnote[[Image Source](https://medium.com/greyatom/what-is-underfitting-and-overfitting-in-machine-learning-and-how-to-deal-with-it-6803a989c76)]
+
+---
+
+It is easy to fit a model with extremely low variance and extremely high bias, or extremely low bias and extremely high variance, but these models will not have a good test error.
+Ideally, we would like an estimate that has both low bias and low variance, but this is not always possible!
+
+As a general rule of thumb, as we increase the complexity of our model, the bias will increase but the variance will decrease.
+You can think of our bias increasing because we are training our model to be more specific to our training data.
+You can think of the variance decreasing because our model will be more precisely defined.
+
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2. Cross-validation]
+
+
+---
+layout: true
+
+# Sample-splitting
+---
+
+Where do we get our "training data" and our "test data" in practice? We can't just simulate more data for our test data in the real world. 
+In practice, we use a technique called **sample-splitting:**
+
+1. Split the data set into two (or more...) parts
+2. First part of data: train the model/method
+3. Second part of data: make predictions
+4. Evaluate observed test error
+
+---
+
+
+```r
+# Generate data
+set.seed(302)
+n &lt;- 50
+x &lt;- sort(runif(n, -3, 3))
+y &lt;- 2*x + 2*rnorm(n)
+
+# Randomly split data into two parts
+inds &lt;- sample(rep(1:2, length = n))
+split &lt;- as.factor(inds) %&gt;%
+  fct_recode(Training = "1", Test = "2")
+data &lt;- data.frame("x" = x, "y" = y, "split" = split)
+
+g_split &lt;- ggplot(data, aes(x = x, y = y, color = split)) + geom_point() +
+  labs(title = "Sample-splitting") + my_theme
+g_split
+```
+
+
+---
+
+&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+---
+
+
+```r
+# Train on the training split
+data_train &lt;- data %&gt;% filter(split == "Training")
+lm_1 &lt;- lm(y ~ x, data = data_train)
+lm_10 &lt;- lm(y ~ poly(x, 10), data = data_train)
+
+# Predict on the second half
+data_test &lt;- data %&gt;% filter(split == "Test")
+pred_1 &lt;- predict(lm_1, data.frame(x = data_test$x))
+pred_10 &lt;- predict(lm_10, data.frame(x = data_test$x))
+
+# Calculate test error
+test_err_1 &lt;- mean((data_test$y - pred_1)^2)
+test_err_10 &lt;- mean((data_test$y - pred_10)^2)
+```
+
+
+---
+
+
+```r
+# Create smooth lines for plotting
+x_fit &lt;- data.frame(x = seq(min(data$x), max(data$x), length = 100))
+line_fit_1 &lt;- data.frame(x = x_fit, y = predict(lm_1, newdata = x_fit))
+line_fit_10 &lt;- data.frame(x = x_fit, y = predict(lm_10, newdata = x_fit))
+                       
+# Add linear model and error text to plot
+g_split1 &lt;- g_split + 
+  labs(subtitle = paste("Degree 1 Test error:", round(test_err_1, 3))) +
+  geom_line(data = line_fit_1, aes(y = y, x = x), col = "black", lwd = 1.5)
+g_split10 &lt;- g_split + 
+  labs(subtitle = paste("Degree 10 Test error:", round(test_err_10, 3))) +
+  geom_line(data = line_fit_10, aes(y = y, x = x), col = "black", lwd = 1.5)
+
+ggarrange(g_split1, g_split10, common.legend = TRUE, legend = "bottom")
+```
+
+---
+
+&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+
+Sample-splitting gives us a powerful tool to evaluate the performance of estimator *on data that was not used to train it*! Of course, this comes at the cost of sacrificing some of our data that could be used in order to train a model with as much information as possible, but this is a sacrifice we must make in practice if we want to appropriately evaluate the predictive performance of our models/methods!
+
+However, we can usually do better than just splitting our data in half.
+
+---
+layout: false
+layout: true
+
+# Cross-validation
+---
+
+Wednesday!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

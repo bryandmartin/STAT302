@@ -1,0 +1,73 @@
+---
+title: "Short Lab 6"
+author: "INSERT YOUR NAME HERE"
+date: "2/26/2020"
+output: html_document
+---
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+## Part 1. Training and Test Error
+
+Use the following code to generate data:
+
+```{r, message = FALSE}
+library(ggpubr)
+# generate data
+set.seed(302)
+n <- 30
+x <- sort(runif(n, -3, 3))
+y <- 2*x + 2*rnorm(n)
+x_test <- sort(runif(n, -3, 3))
+y_test <- 2*x_test + 2*rnorm(n)
+df_train <- data.frame("x" = x, "y" = y)
+df_test <- data.frame("x" = x_test, "y" = y_test)
+
+# store a theme
+my_theme <- theme_bw(base_size = 16) + 
+  theme(plot.title = element_text(hjust = 0.5, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5))
+
+# generate plots
+g_train <- ggplot(df_train, aes(x = x, y = y)) + geom_point() +
+  xlim(-3, 3) + ylim(min(y, y_test), max(y, y_test)) + 
+  labs(title = "Training Data") + my_theme
+g_test <- ggplot(df_test, aes(x = x, y = y)) + geom_point() +
+  xlim(-3, 3) + ylim(min(y, y_test), max(y, y_test)) + 
+  labs(title = "Test Data") + my_theme
+ggarrange(g_train, g_test) # from ggpubr, to put side-by-side
+```
+
+**1a.** For every k in between 1 and 10, fit a degree-k polynomial linear regression model with `y` as the response and `x` as the explanatory variable(s).
+(*Hint: Use *`poly()`*, as in the lecture slides.*)
+
+**1b.** For each model from (a), record the training error. Then predict `y_test` from `x_test` and also record the test error.
+
+**1c.** Present the 10 values for both training error and test error on a single table. Comment on what you notice about the relative magnitudes of training and test error.
+
+**1d.** If you were going to choose a model based on training error, which would you choose? Plot the data, colored by split. Add a line to the plot representing your selection for model fit. Add a subtitle to this plot with the (rounded!) test error.
+(*Hint: You can use as much of my code as you want for this and part (e). See Lecture Slides 8!*)
+
+**1e.** If you were going to choose a model based on test error, which would you choose? Plot the data, colored by split. Add a line to the plot representing your selection for model fit. Add a subtitle to this plot with the (rounded!) test error.
+
+**1f.** What do you notice about the shape of the curves from part (d) and (e)? Which model do you think has lower bias? Lower variance? Why?
