@@ -420,7 +420,7 @@ You will then then see an empty circle, indicating that RStudio will remember th
 
 In order to enable a breakpoint, you need to save and source file.
 You can then enable as many breakpoints as you want with a single click.
-However, as soon as you edit the file at all (even if you don't save), it will no longer be considered sourced, and you will have to resource it to enable breakpoints.
+However, as soon as you edit the file at all (even if you don't save), it will no longer be considered sourced, and you will have to re-source it to enable breakpoints.
 
 .center[<img src="breakpoint1.png" alt="" height="75"/> &nbsp; &nbsp;  <img src="breakpoint2.png" alt="" height="60"/>]
 
@@ -952,7 +952,7 @@ That is, first create on GitHub, then clone through RStudio. (Not clone through 
 
 # Edit your repo through RStudio (*)
 
-You should now have re-created the `shortlab3` (or similar) sub-folder within `ShortLabs`, and it should be associated with an R project.
+You should now have re-created the `shortlab5` (or similar) sub-folder within `ShortLabs`, and it should be associated with an R project.
 If it is not already open, open that R project by double clicking on the project file.
 
 **You should now see a `Git` pane within RStudio!**
