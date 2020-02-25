@@ -61,7 +61,7 @@ ggarrange(g_train, g_test) # from ggpubr, to put side-by-side
 **1a.** For every k in between 1 and 10, fit a degree-k polynomial linear regression model with `y` as the response and `x` as the explanatory variable(s).
 (*Hint: Use *`poly()`*, as in the lecture slides.*)
 
-**1b.** For each model from (a), record the training error. Then predict `y_test` from `x_test` and also record the test error.
+**1b.** For each model from (a), record the training error. Then predict `y_test` using `x_test` and also record the test error.
 
 **1c.** Present the 10 values for both training error and test error on a single table. Comment on what you notice about the relative magnitudes of training and test error, as well as the trends in both types of error as $k$ increases.
 
