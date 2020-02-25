@@ -113,7 +113,7 @@ Suppose we have training data $X_{i1}, \ \ldots,\ X_{ip}, Y_i, \ i = 1,\ldots,n$
 
 Now suppose we are given new testing data $X^*_1, \ \ldots, X^*_{p}$ and asked to predict the associated $Y^∗$. 
 Using our estimated linear model, the prediction is: 
-$$\hat{Y} = \hat\beta_0 + \hat{\beta}_1 X^*_1 + \cdots + \hat{\beta}_p X^*_p$$
+$$\hat{Y}^* = \hat\beta_0 + \hat{\beta}_1 X^*_1 + \cdots + \hat{\beta}_p X^*_p$$
 ---
 
 Given our prediction 
@@ -503,9 +503,9 @@ Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela W
 It is easy to fit a model with extremely low variance and extremely high bias, or extremely low bias and extremely high variance, but these models will not have a good test error.
 Ideally, we would like an estimate that has both low bias and low variance, but this is not always possible!
 
-As a general rule of thumb, as we increase the complexity of our model, the bias will increase but the variance will decrease.
-You can think of our bias increasing because we are training our model to be more specific to our training data.
-You can think of the variance decreasing because our model will be more precisely defined.
+As a general rule of thumb, as we increase the complexity of our model, the bias will decrease but the variance will increase.
+You can think of our bias decreasing because we are training our model to be more specific to our training data.
+You can think of the variance increasing because our model will be overfit, and will vary substantially with new training data.
 
 
 ---
