@@ -1,0 +1,105 @@
+---
+title: "Lab 4"
+author: "STAT 302"
+date: "3/2/2020"
+output: html_document
+---
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*If you collaborated with anyone, you must include "Collaborated with: FIRSTNAME LASTNAME" at the top of your lab!*
+
+For this lab, note that there are tidyverse methods to perform cross-validation in R (see the `rsample` package). However, your goal is to understand and be able to implement the algorithm "by hand", meaning  that automated procedures from the `rsample` package, or similar packages, will not be accepted.
+
+To begin, load in the popular `iris` data set.
+
+```{r}
+data(iris)
+```
+
+## Part 1. k-Nearest Neighbors Cross-Validation (15 points)
+
+Our goal here is to predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`.
+All your code should be within a function `my_knn_cv`.
+
+**Input:**
+
+  * `train`: input data frame
+  * `cl`: true class value of your training data
+  * `k_nn`: integer representing the number of neighbors
+  * `k_cv`: integer representing the number of folds
+  
+*Please note the distinction between `k_nn` and `k_cv`!*
+
+**Output:** a list with objects
+
+  * `class`: a vector of the predicted class $\hat{Y}_{i}$ for all observations
+  * `cv_err`: a numeric with the cross-validation misclassification error
+
+
+You will need to include the following steps:
+
+* Within your function, define a variable `fold` that randomly assigns observations to folds $1,\ldots,k$ with equal probability. (*Hint: see the example code on the slides for k-fold cross validation*)
+* Iterate through $i = 1:k$. 
+  * Within each iteration, use `knn()` from the `class` package to predict the class of the $i$th fold using all other folds as the training data.
+  * Also within each iteration, record the prediction and the misclassification rate (a value between 0 and 1 representing the proportion of observations that were classified **incorrectly**).
+* After you have done the above steps for all $k$ iterations, store the vector `class` as the majority vote classification for each observation and the value `cv_error` as the average misclassification rate
+
+**Submission:** To prove your function works, apply it to the `iris` data. Predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`. Use $5$-fold cross validation (`k_cv = 5`). Use a table to show the `cv_err` values for 1-nearest neighbor and 5-nearest neighbors (`k_nn = 1` and `k_nn = 5`). Comment on which value had lower CV misclassification error.
+
+## Part 2. Random Forest Cross-Validation (5 points)
+
+Now, we will predict output `Sepal.Length` using covariates `Sepal.Width`, `Petal.Length`, and `Petal.Width`.
+All your code should be within a function `my_rf_cv`.
+
+**Input:**
+
+  * `k`: number of folds
+
+**Output:** a list with objects
+
+  * a numeric with the cross-validation error
+  
+Your code will look very similar to Part 1! You will need the following steps: 
+
+* Within your function, define a variable `fold` within the `iris` data that randomly assigns observations to folds $1,\ldots,k$ with equal probability. (*Hint: see the example code on the slides for k-fold cross validation*)
+* Iterate through $i = 1:k$. 
+  * Within each iteration, define your training data as all the data not in the $i$th fold.
+  * Also within each iteration, use `randomForest()` from the `randomForest` package to train a random forest model with $100$ trees to predict `Sepal.Length` using covariates `Sepal.Width`, `Petal.Length`, and `Petal.Width`. <br>
+*Hint: `randomForest()` takes formula input. Your code here will probably look something like: *
+`MODEL <- randomForest(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = TRAINING_DATA, ntree = 100)`
+  * Also within each iteration, predict the `Sepal.Length` of the $i$th fold which was not used as training data. <br>
+  *Hint: predicting with `randomForest()` works similar to `lm()`. Your code here will probably looks something like: *
+  `PREDICTIONS <- as.data.frame(predict(MODEL, TEST_DATA[, -1])`
+  *where we remove the first column, `Sepal.Length` from our test data.*
+  * Also within each iteration, evaluate the MSE, the average squared difference between predicted `Sepal.Length` and true `Sepal.Length`.
+* Return the average MSE across all $k$ folds.
+
+**Submission:** 
+To prove your function works, apply it to the `iris` data. Predict `Sepal.Length` using covariates `Sepal.Width`, `Petal.Length`, and `Petal.Width`. 
+Run your function with $5$-fold cross validation (`k = 5`) and report the CV MSE.
