@@ -42,7 +42,7 @@ To begin, load in the popular `iris` data set.
 data(iris)
 ```
 
-## Part 1. k-Nearest Neighbors Cross-Validation (15 points)
+## Part 1. k-Nearest Neighbors Cross-Validation (10 points)
 
 Our goal here is to predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`.
 All your code should be within a function `my_knn_cv`.
@@ -72,7 +72,7 @@ You will need to include the following steps:
 
 **Submission:** To prove your function works, apply it to the `iris` data. Predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`. Use $5$-fold cross validation (`k_cv = 5`). Use a table to show the `cv_err` values for 1-nearest neighbor and 5-nearest neighbors (`k_nn = 1` and `k_nn = 5`). Comment on which value had lower CV misclassification error.
 
-## Part 2. Random Forest Cross-Validation (5 points)
+## Part 2. Random Forest Cross-Validation (10 points)
 
 Now, we will predict output `Sepal.Length` using covariates `Sepal.Width`, `Petal.Length`, and `Petal.Width`.
 All your code should be within a function `my_rf_cv`.
