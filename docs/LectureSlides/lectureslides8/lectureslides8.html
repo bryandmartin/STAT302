@@ -28,7 +28,7 @@ class: center, top, title-slide
 
 1. Training and Testing
 2. Cross-validation
-3. Statistical Prediction
+3. Statistical Prediction Algorithms
 
 .middler[**Goal:** Learn the concepts, terminology, and techniques in statistical prediction!]
 
@@ -495,16 +495,308 @@ ggarrange(g_split1, g_split10, common.legend = TRUE, legend = "bottom")
 
 Sample-splitting gives us a powerful tool to evaluate the performance of estimator *on data that was not used to train it*! Of course, this comes at the cost of sacrificing some of our data that could be used in order to train a model with as much information as possible, but this is a sacrifice we must make in practice if we want to appropriately evaluate the predictive performance of our models/methods!
 
-However, we can usually do better than just splitting our data in half.
+However, we can do better than just splitting our data in half.
 
 ---
 layout: false
 layout: true
 
-# Cross-validation
+# k-fold Cross-validation
 ---
 
-Wednesday!
+In general, the process of `\(k\)`-fold cross-validation is as follows:
+
+1. Split data into `\(k\)` parts (folds)
+2. Use all but 1 fold as your training data and fit the model
+3. Use the remaining fold for your test data and make predictions
+4. Switch which fold is your test data and repeat steps 2 and 3 until all folds have been test data (k times)
+5. Compute squared error
+
+Commonly, we use `\(k=5\)` and `\(k=10\)`.
+
+---
+
+.middler[&lt;img src="cv.png" alt="" height="500"/&gt;]
+
+---
+
+For each split, we calculate the out-of-sample test error, also known as the **mean squared error (MSE)**.
+For example, for the first split, we calculate
+
+`$$MSE_1 = \dfrac{1}{m}\sum_{j = 1}^{m} (Y_{j,test} - \hat{Y}_{j,test})^2,$$`
+where `\(m\)` is the number of observations in the test set.
+
+Then we calculate the **cross-validation estimate** of our test error
+
+`$$CV_{(k)} = \dfrac{1}{k}\sum_{i=1}^{k}MSE_i.$$`
+
+In words, our cross-validation estimate of the test error is the average of the mean squared errors across the splits!
+
+---
+
+## Leave-One-Out Cross-Validation
+
+Leave-one-out cross-validation (LOOCV) is a special instance of `\(k\)`-fold cross-validation where `\(k\)` is equal to the sample size `\(n\)`.
+This means you fit `\(n\)` different models using `\(n-1\)` data points for your training data, and then test on the remaining individual data point. 
+
+---
+
+## Bias-variance Tradeoff
+
+LOOCV strengths in that it uses as much data as possible to train the model while still having out-of-sample test data.
+Thus, it will provide approximately unbiased estimates of the test error, and is the best choice for minimizing bias.
+
+However, LOOCV has one major drawback: variance. 
+Because it fits `\(n\)` models, each of which is trained on almost identical training data, the outputs of the models are highly correlated.
+All other things being equal, the mean of correlated observations has a higher variance than  the mean of uncorrelated observations. 
+Thus, LOOCV has higher variance than `\(k\)`-fold CV with `\(k&lt;n\)`.
+
+As a rule of thumb, stick to `\(k=5\)` and `\(k=10\)`. 
+These values tend to result in an ideal balance in terms of the bias-variance tradeoff.
+
+---
+
+## What to do after cross-validation?
+
+We use cross-validation as a method to evaluate our model, *not* to build our model!
+Thus, once we have used `\(k\)`-fold cross-validation to come up with a reasonable estimate of our out-of-sample test-error (and perhaps to choose among several models based on this test error), we use the *full* data to train our final predictive model.
+
+Thus, using cross-validation, we are able to build a model based on our full data, and still evaluate the performance of our model on out-of-sample data!
+
+
+---
+layout: false
+layout: true
+
+# k-fold Cross-validation Example
+
+---
+
+
+```r
+set.seed(302)
+# Split data in 5 parts, randomly
+k &lt;- 5
+inds &lt;- sample(rep(1:k, length = n))
+# Use data from before
+data &lt;- data.frame("x" = x, "y" = y, "split" = inds)
+
+# Empty matrix to store predictions, 2 columns for 2 models
+pred_mat &lt;- matrix(NA, n, 2)
+for (i in 1:k) {
+  data_train &lt;- data %&gt;% filter(split != i)
+  data_test &lt;- data %&gt;% filter(split == i)
+  
+  # Train our models
+  lm_1_cv &lt;- lm(y ~ x, data = data_train)
+  lm_10_cv &lt;- lm(y ~ poly(x, 10), data = data_train)
+  
+  # Record predictions
+  pred_mat[inds == i, 1] = predict(lm_1_cv, data.frame(x = data_test$x))
+  pred_mat[inds == i, 2] = predict(lm_10_cv, data.frame(x = data_test$x))
+}
+
+# Compute average MSE to get CV error
+cv_err &lt;- colMeans((pred_mat - data$y)^2)
+```
+
+---
+
+
+```r
+# Create predictive model
+lm_1 &lt;- lm(y ~ x, data = data)
+lm_10 &lt;- lm(y ~ poly(x, 10), data = data)
+
+# Create smooth lines for plotting
+x_fit &lt;- data.frame(x = seq(min(data$x), max(data$x), length = 100))
+line_fit_1 &lt;- data.frame(x = x_fit, y = predict(lm_1, newdata = x_fit))
+line_fit_10 &lt;- data.frame(x = x_fit, y = predict(lm_10, newdata = x_fit))
+
+# Recode split for legend
+data &lt;- data %&gt;% 
+  mutate(fold = fct_recode(as.factor(split), "Fold 1" = "1", "Fold 2" = "2",
+                           "Fold 3" = "3", "Fold 4" = "4", "Fold 5" = "5"))
+
+g_cv &lt;- ggplot(data, aes(x = x, y = y, color = fold)) + geom_point() +
+  labs(title = "Cross-validation") + my_theme
+g_cv1 &lt;- g_cv + 
+  labs(subtitle = paste("Degree 1 CV error:", round(cv_err[1], 3))) +
+  geom_line(data = line_fit_1, aes(y = y, x = x), col = "black", lwd = 1.5)
+g_cv10 &lt;- g_cv + 
+  labs(subtitle = paste("Degree 10 CV error:", round(cv_err[2], 3))) +
+  geom_line(data = line_fit_10, aes(y = y, x = x), col = "black", lwd = 1.5)
+ggarrange(g_cv1, g_cv10, common.legend = TRUE, legend = "bottom")
+```
+---
+
+
+```
+## Error in FUN(X[[i]], ...): object 'fold' not found
+```
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 3. Statistical Prediction Algorithms]
+
+---
+
+# Statistical Prediction Algorithms
+
+We've talked about how regression can be used for both statistical inference and prediction.
+We are now going to shift to talk about algorithms designed specifically for statistical prediction. 
+
+
+We will discuss only a few methods for this course to teach you about the principles of how they work. 
+This will serve as an introduction to topics you may encounter if you venture further into fields such as **machine learning**.
+
+---
+
+# Statistical Prediction Algorithms
+
+The normal distribution, specified by parameters for the mean and the variance, is an example of a  **parametric model**.  We are now going to discuss some **non-parametric models**.
+As the name implies, these models have no parameters at all.
+
+Non-parametric models are not motivated by assuming a distribution about the data.
+Instead, the focus is often on pure prediction.
+How can we use data to help us classify and predict the world around us?
+For the most part, many of these methods would have been impossible before the rise of high-powered computing.
+
+---
+layout: true
+
+# k-nearest neighbors
+---
+
+k-nearest neighbors is a non-parametric prediction algorithm.
+
+* **Input:** training data `\(X_i = (X_{i1}, \ldots, X_{ip})\)` and output class `\(Y_i\)` for `\(i = 1,\ldots, n\)`
+* **Input:** test data `\(X^* = (X^*_1, \ldots, X^*_p)\)` with unknown output class `\(Y^*\)`
+* **Algorithm:** Find `\(X_{(1)},\ldots, X_{(k)}\)`, the `\(k\)` nearest points to `\(X^*\)`
+* **Output:** Predicted class `\(\hat{Y}^*\)`, the most common class from `\(X_{(1)},\ldots, X_{(k)}\)`
+
+This method is simple and highly flexible, but it can also be slow and inappropriate for certain settings.
+
+---
+
+.middler[
+&lt;iframe width="750" height="450" src="knn_gif.mp4" align="middle" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+
+[Video source](http://blog.datacamp.com/machine-learning-in-r/)
+]
+
+---
+
+.middler[&lt;img src="knn.png" alt="" height="350"/&gt;
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+]
+
+---
+
+.middler[&lt;img src="knn2.png" alt="" height="350"/&gt;
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+]
+---
+
+## Choosing k
+
+What happens when `\(k=1\)`? `\(k = n\)`?
+
+In order to choose an "optimal" `\(k\)`, it is common to use cross-validation:
+
+* For `\(k=1,\ldots,n\)` (or a more restrictive range), fit `\(k\)`-nearest neighbors
+* Use cross-validation to identify `\(k\)` with the minimum test error
+* Re-train a `\(k\)`-nearest neighbor model using all the data with optimal choice of `\(k\)`
+
+Cross-validation is a great tool to choose values for tuning parameters across a number of algorithms, not just `\(k\)`-nearest neighbors!
+
+---
+
+.middler[&lt;img src="choosek.png" alt="" height="350"/&gt;
+
+Test error is minimized at about `\(k=10\)`.
+
+Image Credit: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani
+]
+
+
+---
+layout: false
+layout: true
+
+# Trees
+---
+
+Instead of classifying based on neighboring data points in the training data, we can classify based on splits in our parameters. 
+
+* **Input:** training data `\(X_i = (X_{i1}, \ldots, X_{ip})\)` and output class/value `\(Y_i\)` for `\(i = 1,\ldots, n\)`
+* **Input:** test data `\(X^* = (X^*_1, \ldots, X^*_p)\)` with unknown output class/value `\(Y^*\)`
+* **Algorithm:** Identify splits in `\(X_i\)` that best predict `\(Y_i\)`
+* **Output:** Predicted class/value `\(\hat{Y}^*\)` using splits
+
+Trees to predict class are referred to as **classification trees**. Trees to predict quantitative output are referred to as **regression trees**.
+
+This algorithm is easy, efficient, and interpretable, but it is not as flexible as `\(k\)`-nearest neighbors.
+
+---
+
+.middler[&lt;img src="tree.png" alt="" height="350"/&gt;]
+
+---
+
+.middler[&lt;img src="tree2.png" alt="" height="350"/&gt;
+
+[Image source](http://www.stat.cmu.edu/~ryantibs/statcomp/lectures/prediction.html)
+]
+
+---
+
+## Random Forest
+
+In practice, we don't typically predict with a single tree. Instead, we combine multiple trees and take the average/most common of their predictions. Keeping with the tree metaphor, this is referred to as the **random forest** algorithm.
+
+.center[&lt;img src="randomforest.png" alt="" height="325"/&gt;
+
+[Image source](https://towardsdatascience.com/random-forests-and-decision-trees-from-scratch-in-python-3e4fa5ae4249)]
+
+---
+
+## Random Forest
+
+In practice, we don't typically predict with a single tree. Instead, we combine multiple trees and take the average/most common of their predictions. Keeping with the tree metaphor, this is referred to as the **random forest** algorithm.
+
+.center[&lt;img src="randomforest2.jpeg" alt="" height="325"/&gt;
+
+[Image source](https://towardsdatascience.com/understanding-random-forest-58381e0602d2)]
+
+---
+
+## Variable Importance
+
+One major benefit of tree-based prediction algorithms is that they provide a powerful and interpretable tool for assessing **variable importance**.
+For example, we can look across all trees in a random forest, assess how often variables were used for splitting and how helpful those splits were for prediction, and identify the variables that improve our predictions the most!
+
+(For more on this, see the *Gini index*. I highly recommend the book I've been using for some of these images, "An Introduction to Statistical Learning" by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani.)
+
+---
+layout: false
+
+# Statistical Prediction Algorithms
+
+This was a very brief overfiew of a very small subset of the algorithms used for statistical prediction. Other common examples include:
+
+* neural networks,
+* support vector machines,
+* kernel classifiers,
+* Bayesian classifiers,
+&lt;br&gt;
+`\(\ \ \ \ \ \ \ \vdots\)`
+
+These algorithms, and related topics, are likely things that you will cover if you take courses more focused on machine learning.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
