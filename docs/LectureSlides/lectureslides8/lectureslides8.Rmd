@@ -780,7 +780,7 @@ data <- data %>%
   mutate(Fold = fct_recode(as.factor(split), "Fold 1" = "1", "Fold 2" = "2",
                            "Fold 3" = "3", "Fold 4" = "4", "Fold 5" = "5"))
 
-g_cv <- ggplot(data, aes(x = x, y = y, color = fold)) + geom_point() +
+g_cv <- ggplot(data, aes(x = x, y = y, color = Fold)) + geom_point() +
   labs(title = "Cross-validation") + my_theme
 g_cv1 <- g_cv + 
   labs(subtitle = paste("Degree 1 CV error:", round(cv_err[1], 3))) +
