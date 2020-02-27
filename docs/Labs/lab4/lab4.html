@@ -418,7 +418,7 @@ h4.date {
 <li>Within each iteration, use <code>knn()</code> from the <code>class</code> package to predict the class of the <span class="math inline">\(i\)</span>th fold using all other folds as the training data.</li>
 <li>Also within each iteration, record the prediction and the misclassification rate (a value between 0 and 1 representing the proportion of observations that were classified <strong>incorrectly</strong>).</li>
 </ul></li>
-<li>After you have done the above steps for all <span class="math inline">\(k\)</span> iterations, store the vector <code>class</code> as the majority vote classification for each observation and the value <code>cv_error</code> as the average misclassification rate</li>
+<li>After you have done the above steps for all <span class="math inline">\(k\)</span> iterations, store the vector <code>class</code> as the output of <code>knn()</code> with the full data as both the training and the test data, and the value <code>cv_error</code> as the average misclassification rate from your cross validation.</li>
 </ul>
 <p><strong>Submission:</strong> To prove your function works, apply it to the <code>iris</code> data. Predict output class <code>Species</code> using covariates <code>Sepal.Length</code>, <code>Sepal.Width</code>, <code>Petal.Length</code>, and <code>Petal.Width</code>. Use <span class="math inline">\(5\)</span>-fold cross validation (<code>k_cv = 5</code>). Use a table to show the <code>cv_err</code> values for 1-nearest neighbor and 5-nearest neighbors (<code>k_nn = 1</code> and <code>k_nn = 5</code>). Comment on which value had lower CV misclassification error.</p>
 </div>
