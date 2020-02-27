@@ -96,7 +96,7 @@ These are `rbinom()`, `pbinom()`, and `dbinom()`.
 
 **2f.** Repeat parts b through e but now use $n=1000$. Discuss the differences and similarities.
 
-**2g.** With your new simulations from part f, present the 5-number summary of each column in both matrices in a single table. Be sure to label the rows and columns of the table. Qhat differences do you notice in the 5-number summaries between your matrix with $100$ rows and your matrix with $100,000$ rows? 
+**2g.** With your new simulations from part f, present the 5-number summary of each column in both matrices in a single table. Be sure to label the rows and columns of the table. What differences do you notice in the 5-number summaries between your matrix with $100$ rows and your matrix with $100,000$ rows? 
 
 (*Hint: Use the function* `summary()`. *There are many ways you can present this table. Personally, my table would have 8 rows and 5 columns.*)
 
