@@ -70,7 +70,7 @@ You will need to include the following steps:
   * Also within each iteration, record the prediction and the misclassification rate (a value between 0 and 1 representing the proportion of observations that were classified **incorrectly**).
 * After you have done the above steps for all $k$ iterations, store the vector `class` as the output of `knn()` with the full data as both the training and the test data, and the value `cv_error` as the average misclassification rate from your cross validation.
 
-**Submission:** To prove your function works, apply it to the `iris` data. Predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`. Use $5$-fold cross validation (`k_cv = 5`). Use a table to show the `cv_err` values for 1-nearest neighbor and 5-nearest neighbors (`k_nn = 1` and `k_nn = 5`). Comment on which value had lower CV misclassification error.
+**Submission:** To prove your function works, apply it to the `iris` data. Predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`. Use $5$-fold cross validation (`k_cv = 5`). Use a table to show the `cv_err` values for 1-nearest neighbor and 5-nearest neighbors (`k_nn = 1` and `k_nn = 5`). Comment on which value had lower CV misclassification error and which had lower training set error (compare your output `class` to the true class, `iris$Species`).
 
 ## Part 2. Random Forest Cross-Validation (10 points)
 
