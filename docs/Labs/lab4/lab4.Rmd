@@ -81,7 +81,7 @@ All your code should be within a function `my_rf_cv`.
 
   * `k`: number of folds
 
-**Output:** a list with objects
+**Output:**
 
   * a numeric with the cross-validation error
   
