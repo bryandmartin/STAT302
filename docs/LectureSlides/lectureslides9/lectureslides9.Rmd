@@ -1,0 +1,32 @@
+---
+title: "STAT 302, Week 9"
+subtitle: "R Package Development"
+author: "Bryan Martin"
+date: "Week of Feb 24, 2020"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow-night-bright
+      highlightLines: true
+      countIncrementalSlides: false
+      titleSlideClass: ["center","top"]
+---
+
+```{r setup, include=FALSE, purl=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment = "##")
+knitr::opts_chunk$set(cache = TRUE)
+knitr::opts_chunk$set(error = TRUE)
+library(kableExtra)
+library(tidyverse)
+```
+
+
+# Outline
+
+1.
+
+.middler[**Goal:** ]
+

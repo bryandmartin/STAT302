@@ -95,7 +95,7 @@ Your code will look very similar to Part 1! You will need the following steps:
 `MODEL <- randomForest(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = TRAINING_DATA, ntree = 100)`
   * Also within each iteration, predict the `Sepal.Length` of the $i$th fold which was not used as training data. <br>
   *Hint: predicting with `randomForest()` works similar to `lm()`. Your code here will probably looks something like: *
-  `PREDICTIONS <- as.data.frame(predict(MODEL, TEST_DATA[, -1])`
+  `PREDICTIONS <- predict(MODEL, TEST_DATA[, -1])`
   *where we remove the first column, `Sepal.Length` from our test data.*
   * Also within each iteration, evaluate the MSE, the average squared difference between predicted `Sepal.Length` and true `Sepal.Length`.
 * Return the average MSE across all $k$ folds.
