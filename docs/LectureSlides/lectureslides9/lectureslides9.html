@@ -16,7 +16,7 @@ class: center, top, title-slide
 # STAT 302, Week 9
 ## R Package Development
 ### Bryan Martin
-### Week of Feb 24, 2020
+### Week of March 2, 2020
 
 ---
 
@@ -26,9 +26,187 @@ class: center, top, title-slide
 
 # Outline
 
-1.
+1. Setting up a package
+2. Documenting a package
+3. Testing a package
 
-.middler[**Goal:** ]
+.middler[**Goal:** Develop our own R packages (Project 3!)]
+
+
+
+---
+class: inverse 
+
+.sectionhead[Please follow along with any slides marked with (*).]
+
+---
+class: inverse
+
+.sectionhead[Part 1. Setting up a package]
+
+---
+layout: true
+# Why?
+---
+
+.middler[
+repeating a task : writing a function ::
+writing a function : writing a package
+]
+
+---
+
+* repeating a task : writing a function ::
+writing a function : writing a package
+* If you find yourself copying R code from one script file to another, it's probably worth it to write a package!
+* Copying and pasting code as part of your workflow is **bad** practice!
+
+---
+
+.middler[
+[How easy is it?](https://www.youtube.com/watch?v=0jgXYKtQtfA&amp;feature=youtu.be&amp;t=60)
+]
+
+
+---
+layout: false
+# Getting Started (*)
+
+First, we need to make sure you have the proper packages installed.
+Remember, do this step only once!
+
+
+```r
+install.packages(c("devtools", "roxygen2", "testthat", "knitr"))
+```
+
+---
+
+# Step 1: Create the directory (*)
+
+1. Within your `STAT302` directory, go to your folder for projects
+2. Create a new subdirectory, `Project3` (or similar)
+3. **Change your working directory within R to your `Project3` subfolder!**
+4. Type in your R console (changing the package name)
+  
+  ```r
+  devtools::create("YOURPACKAGENAME")
+  ```
+  I don't care what you name your package. Unless you feel particularly inspired, feel free to go for `myfirstpackage`, `STAT302package`, or similar. Please don't go with `YOURPACKAGENAME`.
+
+Congratulations, you have developed an R package! Let's go through what we just created.
+
+---
+# Package file content
+
+.middler[&lt;img src="packagefiles.png" alt="" height="300"/&gt;]
+
+---
+
+# .gitignore: Files git ignores (*)
+
+The `.gitignore` file specifies which files git will ignore and not track. devtools puts `.Rproj.user` there by default, a helper file associated with your project file. Typically, you don't want to do version control on things like your history, so I usually add `.Rhistory`.
+This is unnecessary, but recommended.
+
+When you add files here (which you don't need to do often, if at all), add them on new lines!
+
+.center[&lt;img src="gitignore.png" alt="" height="100"/&gt;]
+
+---
+
+# .Rbuildignore: Files R build ignores
+
+The `.Rbuildignore` file specifies which files will be ignored when you build your package. 
+devtools puts R project files there by default, because the project files are for you, the developer, not a user of your package!
+
+Typically, you won't need to edit this by hand.
+
+---
+
+# Step 2: DESCRIPTION metadata (*)
+
+The `DESCRIPTION` file is a space for package metadata.
+Go ahead and fill in the relevant information now.
+We will come back to this file shortly.
+
+For `License`, I recommend either `GPL-3` or `MIT`. Do not use Creative Commons (`CC`) for software.
+I like Karl Broman's overview of licenses [here](https://kbroman.org/pkg_primer/pages/licenses.html).
+If you use `MIT`, make sure you include a `LICENSE` file with the year and copywrite holder as well!
+See the link for an example.
+
+
+.center[&lt;img src="description.png" alt="" height="300"/&gt;]
+
+---
+
+# NAMESPACE: Package namespace
+
+The `NAMESPACE` file is a space for the package namespace.
+For the most part, this  tells R what functions your package exports.
+It is also used to list function imports as well as some other more advanced topics we won't get into in this class, such as S3 methods.
+
+Fortunately, with devtools you don't have to (and shouldn't!) ever edit this file by hand!
+
+---
+layout: true
+
+# Step 3: The R Folder (*)
+
+---
+
+Now that we've been introduced to every file that was created by `devtools::create()`, we are ready to give our package some functions!
+
+Open a new R script and write the following simple function.
+
+
+```r
+my_pow &lt;- function(x, power = 2) {
+  return(x^power)
+}
+```
+
+
+Save this R script within the R folder as `my_pow.R`.
+
+
+---
+
+Now open **another** new R script and write the following simple function.
+
+
+```r
+f_to_c &lt;- function(temp_F) {
+  temp_C &lt;- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+```
+
+Save this R script within the R folder as `f_to_c.R`.
+
+**Best practice:** Each R script should include a single R function, and the name of the `.R` file should match the name of the function!
+Get in the habit of doing this now and you will thank yourself later.
+It will make version control with R packages much cleaner and easier.
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 2. Documenting a package]
+
+---
+layout: true
+
+# Step 4: Add documentation (*)
+---
+
+We now have functions within our package, but they are incomplete because they lack **documentation**. 
+Documentation is what you see when you type something like `?lm`.
+
+Of course, style matters a lot when it comes to documentation!
+This is the user-facing part of your code, so following proper style guidelines is crucial (and graded)! 
+As usual, we will follow the [tidyverse style guide](https://style.tidyverse.org/documentation.html).
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

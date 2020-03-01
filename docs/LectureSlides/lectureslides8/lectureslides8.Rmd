@@ -898,13 +898,10 @@ Trees to predict class are referred to as **classification trees**. Trees to pre
 
 This algorithm is easy, efficient, and interpretable, but it is not as flexible as $k$-nearest neighbors.
 
----
-
-.middler[<img src="tree.png" alt="" height="350"/>]
 
 ---
 
-.middler[<img src="tree2.png" alt="" height="350"/>
+.middler[<img src="tree.png" alt="" height="350"/>
 
 [Image source](http://www.stat.cmu.edu/~ryantibs/statcomp/lectures/prediction.html)
 ]
