@@ -94,7 +94,7 @@ Specifically, the vignette should have 5 parts:
   
 ### Details
 
-* The repository for your package must be hosted on a public Github repository. You are free to make the repository private after the course concludes.
+* Your package must be hosted on Github as a public repository. You are free to make the repository private after the course concludes.
 * Your submission for this portion of the project will be a single link to your Github reposiory.
 * Your `README.md` file should include badges for travis-ci automated testing and codecov code coverage.
 * Your `README.md` should include an `Installation` section installation instructions and a `Use` section demonstrating how to view the package vignettes. 
@@ -136,7 +136,7 @@ Your analysis should be contained on a Github repository and include:
 
 ### Details
 
-* The repository for your package must be hosted on a public Github repository. You are free to make the repository private after the course concludes.
+* Your data analysis project must be hosted on Github as a public repository. You are free to make the repository private after the course concludes.
 * Your submission for this portion of the project will be a single link to your Github reposiory.
 * Test whether your pipeline works. When you knit the `.Rmd` in your `Analysis` folder, it should re-load the `Data` and `Code` files and re-generate all the results in `Output`.
 If your results in `Output` aren't systematically re-generated when you run your Analysis, something in your pipeline is broken!
