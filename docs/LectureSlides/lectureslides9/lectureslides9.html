@@ -28,7 +28,8 @@ class: center, top, title-slide
 
 1. Setting up a package
 2. Documenting a package
-3. Testing a package
+3. Github and R packages
+4. Automated package testing
 
 .middler[**Goal:** Develop our own R packages (Project 3!)]
 
@@ -77,7 +78,7 @@ Remember, do this step only once!
 
 
 ```r
-install.packages(c("devtools", "roxygen2", "testthat", "knitr"))
+install.packages(c("devtools", "roxygen2", "testthat", "knitr", "covr"))
 ```
 
 ---
@@ -207,6 +208,348 @@ This is the user-facing part of your code, so following proper style guidelines 
 As usual, we will follow the [tidyverse style guide](https://style.tidyverse.org/documentation.html).
 
 ---
+
+## Title and description
+
+For package documentation using the `roxygen2` package (built in to `devtools` workflow), we write comments a special way.
+When documenting functions, we use `#'` rather than just `#` for the comments. 
+Always indent one space after `#'` to begin documentation.
+
+The first documentation line should be the title of the function. This should not end with a full stop `.`. 
+Then you should skip a line, and then write the function description.
+This is often similar to the title, but with more details.
+It should end with a full stop.
+
+.center[&lt;img src="pow1.png" alt="" height="150"/&gt;]
+
+---
+
+## Title and description
+
+For package documentation using the `roxygen2` package (built in to `devtools` workflow), we write comments a special way.
+When documenting functions, we use `#'` rather than just `#` for the comments.
+Always indent one space after `#'` to begin documentation.
+
+The first documentation line should be the title of the function. This should not end with a full stop `.`. 
+Then you should skip a line, and then write the function description.
+This is often similar to the title, but with more details.
+It should end with a full stop.
+
+.center[&lt;img src="temp1.png" alt="" height="180"/&gt;]
+
+---
+
+## Parameters
+
+Next, we document **all** parameters of a function.
+We proceed the documentation with `@param`, then a space, then the parameter name, then another space, then the description.
+
+In general, write the documentation as a sentence. Starting with a capital letter and ending with a full stop `.`. 
+Include the type of data input expected as well as the default value, if applicable.
+
+To refer to other parameters or value of code, wrap the text in `\code{TEXT}`.
+For long lines of documentation, begin a new line and indent an extra 2 spaces.
+
+.center[&lt;img src="pow2.png" alt="" height="220"/&gt;]
+
+---
+
+## Parameters
+
+Next, we document **all** parameters of a function.
+We proceed the documentation with `@param`, then a space, then the parameter name, then another space, then the description.
+
+In general, write the documentation as a sentence. Starting with a capital letter and ending with a full stop `.`. 
+Include the type of data input expected as well as the default value, if applicable.
+
+To refer to other parameters or value of code, wrap the text in `\code{TEXT}`.
+For long lines of documentation, begin a new line and indent an extra 2 spaces.
+
+.center[&lt;img src="temp2.png" alt="" height="200"/&gt;]
+
+---
+
+## Keywords
+
+If relevant, add keywords to your functions using `@keywords`
+These are useful if you have several functions that have a similar topic. 
+For example, maybe we have several temperature related functions:
+
+.center[&lt;img src="temp22.png" alt="" height="220"/&gt;]
+
+---
+
+## Return
+
+Document what your function returns using `@return`. 
+Documentation style for `@return` follows `@param` (sentence with full stop).
+Always describe the full structure of your output ("A list with elements \code{...}...", "a vector of...", etc.).
+
+.center[&lt;img src="pow3.png" alt="" height="250"/&gt;]
+
+---
+
+## Return
+
+Document what your function returns using `@return`. 
+Documentation style for `@return` follows `@param` (sentence with full stop).
+Always describe the full structure of your output ("A list with elements \code{...}...", "a vector of...", etc.).
+
+.center[&lt;img src="temp3.png" alt="" height="250"/&gt;]
+
+---
+
+## Examples
+
+All functions should include at least one example demonstrating how to use the function.
+Proceed the example by `@examples`, then on new documentation lines indented with 
+a single space, write R code exactly as you would in the console demonstrating the function.
+
+.center[&lt;img src="pow4.png" alt="" height="300"/&gt;]
+
+---
+
+## Examples
+
+All functions should include at least one example demonstrating how to use the function.
+Proceed the example by `@examples`, then on new documentation lines indented with 
+a single space, write R code exactly as you would in the console demonstrating the function.
+
+.center[&lt;img src="temp4.png" alt="" height="300"/&gt;]
+
+---
+
+## Export
+
+Lastly, if you want your function to visible to the user, add an `@export` tag just before the first line of your function. 
+In general, most functions you write should have this tag, unless you want the function to be used internally only.
+
+.center[&lt;img src="pow5.png" alt="" height="320"/&gt;]
+
+---
+
+## Export
+
+Lastly, if you want your function to visible to the user, add an `@export` tag just before the first line of your function. 
+In general, most functions you write should have this tag, unless you want the function to be used internally only.
+
+.center[&lt;img src="temp5.png" alt="" height="320"/&gt;]
+
+---
+layout: false
+
+# Step 5: Build documentation (*)
+
+If you've been following the instructions so far, devtools makes this step almost trivial.
+In your console, run the command
+
+
+```r
+devtools::document()
+```
+
+Let's look at what changed.
+
+---
+
+# The man folder: manual files
+
+The poorly-named `man` folder should now exist in your package directory.
+Look inside, and you should see a `.Rd` file for every function you've documented.
+These files are written in a markdown language, and never need to be (or should be!) edited by hand!
+
+Make sure that any time you change even a single character in your documentation, 
+you update the documentation with `devtools::document()`.
+R will get confused if the documentation within the `.R` files doesn't **exactly** match the documentation that appears within the `.Rd` files.
+
+---
+
+# NAMESPACE: namespace
+
+Look at the `NAMESPACE` again, and you will see an exported line for every function with an `@export` tag.
+Like the `man` folder, this files never need to be edited by hand!
+
+---
+layout: true
+# Install! (*)
+---
+
+Next, move into the parent directory that contains your package (should be one directory up), and install using `devtools::install()`.
+Then load your package, like any other, using `library()`. 
+Then check out the documentation of your functions using `?`.
+
+
+```r
+setwd("..")
+devtools::install("YOUR_PACKAGE_NAME")
+library(YOUR_PACKAGE_NAME)
+?my_pow
+```
+
+.center[Congratulations, you have just built and installed your own R package from scratch!]
+
+---
+
+.center[&lt;img src="powdoc.png" alt="" height="550"/&gt;]
+
+---
+
+.center[&lt;img src="tempdoc.png" alt="" height="550"/&gt;]
+
+---
+layout: false
+
+# Step 5.5: Check your package (*)
+
+Anytime you update a package, it's a good idea to check it.
+This can be done in two ways.
+
+1. In the console, type `devtools::check()`
+  * If you get an error that says `Error: Could not find package root.`, then you need to navigate to the package working directory (not the directory that *contains* your package, for example)
+2. Open the `Build` pane, then click `Check`
+
+If you have no errors, warnings, or notes, then your package passed standard checks!
+
+.center[&lt;img src="check.png" alt="" height="220"/&gt;]
+
+---
+class: inverse
+
+.sectionhead[Part 3: Github and R packages]
+---
+
+# Step 6: Create a Github repo (*)
+
+Using steps from week 7 lecture slides, set up a repository on Github. 
+Make sure **not** to select *Initialize this repository with a README*.
+The repo name **must** match the name of the package!
+
+---
+
+# Step 7: Connect git with R (*)
+
+1. Open your console
+2. **Navigate your working directory to your package folder** 
+  * Confirm this using `pwd` and `ls`, it should be the folder that includes the .Rproj file
+3. `git init`: set up get
+4. `git status`: confirm the files look like you expect
+5. `git add .`: adds git tracking for all files not in `.gitignore`
+6. `git status`: confirm, as always
+7. `git commit -m "Set up package"` or similar message to commit your changes
+8. `git remote add origin https://github.com/YOUR_GITHUB/YOUR_PACKAGE_NAME.git`: connect your Github repo to your local git with nickname origin
+9. `git push -u origin master` to push your local changes to origin
+
+Now navigate online to your Github repo link. 
+You should see your package hosted!
+
+---
+
+# Install from Github! (*)
+
+Installing from Github is simple! Just use `devtools::install_github()`!
+Try installing your own package.
+If that works, try installing your neighbor's package!
+
+Fill in the username and link with your own information:
+
+```r
+devtools::install_github("bryandmartin/Demo")
+library(Demo)
+?my_pow
+```
+
+---
+
+# Step 8: Set up a travis CI account (*)
+
+Instructions from the official [travis CI tutorial](https://docs.travis-ci.com/user/tutorial/).
+
+1. Go to [travis-ci.com](travis-ci.com) and click `Sign up with Github`
+2. Accept the Authorization of Travis CI. You'll be redirected to GitHub.
+3. Click on your profile picture in the top right of your Travis Dashboard, click the green *Activate* button, and select the repositories you want to use with Travis CI.
+  * In this case, select your package for Project 3.
+  
+---
+
+# Step 9: Set up travis within your package (*)
+
+1. Within your console, enter `use_this::use_testthat()`. This will:
+  * Create a `tests/testthat` directory for storing your tests
+  * Adds `testthat` to the `Suggests` field within `DESCRIPTION`
+  * Creates `tests/testthat.R` which runs your tests automatically whenever you check your package.
+2. Within your console, enter `usethis::use_travis()`. This will:
+  * Create a `.travis.yml` file and add it to your `.gitignore`
+  * Push you to the travis website.
+  * Provide the markdown to insert a badge into `README`.
+3. Activate travis for your repo at the travis website.
+4. *File -&gt; New File -&gt; Text File*
+  * Take the markdown text from `use_travis()` output and save as `README.md`. You **must** change the file extension!
+5. Push your local changes to Github using instructions from Lecture Slide 7.
+  * Recall: Easy way - through RStudio!
+
+---
+layout: true
+# Step 10: Add automated tests (*)
+---
+
+The organization of tests should match the organization of R files.
+Thus, for every `.R` file within our R folder, we should have a corresponding file within `tests/testthat`.
+
+1. Run `usethis::use_test("my_pow")`. This will automatically create and open `tests/testthat/test-my_pow.R`.
+2. Edit the test file. Let's test whether both inputs are numeric, and add a second test that it works mathematically on some example input.
+  
+  ```r
+  # within test-my_pow.R
+  test_that("my_pow works mathmatically", {
+    expect_equal(my_pow(2), 4)
+    expect_equal(my_pow(2, power = 3), 8)
+  })
+  
+  test_that("non-numeric input throws error", {
+    expect_error(my_pow("a string"))
+    expect_error(my_pow(2, power = "a string"))
+  })
+  ```
+3. Run `devtools::check()`. Does your code pass the checks?
+
+---
+
+Let's repeat the process with `f_to_c`.
+
+1. Run `usethis::use_test("f_to_c")`
+2. Edit the test file. Let's again test a few input values and that non-numeric input breaks.
+  
+  ```r
+  # within test-f_to_c.R
+  test_that("f_to_c works mathmatically", {
+    expect_equal(f_to_c(32), 0)
+    expect_equal(f_to_c(212), 100)
+  })
+  
+  test_that("non-numeric input throws error", {
+    expect_error(f_to_c("a string"))
+  })
+  ```
+3. Run `devtools::check()`. Does your code pass the checks?
+4. Push your changes to your remote repository on Github.
+
+Now go to the [travis-ci.com](travis-ci.com) and click on your repository. What is happening?
+
+---
+layout: false
+# Step 11: Add code coverage (*)
+
+Thanks to the tidyverse authors, adding code coverage is easy! (Are you sensing a theme yet?)
+
+1. Navigate online to `codecov.io` and create an account. Link this account with your Github account.
+2. Run `usethis::use_coverage()`. This will:
+  * Add `covr` to the `Suggests` field within `DESCRIPTION`
+  * Create `codecov.yml` and add it to `.Rbuildignore`
+  * Add a Codecov test coverage badge to `README.md`
+  * Provide text to add to `.travis.yml`
+3. Take the text it generated and add it on a new line to your `.travis.yml`. (It should be automatically copied to your clipboard.)
+  
+.center[&lt;img src="travis.png" alt="" height="150"/&gt;]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
