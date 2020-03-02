@@ -1,0 +1,60 @@
+---
+title: "Project 3: R Package Development and Data Analysis Project Pipeline"
+author: "INSERT YOUR NAME(S) HERE"
+date: "2/16/2020"
+output: html_document
+---
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+# Part 1. R Package Development (40 points)
+
+## Instructions
+
+Coming soon...
+
+
+### Details
+
+* 
+
+### Requirements
+
+* 
+
+
+# Part 2. Data Analysis Project Pipeline (10 points)
+
+## Instructions
+
+Coming soon...
+
+### Details
+
+* 
+
+### Requirements
+
+* 
+
+
+
