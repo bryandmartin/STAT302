@@ -390,40 +390,143 @@ h4.date {
 }
 </style>
 <!--- End styling code. --->
-<div id="part-1.-r-package-development-40-points" class="section level1">
-<h1>Part 1. R Package Development (40 points)</h1>
+<div id="part-1.-r-package-development-45-points" class="section level1">
+<h1>Part 1. R Package Development (45 points)</h1>
 <div id="instructions" class="section level2">
 <h2>Instructions</h2>
-<p>Coming soon…</p>
+<p>For this portion of Project 3, you are being asked to develop a well-documented, well-tested, and well-explained R package. Follow the instruction on Lecture Slides 9 to set up the skeleton of your package. This R package should be adjusted to include functions we’ve written throughout the class:</p>
+<ul>
+<li><code>my_t.test</code></li>
+<li><code>my_lm</code></li>
+<li><code>my_knn_cv</code></li>
+<li><code>my_rf_cv</code></li>
+</ul>
+<p>Your package should include a detailed and thorough vignette, demonstrating use of all of these functions using the <code>gapminder</code> data from the <code>gapminder</code> package. However, you must add and document the <code>gapminder</code> data to your own package and export it as the object <code>my_gapminder</code> (with proper credit in the documentation!).</p>
+<p>Specifically, the vignette should have 5 parts:</p>
+<ol style="list-style-type: decimal">
+<li>A brief introductory paragraph explaining the package</li>
+</ol>
+<ul>
+<li>This paragraph should include instructions for how to install your package from Github.</li>
+<li>The install instructions should be demonstrated with code that is not evaluated (<code>eval = FALSE</code>).</li>
+<li>Make sure to include a call to <code>library()</code> for your package.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>A tutorial for <code>my_t.test</code></li>
+</ol>
+<ul>
+<li>Use the <code>lifeExp</code> data from <code>my_gapminder</code>.</li>
+<li>Demonstrate a test of the hypothesis <span class="math display">\[\begin{align}
+  H_0: \mu &amp;= 60,\\
+  H_a: \mu &amp;\neq 60.
+  \end{align}\]</span></li>
+<li>Demonstrate a test of the hypothesis <span class="math display">\[\begin{align}
+  H_0: \mu &amp;= 60,\\
+  H_a: \mu &amp;&lt; 60.
+  \end{align}\]</span></li>
+<li>Demonstrate a test of the hypothesis <span class="math display">\[\begin{align}
+  H_0: \mu &amp;= 60,\\
+  H_a: \mu &amp;&gt; 60.
+  \end{align}\]</span></li>
+<li>For each of the tests above, carefully interpret the results using a p-value cut-off of <span class="math inline">\(\alpha = 0.05\)</span>.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>A tutorial for <code>my_lm</code></li>
+</ol>
+<ul>
+<li>Demonstrate a regression using <code>lifeExp</code> as your response variable and <code>gdpPercap</code> and <code>continent</code> as explanatory variables.</li>
+<li>Carefully interpret the <code>gdpPercap</code> coefficient.</li>
+<li>Write the hypothesis test associated with the <code>gdpPercap</code> coefficient.</li>
+<li>Carefully interpret the results the <code>gdpPercap</code> hypothesis test using a p-value cut-off of <span class="math inline">\(\alpha = 0.05\)</span>.</li>
+<li>Use <code>ggplot2</code> to plot the Actual vs. Fitted values.</li>
+<li>Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>A tutorial for <code>my_knn_cv</code></li>
+</ol>
+<ul>
+<li>Predict output class <code>continent</code> using covariates <code>gdpPercap</code> and <code>lifeExp</code>.</li>
+<li>Use <span class="math inline">\(5\)</span>-fold cross validation (<code>k_cv = 5</code>).</li>
+<li>Iterate from <code>k_nn</code><span class="math inline">\(= 1,\ldots, 10\)</span>:
+<ul>
+<li>For each value of <code>k_nn</code>, record the training misclassification rate and the CV misclassification rate (output from your function).</li>
+</ul></li>
+<li>State which model you would choose based on the training misclassification rates and which model you would choose based on the CV misclassification rates.</li>
+<li>Discuss which model you would choose in practice and why.</li>
+<li>Your explanation(s) should include a general description of what cross-validation is doing and why this is useful.</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>A tutorial for <code>my_rf_cv</code></li>
+</ol>
+<ul>
+<li>From Lab 4, switch the input data from <code>iris</code> to <code>my_gapminder</code>.</li>
+<li>Predict <code>lifeExp</code> using covariate <code>gdpPercap</code>.</li>
+<li>Iterate through <code>k</code> in <code>c(2, 5, 10, 100)</code>:
+<ul>
+<li>For each value of <code>k</code>, run your function <span class="math inline">\(30\)</span> times.</li>
+<li>For each of the <span class="math inline">\(30\)</span> iterations, store the CV estimated MSE.</li>
+</ul></li>
+<li>Use <code>ggplot2</code> with 4 boxplots to display these data in an informative way. There should be a boxplot associated with each value of <code>k</code>, representing <span class="math inline">\(30\)</span> simulations each.</li>
+<li>Use a table to display the average CV estimate and the standard deviation of the CV estimates across <span class="math inline">\(k\)</span>. Your table should have 4 rows (one for each value of <span class="math inline">\(k\)</span>) and 2 columns (one for the mean and the other for the standard deviation).</li>
+<li>Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of <span class="math inline">\(k\)</span> and comment on why you think this is the case.</li>
+</ul>
 <div id="details" class="section level3">
 <h3>Details</h3>
 <ul>
-<li></li>
+<li>The repository for your package must be hosted on a public Github repository. You are free to make the repository private after the course concludes.</li>
+<li>Your submission for this portion of the project will be a single link to your Github reposiory.</li>
+<li>Your <code>README.md</code> file should include badges for travis-ci automated testing and codecov code coverage.</li>
+<li>Your package should pass all checks implemented in <code>devtools::check()</code>.</li>
+<li>Your code coverage should be at or near 100%.</li>
+<li>Each of the 4 main functions should include at least one of <code>inference</code>/ <code>prediction</code> as <code>@keywords</code>, depending on what the function is primarily used for.</li>
+<li>Each function must include <code>@examples</code>.</li>
+<li>This is a software vignette, so all of your code should be displayed within your writing. Do not include a code appendix.</li>
+<li>All code and documentation should follow the style guidelines outlined in class.</li>
 </ul>
 </div>
-<div id="requirements" class="section level3">
-<h3>Requirements</h3>
-<ul>
-<li></li>
-</ul>
 </div>
 </div>
-</div>
-<div id="part-2.-data-analysis-project-pipeline-20-points" class="section level1">
-<h1>Part 2. Data Analysis Project Pipeline (20 points)</h1>
+<div id="part-2.-data-analysis-project-pipeline-15-points" class="section level1">
+<h1>Part 2. Data Analysis Project Pipeline (15 points)</h1>
 <div id="instructions-1" class="section level2">
 <h2>Instructions</h2>
-<p>Coming soon…</p>
+<p>For this portion of Project 3, you are being asked to set up a Github repository demonstrating your ability to set up a systematic data analysis project workflow. For this part, we are pretending we don’t have a package, and using code and analyses you have already generated for Part 1.</p>
+<p>Your analysis should be contained on a Github repository and include:</p>
+<ul>
+<li>A <code>.Rproj</code> file with the name of the project.</li>
+<li>A <code>Data</code> subfolder with the raw, unprocessed data.
+<ul>
+<li>Within <code>Data</code>, save the <code>gapminder</code>/<code>my_gapminder</code> data as a raw <code>.csv</code>.</li>
+</ul></li>
+<li>A <code>Code</code> subfolder with code to be loaded by your analysis files.
+<ul>
+<li>Include <code>my_rf_cv.R</code> from your package in Part 1. You can include it exactly as it appears in your package, including documentation. Good <code>roxygen2</code> style documentation is not limited to packages!</li>
+</ul></li>
+<li>An <code>Analysis</code> subfolder.
+<ul>
+<li>Include a <code>.Rmd</code> file. This file can, for the most part, be a copy of part 5 from your package vignette. <strong>However</strong>, this R Markdown document must
+<ul>
+<li>load data directly from the <code>Data</code> subfolder,</li>
+<li>use <code>source()</code> to source code directly from from the <code>Code</code> subfolder (your <code>.Rmd</code> should <strong>not</strong> include code generating the function <code>my_rf_cv</code>, it should load that function from your script!),</li>
+<li>use <code>ggsave()</code> to save all your figures within your analysis scripts (remember, your relative path from files in <code>Analysis</code> will look like <code>&quot;../Output/Figures&quot;</code>).</li>
+<li>use <code>saveRDS()</code> and <code>write_csv()</code> to save your table of summary statistics and your simulation results, respectively (see <code>Results</code> description).</li>
+</ul></li>
+</ul></li>
+<li>A <code>Output</code> subfolder with:
+<ul>
+<li>A <code>Figures</code> sub-subfolder with all the figures you generated in <code>Analysis</code></li>
+<li>A <code>Results</code> sub-subfolder that contains (a) your table of 8 summary statistics saved as a <code>.rds</code> file and (b) a <code>.csv</code> with your 120 simulated results with 4 columns for each value of <span class="math inline">\(k\)</span> and 30 rows for each simulation.</li>
+</ul></li>
+<li>A <code>.gitignore</code> file
+<ul>
+<li>Include <code>.Rproj.user</code> and <code>.Rhistory</code></li>
+</ul></li>
+</ul>
 <div id="details-1" class="section level3">
 <h3>Details</h3>
 <ul>
-<li></li>
-</ul>
-</div>
-<div id="requirements-1" class="section level3">
-<h3>Requirements</h3>
-<ul>
-<li></li>
+<li>The repository for your package must be hosted on a public Github repository. You are free to make the repository private after the course concludes.</li>
+<li>Your submission for this portion of the project will be a single link to your Github reposiory.</li>
 </ul>
 </div>
 </div>

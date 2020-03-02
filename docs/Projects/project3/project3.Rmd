@@ -26,35 +26,115 @@ h4.date {
 </style>
 <!--- End styling code. --->
 
-# Part 1. R Package Development (40 points)
+# Part 1. R Package Development (45 points)
 
 ## Instructions
 
-Coming soon...
+For this portion of Project 3, you are being asked to develop a well-documented, well-tested, and well-explained R package.
+Follow the instruction on Lecture Slides 9 to set up the skeleton of your package.
+This R package should be adjusted to include functions we've written throughout the class:
+
+* `my_t.test`
+* `my_lm`
+* `my_knn_cv`
+* `my_rf_cv`
+
+Your package should include a detailed and thorough vignette, demonstrating use of all of these functions using the `gapminder` data from the `gapminder` package.
+However, you must add and document the `gapminder` data to your own package and export it as the object `my_gapminder` (with proper credit in the documentation!).
 
 
+Specifically, the vignette should have 5 parts:
+
+1. A brief introductory paragraph explaining the package
+  * This paragraph should include instructions for how to install your package from Github. 
+  * The install instructions should be demonstrated with code that is not evaluated (`eval = FALSE`).
+  * Make sure to include a call to `library()` for your package.
+2. A tutorial for `my_t.test`
+  * Use the `lifeExp` data from `my_gapminder`.
+  * Demonstrate a test of the hypothesis
+  \begin{align}
+  H_0: \mu &= 60,\\
+  H_a: \mu &\neq 60.
+  \end{align}
+  * Demonstrate a test of the hypothesis
+  \begin{align}
+  H_0: \mu &= 60,\\
+  H_a: \mu &< 60.
+  \end{align}
+  *  Demonstrate a test of the hypothesis
+  \begin{align}
+  H_0: \mu &= 60,\\
+  H_a: \mu &> 60.
+  \end{align}
+  * For each of the tests above, carefully interpret the results using a p-value cut-off of $\alpha = 0.05$.
+3. A tutorial for `my_lm`
+  * Demonstrate a regression using `lifeExp` as your response variable and `gdpPercap` and `continent` as explanatory variables.
+  * Carefully interpret the `gdpPercap` coefficient.
+  * Write the hypothesis test associated with the `gdpPercap` coefficient.
+  * Carefully interpret the results the `gdpPercap` hypothesis test using a p-value cut-off of $\alpha = 0.05$.
+  * Use `ggplot2` to plot the Actual vs. Fitted values.
+  * Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.
+4. A tutorial for `my_knn_cv`
+  * Predict output class `continent` using covariates `gdpPercap` and `lifeExp`. 
+  * Use $5$-fold cross validation (`k_cv = 5`).
+  * Iterate from `k_nn`$= 1,\ldots, 10$:
+    * For each value of `k_nn`, record the training misclassification rate and the CV misclassification rate (output from your function).
+  * State which model you would choose based on the training misclassification rates and which model you would choose based on the CV misclassification rates.
+  * Discuss which model you would choose in practice and why. 
+  * Your explanation(s) should include a general description of what cross-validation is doing and why this is useful.
+5. A tutorial for `my_rf_cv`
+  * From Lab 4, switch the input data from `iris` to `my_gapminder`.
+  * Predict `lifeExp` using covariate `gdpPercap`. 
+  * Iterate through `k` in  `c(2, 5, 10, 100)`:
+    * For each value of `k`, run your function $30$ times. 
+    * For each of the $30$ iterations, store the CV estimated MSE.
+  * Use `ggplot2` with 4 boxplots to display these data in an informative way. There should be a boxplot associated with each value of `k`, representing $30$ simulations each.
+  * Use a table to display the average CV estimate and the standard deviation of the CV estimates across $k$. Your table should have 4 rows (one for each value of $k$) and 2 columns (one for the mean and the other for the standard deviation).
+  * Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of $k$ and comment on why you think this is the case.
+  
 ### Details
 
-* 
+* The repository for your package must be hosted on a public Github repository. You are free to make the repository private after the course concludes.
+* Your submission for this portion of the project will be a single link to your Github reposiory.
+* Your `README.md` file should include badges for travis-ci automated testing and codecov code coverage.
+* Your package should pass all checks implemented in `devtools::check()`.
+* Your code coverage should be at or near 100%. 
+* Each of the 4 main functions should include at least one of `inference`/ `prediction` as `@keywords`, depending on what the function is primarily used for.
+* Each function must include `@examples`.
+* This is a software vignette, so all of your code should be displayed within your writing. Do not include a code appendix.
+* All code and documentation should follow the style guidelines outlined in class.
 
-### Requirements
-
-* 
 
 
-# Part 2. Data Analysis Project Pipeline (20 points)
+# Part 2. Data Analysis Project Pipeline (15 points)
 
 ## Instructions
 
-Coming soon...
+For this portion of Project 3, you are being asked to set up a Github repository demonstrating your ability to set up a systematic data analysis project workflow.
+For this part, we are pretending we don't have a package, and using code and analyses you have already generated for Part 1.
+
+Your analysis should be contained on a Github repository and include:
+
+* A `.Rproj` file with the name of the project.
+* A `Data` subfolder with the raw, unprocessed data.
+  * Within `Data`, save the `gapminder`/`my_gapminder` data as a raw `.csv`. 
+* A `Code` subfolder with code to be loaded by your analysis files.
+  * Include `my_rf_cv.R` from your package in Part 1. You can include it exactly as it appears in your package, including documentation. Good `roxygen2` style documentation is not limited to packages!
+* An `Analysis` subfolder.
+  * Include a `.Rmd` file. This file can, for the most part, be a copy of part 5 from your package vignette. **However**, this R Markdown document must
+    * load data directly from the `Data` subfolder,
+    * use `source()` to source code directly from from the `Code` subfolder (your `.Rmd` should **not** include code generating the function `my_rf_cv`, it should load that function from your script!),
+    * use `ggsave()` to save all your figures within your analysis scripts (remember, your relative path from files in `Analysis` will look like `"../Output/Figures"`).
+    * use `saveRDS()` and `write_csv()` to save your table of summary statistics and your simulation results, respectively (see `Results` description).
+* A `Output` subfolder with:
+  * A `Figures` sub-subfolder with all the figures you generated in `Analysis`
+  * A `Results` sub-subfolder that contains (a) your table of 8 summary statistics saved as a `.rds` file and (b) a `.csv` with your 120 simulated results with  4 columns for each value of $k$ and 30 rows for each simulation.
+* A `.gitignore` file
+  * Include `.Rproj.user` and `.Rhistory`
 
 ### Details
 
-* 
-
-### Requirements
-
-* 
-
+* The repository for your package must be hosted on a public Github repository. You are free to make the repository private after the course concludes.
+* Your submission for this portion of the project will be a single link to your Github reposiory.
 
 
