@@ -426,13 +426,13 @@ The repo name **must** match the name of the package!
 1. Open your console
 2. **Navigate your working directory to your package folder** 
   * Confirm this using `pwd` and `ls`, it should be the folder that includes the .Rproj file
-3. `git init`: set up get
+3. `git init`: set up git
 4. `git status`: confirm the files look like you expect
 5. `git add .`: adds git tracking for all files not in `.gitignore`
 6. `git status`: confirm, as always
-7. `git commit -m "Set up package"` or similar message to commit your changes
+7. `git commit -m "Set up package"`: (or similar message) to commit your changes
 8. `git remote add origin https://github.com/YOUR_GITHUB/YOUR_PACKAGE_NAME.git`: connect your Github repo to your local git with nickname origin
-9. `git push -u origin master` to push your local changes to origin
+9. `git push -u origin master`: push your local changes to origin
 
 Now navigate online to your Github repo link. 
 You should see your package hosted!
