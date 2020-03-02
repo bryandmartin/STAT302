@@ -703,6 +703,25 @@ Also add your own name to the YAML header using the `author:` field.
 
 ---
 layout: false
+
+# Viewing vignettes
+
+In order to install the vignettes with the package from Github, 
+use the optional parameters `build_vignette = TRUE` and `build_opts = c()`.
+
+```{r, eval = FALSE}
+devtools::install_github("bryandmartin/Demo", build_vignette = TRUE, build_opts = c())
+library(Demo)
+# Use this to view the vignette in the Demo HTML help
+help(package = "Demo", help_type = "html")
+# Use this to view the vignette as an isolated HTML file
+utils::browseVignettes(package = "Demo")
+```
+
+I recommend including instructions like these in any package `README.md` file to tell users how to view your vignette. 
+You can see one of [my packages](https://github.com/bryandmartin/corncob) for an example.
+
+---
 class: inverse
 
 .sectionhead[Project 3!]
