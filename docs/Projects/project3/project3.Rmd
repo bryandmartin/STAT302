@@ -42,7 +42,7 @@ Coming soon...
 * 
 
 
-# Part 2. Data Analysis Project Pipeline (10 points)
+# Part 2. Data Analysis Project Pipeline (20 points)
 
 ## Instructions
 
