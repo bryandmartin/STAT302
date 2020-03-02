@@ -81,7 +81,7 @@ Specifically, the vignette should have 5 parts:
     * For each value of `k_nn`, record the training misclassification rate and the CV misclassification rate (output from your function).
   * State which model you would choose based on the training misclassification rates and which model you would choose based on the CV misclassification rates.
   * Discuss which model you would choose in practice and why. 
-  * Your explanation(s) should include a general description of what cross-validation is doing and why this is useful.
+  * Your explanation(s) should include a general description of what the process of cross-validation is doing and why it is useful.
 5. A tutorial for `my_rf_cv`
   * From Lab 4, switch the input data from `iris` to `my_gapminder`.
   * Predict `lifeExp` using covariate `gdpPercap`. 
@@ -97,6 +97,7 @@ Specifically, the vignette should have 5 parts:
 * The repository for your package must be hosted on a public Github repository. You are free to make the repository private after the course concludes.
 * Your submission for this portion of the project will be a single link to your Github reposiory.
 * Your `README.md` file should include badges for travis-ci automated testing and codecov code coverage.
+* Your `README.md` should include an `Installation` section installation instructions and a `Use` section demonstrating how to view the package vignettes.
 * Your package should pass all checks implemented in `devtools::check()`.
 * Your code coverage should be at or near 100%. 
 * Each of the 4 main functions should include at least one of `inference`/ `prediction` as `@keywords`, depending on what the function is primarily used for.
@@ -111,7 +112,7 @@ Specifically, the vignette should have 5 parts:
 ## Instructions
 
 For this portion of Project 3, you are being asked to set up a Github repository demonstrating your ability to set up a systematic data analysis project workflow.
-For this part, we are pretending we don't have a package, and using code and analyses you have already generated for Part 1.
+For this part, we are pretending we don't have a package and using code and analyses you have already generated for Part 1.
 
 Your analysis should be contained on a Github repository and include:
 
