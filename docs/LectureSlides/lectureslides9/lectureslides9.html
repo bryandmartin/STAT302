@@ -30,6 +30,7 @@ class: center, top, title-slide
 2. Documenting a package
 3. Github and R packages
 4. Automated package testing
+5. Package vignettes
 
 .middler[**Goal:** Develop our own R packages (Project 3!)]
 
@@ -471,11 +472,11 @@ Instructions from the official [travis CI tutorial](https://docs.travis-ci.com/u
   
 ---
 
-# Step 9: Set up travis within your package (*)
+# Step 9: Set up travis in your package (*)
 
 1. Within your console, enter `use_this::use_testthat()`. This will:
   * Create a `tests/testthat` directory for storing your tests
-  * Adds `testthat` to the `Suggests` field within `DESCRIPTION`
+  * Adds `testthat` to the `Suggests` field in `DESCRIPTION`
   * Creates `tests/testthat.R` which runs your tests automatically whenever you check your package.
 2. Within your console, enter `usethis::use_travis()`. This will:
   * Create a `.travis.yml` file and add it to your `.gitignore`
@@ -537,19 +538,185 @@ Now go to the [travis-ci.com](travis-ci.com) and click on your repository. What 
 
 ---
 layout: false
+
+# Structure of a test
+
+Like R scripts, I recommend you have one test file per function. You should certainly have one per file in the R folder.
+Ideally, you have only one function per R folder file, but if you have multiple functions in an R folder file, there should also be only one test file for that file.
+
+The function to create a test is `test_that`. The first argument is a human-readable string designed for *you* to be able to determine what that test is doing. If a test fails, it will tell you the string associated with the test that failed.
+The second argument is contained in curly brackets `{...}`. It uses `testthat` helper functions.
+
+
+```r
+# within test-f_to_c.R
+test_that("f_to_c works mathmatically", {
+  expect_equal(f_to_c(32), 0)
+  expect_equal(f_to_c(212), 100)
+})
+
+test_that("non-numeric input throws error", {
+  expect_error(f_to_c("a string"))
+})
+```
+
+
+---
+
+# Testthat Expectations
+
+An **expectation** is the unit of testing within `test_that`.
+They tell your test what to expect, and all associated functions begin with `expect_`.
+
+* `expect_equal()`: is equal within small numerical tolerance?
+* `expect_identical()`: is exactly equal?
+* `expect_match()`: matches specified string or regular expression?
+* `expect_output()` prints specified output?
+* `expect_message()`: displays specified message?
+* `expect_warning()`: displays specified warning?
+* `expect_error()`: throws specified error?
+* `expect_is()`: output inherits from certain class?
+* `expect_false()`: returns `FALSE`?
+* `expect_true()`: returns TRUE?
+
+---
+
+# Testthat workflow
+
+Your workflow should be:
+
+1. Modify your code or files
+2. Test your package using `Check` or `devtools::test()`
+3. Repeat until you pass all your tests
+
+Further, anytime you find and fix a bug, you should add a test for it! 
+This will make your code more robust in future iterations.
+Remember, if it can break again, it likely will!
+Add an automated test so you don't have to debug the same things over and over!
+
+---
+layout: true 
 # Step 11: Add code coverage (*)
+---
+
+## What is code coverage?
+
+**Code coverage** measures the proportion of your code that is tested via automated testing.
+We will use software from `codecov.io`.
+This software will take all your automated tests and detect which lines of code are utilized during any given test.
+It will report, for each line of code, organized graphically by file, how many times that line was utilized during a test.
+Ultimately, we will be looking at the coverage, the over proportion of lines that were tested at least once.
+
+Our goal is high coverage.
+If a line isn't being tested with a unit test, you aren't doing any automated check to ensure that it is working as intended!
+If you have a line that is uncovered, it's a good idea to try and write a test that utilizes that line of code.
+
+
+
+---
 
 Thanks to the tidyverse authors, adding code coverage is easy! (Are you sensing a theme yet?)
 
 1. Navigate online to `codecov.io` and create an account. Link this account with your Github account.
 2. Run `usethis::use_coverage()`. This will:
-  * Add `covr` to the `Suggests` field within `DESCRIPTION`
+  * Add `covr` to the `Suggests` field in `DESCRIPTION`
   * Create `codecov.yml` and add it to `.Rbuildignore`
   * Add a Codecov test coverage badge to `README.md`
   * Provide text to add to `.travis.yml`
 3. Take the text it generated and add it on a new line to your `.travis.yml`. (It should be automatically copied to your clipboard.)
   
 .center[&lt;img src="travis.png" alt="" height="150"/&gt;]
+
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 5. Package Vignettes]
+---
+layout: true
+# Step 12: Add data (*)
+---
+
+It is often useful to add data to our packages.
+To practice this, we are going to add the `iris` data to our own packages as `my_iris` (with proper credit, of course!).
+
+After creating `my_iris`, run `usethis::use_data(my_iris)` in your console. This will create a `data/my_iris.rda`, which contains the object `my_iris`.
+Package data is always stored in `data` subfolder.
+
+
+```r
+data(iris)
+my_iris &lt;- iris
+usethis::use_data(my_iris)
+```
+
+---
+
+## Documenting Data
+
+Data is exported to the user, and so it must also be documented! The process is as follows, where you replace `my_iris` with the name of the data you are documenting:
+
+1. Create `my_iris.R` within the `R` subdirectory.
+2. Add title and description, as usual.
+  * Note my use of `\code{}` and `link{}`. Pay attention to what that does to the documentation on the next slides.
+3. Add `@format` describing the exact format of your data set
+  * Include class, number of observations, and number of variables
+  * Use `\describe{}` and `item{}` to describe every variable in the data, with units
+4. Add `@source` to give a reference for or `\url{}` source of your data.
+5. End the documentation with the name of your data in quotes.
+  * Never `@export` data!
+  
+---
+
+.middler[&lt;img src="iris.png" alt="" height="350"/&gt;]
+
+---
+
+.center[&lt;img src="irisdoc.png" alt="" height="550"/&gt;]
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Part 5. Package vignettes]
+
+---
+
+# What is a vignette?
+
+A **vignette** is a long-form guide to your package.
+Think of it like an article or instructive tutorial that explains and demonstrates how to use your package.
+A vignette should describe the problems your package is built for, and the demonstrate using your package to solve those problems. 
+
+Vignettes are (usually) written in R Markdown, so they are automatically generated (and updated!) every time you re-build your package.
+
+---
+layout: true
+
+# Part 13: Adding a vignette (*)
+---
+
+Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
+  * Add `knitr` and `rmarkdown` to the `Suggests` field in `DESCRIPTION`
+  * Sets `VignetteBuilder` field in `DESCRIPTION` to `knitr`
+  * Add `inst/doc` to `.gitignore`
+  * Add `vignettes/tutorial.Rmd`
+  * Add `*.html` and `*.Rmd` to `vignettes/.gitignore`
+
+---
+
+
+.center[&lt;img src="vignette.png" alt="" height="375"/&gt;]
+
+Remove `Project 3: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
+Also add your own name to the YAML header using the `author:` field.
+
+---
+layout: false
+class: inverse
+
+.sectionhead[Project 3!]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
