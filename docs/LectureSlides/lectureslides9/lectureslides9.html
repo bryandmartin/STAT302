@@ -474,12 +474,12 @@ Instructions from the official [travis CI tutorial](https://docs.travis-ci.com/u
 
 # Step 9: Set up travis in your package (*)
 
-1. Within your console, enter `use_this::use_testthat()`. This will:
+1. Within your console, enter `usethis::use_testthat()`. This will:
   * Create a `tests/testthat` directory for storing your tests
   * Adds `testthat` to the `Suggests` field in `DESCRIPTION`
   * Creates `tests/testthat.R` which runs your tests automatically whenever you check your package.
 2. Within your console, enter `usethis::use_travis()`. This will:
-  * Create a `.travis.yml` file and add it to your `.gitignore`
+  * Create a `.travis.yml` file and add it to your `.Rbuildignore`
   * Push you to the travis website.
   * Provide the markdown to insert a badge into `README`.
 3. Activate travis for your repo at the travis website.
