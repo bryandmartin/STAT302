@@ -494,13 +494,13 @@ Thus, for every `.R` file within our R folder, we should have a corresponding fi
   ```{r, eval = FALSE}
   # within test-my_pow.R
   test_that("my_pow works mathmatically", {
-    expect_equal(my_pow(2), 4)
-    expect_equal(my_pow(2, power = 3), 8)
+      expect_equal(my_pow(2), 4)
+      expect_equal(my_pow(2, power = 3), 8)
   })
   
   test_that("non-numeric input throws error", {
-    expect_error(my_pow("a string"))
-    expect_error(my_pow(2, power = "a string"))
+      expect_error(my_pow("a string"))
+      expect_error(my_pow(2, power = "a string"))
   })
   ```
 3. Run `devtools::check()`. Does your code pass the checks?
@@ -514,12 +514,12 @@ Let's repeat the process with `f_to_c`.
   ```{r, eval = FALSE}
   # within test-f_to_c.R
   test_that("f_to_c works mathmatically", {
-    expect_equal(f_to_c(32), 0)
-    expect_equal(f_to_c(212), 100)
+      expect_equal(f_to_c(32), 0)
+      expect_equal(f_to_c(212), 100)
   })
   
   test_that("non-numeric input throws error", {
-    expect_error(f_to_c("a string"))
+      expect_error(f_to_c("a string"))
   })
   ```
 3. Run `devtools::check()`. Does your code pass the checks?
