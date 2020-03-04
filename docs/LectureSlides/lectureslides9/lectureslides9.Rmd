@@ -479,7 +479,8 @@ Instructions from the official [travis CI tutorial](https://docs.travis-ci.com/u
 4. *File -> New File -> Text File*
   * Take the markdown text from `use_travis()` output and save as `README.md`. You **must** change the file extension!
 5. Push your local changes to Github using instructions from Lecture Slide 7.
-  * Recall: Easy way - through RStudio!
+  * Recall: Easy way - through RStudio! 
+  * Note that you may need to open and close RStudio. You probably opened this R session before you set up with git. The git panel will not show up if this is the case. If you restart RStudio, it will appear.
 
 ---
 layout: true
