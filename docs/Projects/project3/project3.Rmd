@@ -85,11 +85,11 @@ Specifically, the vignette should have 5 parts:
 5. A tutorial for `my_rf_cv`
   * From Lab 4, switch the input data from `iris` to `my_gapminder`.
   * Predict `lifeExp` using covariate `gdpPercap`. 
-  * Iterate through `k` in  `c(2, 5, 10, 100)`:
+  * Iterate through `k` in  `c(2, 5, 10)`:
     * For each value of `k`, run your function $30$ times. 
     * For each of the $30$ iterations, store the CV estimated MSE.
-  * Use `ggplot2` with 4 boxplots to display these data in an informative way. There should be a boxplot associated with each value of `k`, representing $30$ simulations each.
-  * Use a table to display the average CV estimate and the standard deviation of the CV estimates across $k$. Your table should have 4 rows (one for each value of $k$) and 2 columns (one for the mean and the other for the standard deviation).
+  * Use `ggplot2` with 3 boxplots to display these data in an informative way. There should be a boxplot associated with each value of `k`, representing $30$ simulations each.
+  * Use a table to display the average CV estimate and the standard deviation of the CV estimates across $k$. Your table should have 3 rows (one for each value of $k$) and 2 columns (one for the mean and the other for the standard deviation).
   * Discuss the results you observe in the boxplots and table. Compare the means and standard deviations of the the different values of $k$ and comment on why you think this is the case.
   
 ### Details
