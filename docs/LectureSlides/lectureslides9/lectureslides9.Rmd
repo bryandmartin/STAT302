@@ -453,6 +453,11 @@ library(Demo)
 ```
 
 ---
+layout: false
+class: inverse
+
+.sectionhead[Part 4. Automated package testing]
+---
 
 # Step 8: Set up a travis CI account (*)
 
@@ -568,7 +573,7 @@ They tell your test what to expect, and all associated functions begin with `exp
 * `expect_error()`: throws specified error?
 * `expect_is()`: output inherits from certain class?
 * `expect_false()`: returns `FALSE`?
-* `expect_true()`: returns TRUE?
+* `expect_true()`: returns `TRUE`?
 
 ---
 
@@ -618,12 +623,6 @@ Thanks to the tidyverse authors, adding code coverage is easy! (Are you sensing 
   
 .center[<img src="travis.png" alt="" height="150"/>]
 
-
----
-layout: false
-class: inverse
-
-.sectionhead[Part 5. Package Vignettes]
 ---
 layout: true
 # Step 12: Add data (*)
