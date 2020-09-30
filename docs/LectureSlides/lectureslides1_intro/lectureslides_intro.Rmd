@@ -2,7 +2,7 @@
 title: "STAT 302, Week 1"
 subtitle: "Introduction and Getting Started with R"
 author: "Bryan Martin"
-date: "Week of Jan 6, 2020"
+date: ""
 output:
   xaringan::moon_reader:
     css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
@@ -62,7 +62,7 @@ What I will expect from you...
 
 # Canvas Discussion
 
-* Worth up to 5% extra credit on your final grade!
+* Worth up to 2% extra credit on your final grade!
 * Substantive and helpful questions and answers
 
 --
@@ -88,7 +88,7 @@ What I will expect from you...
 
 # Canvas Discussion
 
-* Worth up to 5% extra credit on your final grade!
+* Worth up to 2% extra credit on your final grade!
 * Substantive and helpful questions and answers
 
 .pull-left[
@@ -515,7 +515,8 @@ layout: true
 * What happens in your Environment tab?
 
 --
-* Now add `data(iris)` to your script and run it.
+* Type `install.packages("palmerpenguins")` in your Console.
+* Now add `library(palmerpenguins)` and `data(penguins)` to your script and run it.
 * What happens if you click on this in your Environment tab?
   * Note: We will delve deeper into data later!
   

@@ -23,7 +23,7 @@ h4.date {
 ---
 title: "Short Lab 1"
 author: "INSERT YOUR NAME HERE"
-date: "1/6/2020"
+date: "9/30/2020"
 output: html_document
 ---
 
@@ -62,6 +62,14 @@ Replace this text with your answer.
 Replace this text with your answer.
 
 **8.** What percent extra credit is possible in this course, and how do you earn it?
+
+Replace this text with your answer.
+
+**9.** What time zone will you be in for the duration of this course?
+
+Replace this text with your answer.
+
+**10.** Do my current proposed office hour times work for you? If not, please provide some general availability.
 
 Replace this text with your answer.
 
