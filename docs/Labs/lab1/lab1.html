@@ -11,6 +11,7 @@
 
 <meta name="author" content="STAT 302" />
 
+<meta name="date" content="2020-10-12" />
 
 <title>Lab 1</title>
 
@@ -364,7 +365,7 @@ summary {
 
 <h1 class="title toc-ignore">Lab 1</h1>
 <h4 class="author">STAT 302</h4>
-<h4 class="date">1/8/2020</h4>
+<h4 class="date">10/12/2020</h4>
 
 </div>
 
@@ -414,14 +415,14 @@ h4.date {
 <p>(<em>Hint: don’t use exactly 7 and 3 for the mean and standard deviation when standardizing. As a sanity check, after you standardize your vector, the mean should be exactly 0!</em>)</p>
 <p><strong>1d.</strong> Calculate (using an R function) the percent of simulations from a <span class="math inline">\(N(0, 1)\)</span> that you <em>expect</em> to be above 1.644854. How does this compare to the observed proportion of your standardized simulations that are above 1.644854?</p>
 <p><strong>1e.</strong> How does the quantity from part d compare to to the observed proportion of your first 10 standardized simulations that are above 1.644854? Repeat this for your first 100, 1000, and 10,000 standardized simulations. What do you notice?</p>
-<p><strong>1f.</strong> I simulated from an unknown distribution and obtained a value of 13.86. What is the percentile of my simulution in the <em>observed</em> distribution of your simulations? If you standardize my simulation (using the same mean and standard deviation as in part c!), what is the percentile of my simulation in the distribution of your standardized simulations? What do you notice about these two quantities?</p>
+<p><strong>1f.</strong> I simulated from an unknown distribution and obtained a value of 13.86. What is the percentile of my simulation in the <em>observed</em> distribution of your simulations? If you standardize my simulation (using the same mean and standard deviation as in part c!), what is the percentile of my simulation in the distribution of your standardized simulations? What do you notice about these two quantities?</p>
 <p><strong>1g.</strong> What percent of simulations from a <span class="math inline">\(N(0, 1)\)</span> would you <em>expect</em> to be more “extreme” than my standardized simulation? Here, “extreme” means further from the mean in either direction.</p>
 <p><strong>1h.</strong> Do you think it is likely that my simulation was drawn from the same distribution as your simulations? Why or why not?</p>
 </div>
 <div id="part-2.-matrices-7-points" class="section level2">
 <h2>Part 2. Matrices (7 points)</h2>
 <p>A Binomial distribution with <span class="math inline">\(n\)</span> trials and probability of success <span class="math inline">\(p\)</span>, sometimes shorthanded <span class="math inline">\(Bin(n, p)\)</span>, represents the number of success out of <span class="math inline">\(n\)</span> independent trials, each with probability of success <span class="math inline">\(p\)</span>. For this part, we will be using the Binomial distribution equivalent of the functions we used in part 1. These are <code>rbinom()</code>, <code>pbinom()</code>, and <code>dbinom()</code>.</p>
-<p><strong>2a.</strong> Initialize two empty matrices. One should have 100 rows and 4 columns, the other should have 100,000 rows and 4 columns. Be sure to give them informative names that follow style guidelines.</p>
+<p><strong>2a.</strong> Initialize two empty matrices. One should have 10 rows and 4 columns, the other should have 10,000 rows and 4 columns. Be sure to give them informative names that follow style guidelines.</p>
 <p><strong>2b.</strong> Separately fill the first column of each matrix with independent draws from a Binomial distribution with probability <span class="math inline">\(0.2\)</span> and <span class="math inline">\(n=5\)</span>. Repeat this process for the second through fourth columns using probabilities of <span class="math inline">\(0.4\)</span>, <span class="math inline">\(0.6\)</span>, and <span class="math inline">\(0.8\)</span>, respectively. Print out the first five rows of each matrix.</p>
 <p>(<em>Hint: the <span class="math inline">\(n\)</span> in <span class="math inline">\(Bin(n,p)\)</span> notation is not necessarily the same as the <code>n</code> in the <code>rbinom()</code> function. Read the documentation carefully!</em>)</p>
 <p><strong>2c.</strong> Use four well-labeled histograms to plot the values of each column. Set the <code>breaks</code> parameter to a reasonable integer value for these data. Discuss what you see.</p>
@@ -429,8 +430,6 @@ h4.date {
 <p><strong>2e.</strong> What is the <em>expected</em> column mean for each column? Which matrix has observed column means that are closer to this expectation? Why do you think that is?</p>
 <p>(<em>Hint: the expected value of a draw from a <span class="math inline">\(Bin(n,p)\)</span> distribution is <span class="math inline">\(n\times p\)</span></em>)</p>
 <p><strong>2f.</strong> Repeat parts b through e but now use <span class="math inline">\(n=1000\)</span>. Discuss the differences and similarities.</p>
-<p><strong>2g.</strong> With your new simulations from part f, present the 5-number summary of each column in both matrices in a single table. Be sure to label the rows and columns of the table. What differences do you notice in the 5-number summaries between your matrix with <span class="math inline">\(100\)</span> rows and your matrix with <span class="math inline">\(100,000\)</span> rows?</p>
-<p>(<em>Hint: Use the function</em> <code>summary()</code>. <em>There are many ways you can present this table. Personally, my table would have 8 rows and 5 columns.</em>)</p>
 </div>
 
 

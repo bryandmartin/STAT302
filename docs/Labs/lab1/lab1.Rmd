@@ -23,7 +23,7 @@ h4.date {
 ---
 title: "Lab 1"
 author: "STAT 302"
-date: "1/8/2020"
+date: "10/12/2020"
 output: html_document
 ---
 
@@ -68,7 +68,7 @@ Let's jump right in and start working with large simulations. You will need the 
 **1e.** How does the quantity from part d compare to to the observed proportion of your first 10 standardized simulations that are above 1.644854? Repeat this for your first 100, 1000, and 10,000 standardized simulations. 
 What do you notice?
 
-**1f.** I simulated from an unknown distribution and obtained a value of 13.86. What is the percentile of my simulution in the *observed* distribution of your simulations? If you standardize my simulation (using the same mean and standard deviation as in part c!), what is the percentile of my simulation in the distribution of your standardized simulations? What do you notice about these two quantities?
+**1f.** I simulated from an unknown distribution and obtained a value of 13.86. What is the percentile of my simulation in the *observed* distribution of your simulations? If you standardize my simulation (using the same mean and standard deviation as in part c!), what is the percentile of my simulation in the distribution of your standardized simulations? What do you notice about these two quantities?
 
 **1g.** What percent of simulations from a $N(0, 1)$ would you *expect* to be more "extreme" than my standardized simulation? Here, "extreme" means further from the mean in either direction.
 
@@ -80,7 +80,7 @@ A Binomial distribution with $n$ trials and probability of success $p$, sometime
 For this part, we will be using the Binomial distribution equivalent of the functions we used in part 1.
 These are `rbinom()`, `pbinom()`, and `dbinom()`.
 
-**2a.** Initialize two empty matrices. One should have 100 rows and 4 columns, the other should have 100,000 rows and 4 columns. Be sure to give them informative names that follow style guidelines.
+**2a.** Initialize two empty matrices. One should have 10 rows and 4 columns, the other should have 10,000 rows and 4 columns. Be sure to give them informative names that follow style guidelines.
 
 **2b.** Separately fill the first column of each matrix with independent draws from a Binomial distribution with probability $0.2$ and $n=5$. Repeat this process for the second through fourth columns using probabilities of $0.4$, $0.6$, and $0.8$, respectively. Print out the first five rows of each matrix.
 
@@ -96,7 +96,4 @@ These are `rbinom()`, `pbinom()`, and `dbinom()`.
 
 **2f.** Repeat parts b through e but now use $n=1000$. Discuss the differences and similarities.
 
-**2g.** With your new simulations from part f, present the 5-number summary of each column in both matrices in a single table. Be sure to label the rows and columns of the table. What differences do you notice in the 5-number summaries between your matrix with $100$ rows and your matrix with $100,000$ rows? 
-
-(*Hint: Use the function* `summary()`. *There are many ways you can present this table. Personally, my table would have 8 rows and 5 columns.*)
 
