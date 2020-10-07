@@ -1,24 +1,28 @@
----
-title: "STAT 302, Week 2"
-subtitle: "Programming Fundamentals"
-author: "Bryan Martin"
-date: "Week of Jan 13, 2020"
-output:
-  xaringan::moon_reader:
-    css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
-    lib_dir: libs
-    nature:
-      highlightStyle: tomorrow-night-bright
-      highlightLines: true
-      countIncrementalSlides: false
-      titleSlideClass: ["center","top"]
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>STAT 302, Week 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Bryan Martin" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis.css" rel="stylesheet" />
+    <link href="libs/remark-css/metropolis-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, top, title-slide
+
+# STAT 302, Week 2
+## Programming Fundamentals
+### Bryan Martin
+
 ---
 
-```{r setup, include=FALSE, purl=FALSE}
-options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(comment = "##")
-library(kableExtra)
-```
+
+
 
 
 # Outline
@@ -53,20 +57,26 @@ layout: true
 
 ## `if` statements
 
-```{r}
-x <- 1
+
+```r
+x &lt;- 1
 # Conditions go in parenthesis after if
-if (x > 0) {
+if (x &gt; 0) {
   # code chunks get surrounded by curly brackets
   cat("x is equal to", x, ", a positive number!")
 }
 ```
 
+```
+## x is equal to 1 , a positive number!
+```
+
 --
-```{r}
-x <- -1
+
+```r
+x &lt;- -1
 # Conditions go in parenthesis after if
-if (x > 0) {
+if (x &gt; 0) {
   # code chunks get surrounded by curly brackets
   cat("x is equal to", x, ", a positive number!")
 }
@@ -78,23 +88,33 @@ if (x > 0) {
 
 * We can use `else` to specify what we want to happen when our condition is `FALSE`
 
-```{r}
-x <- 1
-if (x > 0) {
+
+```r
+x &lt;- 1
+if (x &gt; 0) {
   cat("x is equal to", x, ", a positive number!")
 } else {
   cat("x is equal to", x, ", a negative number!")
 }
 ```
 
+```
+## x is equal to 1 , a positive number!
+```
+
 --
-```{r}
-x <- -1
-if (x > 0) {
+
+```r
+x &lt;- -1
+if (x &gt; 0) {
   paste0("x is equal to ", x, ", a positive number!")
 } else {
   paste0("x is equal to ", x, ", a negative number!")
 }
+```
+
+```
+## [1] "x is equal to -1, a negative number!"
 ```
 
 ---
@@ -104,40 +124,55 @@ if (x > 0) {
 * Use `else if` to set a sequence of conditions
 * The final `else` will evaluate anything left
 
-```{r}
-x <- 1
-if (x > 0) {
+
+```r
+x &lt;- 1
+if (x &gt; 0) {
   paste0("x is equal to ", x, ", a positive number!")
-} else if (x < 0) {
+} else if (x &lt; 0) {
   paste0("x is equal to ", x, ", a negative number!")
 } else {
   paste0("x is equal to ", x, "!")
 }
+```
+
+```
+## [1] "x is equal to 1, a positive number!"
 ```
 
 ---
 
-```{r}
-x <- -1
-if (x > 0) {
+
+```r
+x &lt;- -1
+if (x &gt; 0) {
   paste0("x is equal to ", x, ", a positive number!")
-} else if (x < 0) {
+} else if (x &lt; 0) {
   paste0("x is equal to ", x, ", a negative number!")
 } else {
   paste0("x is equal to ", x, "!")
 }
 ```
 
+```
+## [1] "x is equal to -1, a negative number!"
+```
+
 --
-```{r}
-x <- 0
-if (x > 0) {
+
+```r
+x &lt;- 0
+if (x &gt; 0) {
   paste0("x is equal to ", x, ", a positive number!")
-} else if (x < 0) {
+} else if (x &lt; 0) {
   paste0("x is equal to ", x, ", a negative number!")
 } else {
   paste0("x is equal to ", x, "!")
 }
+```
+
+```
+## [1] "x is equal to 0!"
 ```
 
 ---
@@ -149,57 +184,82 @@ layout: true
 
 ## Absolute Value
 
-```{r}
-x <- 5
-if (x >= 0) {
+
+```r
+x &lt;- 5
+if (x &gt;= 0) {
   x
 } else {
   -x
 }
 ```
 
+```
+## [1] 5
+```
+
 --
-```{r}
-x <- -5
-if (x >= 0) {
+
+```r
+x &lt;- -5
+if (x &gt;= 0) {
   x
 } else {
   -x
 }
+```
+
+```
+## [1] 5
 ```
 
 ---
 
 ## Checking if `x` is even or negative
 
-```{r}
-x <- 6
-if ((x %% 2) == 0 | x < 0) {
+
+```r
+x &lt;- 6
+if ((x %% 2) == 0 | x &lt; 0) {
   TRUE
 } else {
   FALSE
 }
 ```
 
+```
+## [1] TRUE
+```
+
 --
-```{r}
-x <- -5
-if ((x %% 2) == 0 | x < 0) {
+
+```r
+x &lt;- -5
+if ((x %% 2) == 0 | x &lt; 0) {
   TRUE
 } else {
   FALSE
 }
+```
+
+```
+## [1] TRUE
 ```
 
 ---
 
-```{r}
-x <- 5
-if ((x %% 2) == 0 | x < 0) {
+
+```r
+x &lt;- 5
+if ((x %% 2) == 0 | x &lt; 0) {
   TRUE
 } else {
   FALSE
 }
+```
+
+```
+## [1] FALSE
 ```
 
 
@@ -208,39 +268,51 @@ if ((x %% 2) == 0 | x < 0) {
 ## Check length of strings
 
 Note: We will need the `stringr` package for this 
-```{r}
+
+```r
 # Run this if you have never installed stringr before!
 # install.packages("stringr")
 library(stringr)
 ```
 
-```{r}
-x <- "cat"
-if (str_length(x) <= 10) {
+
+```r
+x &lt;- "cat"
+if (str_length(x) &lt;= 10) {
   cat("x is a pretty short string!")
 } else {
   cat("x is a pretty long string!")
 }
 ```
 
+```
+## x is a pretty short string!
+```
+
 ---
 
 
-```{r}
-x <- "A big fluffy cat with orange fur and stripes"
-if (str_length(x) <= 10) {
+
+```r
+x &lt;- "A big fluffy cat with orange fur and stripes"
+if (str_length(x) &lt;= 10) {
   cat("x is a pretty short string!")
 } else {
   cat("x is a pretty long string!")
 }
+```
+
+```
+## x is a pretty long string!
 ```
 
 ---
 
 ## Check class
 
-```{r}
-x <- 5
+
+```r
+x &lt;- 5
 if (is.numeric(x)) {
   cat("x is a numeric!")
 } else if (is.character(x)) {
@@ -250,12 +322,17 @@ if (is.numeric(x)) {
 }
 ```
 
+```
+## x is a numeric!
+```
+
 ---
 
 ## Check class
 
-```{r}
-x <- list()
+
+```r
+x &lt;- list()
 if (is.numeric(x)) {
   cat("x is a numeric!")
 } else if (is.character(x)) {
@@ -263,6 +340,10 @@ if (is.numeric(x)) {
 } else {
   cat("x is some class I didn't check for in my code!")
 }
+```
+
+```
+## x is some class I didn't check for in my code!
 ```
 
 ---
@@ -283,10 +364,24 @@ layout: true
 stores the current value of the vector as a variable,
 and repeatedly evaluates a code chunk until the vector is exhausted
 
-```{r}
+
+```r
 for (i in 1:10) {
   print(i)
 }
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10
 ```
 
 ---
@@ -298,12 +393,17 @@ for (i in 1:10) {
 
 Be careful here! It is possible to get stuck in an infinite loop!
 
-```{r}
-x <- 0
-while (x < 5) {
+
+```r
+x &lt;- 0
+while (x &lt; 5) {
   cat("x is currently", x, ". Let's increase it by 1!")
-  x <- x + 1
+  x &lt;- x + 1
 }
+```
+
+```
+## x is currently 0 . Let's increase it by 1!x is currently 1 . Let's increase it by 1!x is currently 2 . Let's increase it by 1!x is currently 3 . Let's increase it by 1!x is currently 4 . Let's increase it by 1!
 ```
 
 ---
@@ -312,12 +412,21 @@ while (x < 5) {
 
 Let's see if we can clean up that output. Add `"\n"` to a string to force a line break. 
 
-```{r}
-x <- 0
-while (x < 5) {
+
+```r
+x &lt;- 0
+while (x &lt; 5) {
   cat("x is currently ", x, ". Let's increase it by 1! \n", sep = "")
-  x <- x + 1
+  x &lt;- x + 1
 }
+```
+
+```
+## x is currently 0. Let's increase it by 1! 
+## x is currently 1. Let's increase it by 1! 
+## x is currently 2. Let's increase it by 1! 
+## x is currently 3. Let's increase it by 1! 
+## x is currently 4. Let's increase it by 1!
 ```
 
 ---
@@ -329,37 +438,66 @@ layout: true
 
 ## String Input
 
-```{r}
-string_vector <- c("a", "b", "c", "d", "e")
+
+```r
+string_vector &lt;- c("a", "b", "c", "d", "e")
 for (mystring in string_vector) {
   print(mystring)
 }
 ```
 
----
-
-## Nested Loops
-
-```{r}
-counter <- 0
-for (i in 1:3) {
-  for (j in 1:2) {
-    counter <- counter + 1
-    cat("i = ", i, ", j = ", j, ", counter = ", counter, "\n", sep = "")
-  }
-}
+```
+## [1] "a"
+## [1] "b"
+## [1] "c"
+## [1] "d"
+## [1] "e"
 ```
 
 ---
 
 ## Nested Loops
 
-```{r}
+
+```r
+counter &lt;- 0
+for (i in 1:3) {
+  for (j in 1:2) {
+    counter &lt;- counter + 1
+    cat("i = ", i, ", j = ", j, ", counter = ", counter, "\n", sep = "")
+  }
+}
+```
+
+```
+## i = 1, j = 1, counter = 1
+## i = 1, j = 2, counter = 2
+## i = 2, j = 1, counter = 3
+## i = 2, j = 2, counter = 4
+## i = 3, j = 1, counter = 5
+## i = 3, j = 2, counter = 6
+```
+
+---
+
+## Nested Loops
+
+
+```r
 for (i in 1:3) {
   for (j in 1:2) {
     print(i * j)
   }
 }
+```
+
+```
+## [1] 1
+## [1] 2
+## [1] 2
+## [1] 4
+## [1] 3
+## [1] 6
 ```
 
 ---
@@ -368,31 +506,51 @@ for (i in 1:3) {
 
 Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
 
-```{r}
+
+```r
 # Inefficient
-x <- rep(NA, 5)
+x &lt;- rep(NA, 5)
 for (i in 1:5) {
-  x[i] <- i * 2
+  x[i] &lt;- i * 2
 }
 x
+```
 
+```
+## [1]  2  4  6  8 10
+```
+
+```r
 # Much better
-x <- seq(2, 10, by = 2)
+x &lt;- seq(2, 10, by = 2)
 x
+```
+
+```
+## [1]  2  4  6  8 10
 ```
 
 ---
 
 ## Filling in a vector
 
-```{r}
+
+```r
 library(stringr)
-x <- rep(NA, 5)
-my_strings <- c("a", "a ", "a c", "a ca", "a cat")
+x &lt;- rep(NA, 5)
+my_strings &lt;- c("a", "a ", "a c", "a ca", "a cat")
 for (i in 1:5) {
-  x[i] <- str_length(my_strings[i])
+  x[i] &lt;- str_length(my_strings[i])
   print(x)
 }
+```
+
+```
+## [1]  1 NA NA NA NA
+## [1]  1  2 NA NA NA
+## [1]  1  2  3 NA NA
+## [1]  1  2  3  4 NA
+## [1] 1 2 3 4 5
 ```
 
 ---
@@ -401,28 +559,51 @@ for (i in 1:5) {
 
 Note: Usually, this is an inefficient way to do this! Try to vectorize code wherever possible!
 
-```{r}
-x <- matrix(NA, nrow = 4, ncol = 3)
+
+```r
+x &lt;- matrix(NA, nrow = 4, ncol = 3)
 for (i in 1:4) {
   for (j in 1:3) {
-    x[i, j] <- i * j
+    x[i, j] &lt;- i * j
   }
 }
 x
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    4    6
+## [3,]    3    6    9
+## [4,]    4    8   12
 ```
 
 ---
 
 ## Continue until positive sample
 
-```{r}
+
+```r
 set.seed(3)
-x <- -1
-while (x < 0) {
-  x <- rnorm(1)
+x &lt;- -1
+while (x &lt; 0) {
+  x &lt;- rnorm(1)
   print(x)
 }
+```
+
+```
+## [1] -0.9619334
+## [1] -0.2925257
+## [1] 0.2587882
+```
+
+```r
 x
+```
+
+```
+## [1] 0.2587882
 ```
 
 ---
@@ -448,8 +629,9 @@ This is incredibly useful when:
 
 ## Anatomy of a function
 
-```{r}
-function_name <- function(param1, param2 = "default") {
+
+```r
+function_name &lt;- function(param1, param2 = "default") {
   # Body of the function
   return(output)
 }
@@ -470,33 +652,58 @@ layout: true
 
 ## Square a number, add 2
 
-```{r}
-square_plus_2 <- function(x) {
-  y <- x^2 + 2
+
+```r
+square_plus_2 &lt;- function(x) {
+  y &lt;- x^2 + 2
   return(y)
 }
 
 square_plus_2(4)
+```
+
+```
+## [1] 18
+```
+
+```r
 square_plus_2(10)
+```
+
+```
+## [1] 102
+```
+
+```r
 square_plus_2(1:5)
+```
+
+```
+## [1]  3  6 11 18 27
 ```
 
 ---
 
-```{r, error = TRUE}
+
+```r
 square_plus_2("some string")
+```
+
+```
+## Error in x^2: non-numeric argument to binary operator
 ```
 
 What happened here? We wrote a function for numerics only but didn't check the input!
 
 Let's try making our function more robust by adding a `stop`
 
-```{r, error = TRUE}
-square_plus_2 <- function(x) {
+
+```r
+square_plus_2 &lt;- function(x) {
   if (!is.numeric(x)) {
     stop("x must be numeric!")
   } else {
-    y <- x^2 + 2
+    y &lt;- x^2 + 2
     return(y)
   }
 }
@@ -504,16 +711,21 @@ square_plus_2 <- function(x) {
 square_plus_2("some string")
 ```
 
+```
+## Error in square_plus_2("some string"): x must be numeric!
+```
+
 
 ---
 
 ## Check if the input is positive
 
-```{r}
-check_pos <- function(x) {
-  if (x > 0) {
+
+```r
+check_pos &lt;- function(x) {
+  if (x &gt; 0) {
     return(TRUE)
-  } else if (x < 0) {
+  } else if (x &lt; 0) {
     return(FALSE)
   } else {
     return(paste0("x is equal to ", x, "!"))
@@ -521,8 +733,19 @@ check_pos <- function(x) {
 }
 
 check_pos(-3)
-store_output <- check_pos(0)
+```
+
+```
+## [1] FALSE
+```
+
+```r
+store_output &lt;- check_pos(0)
 store_output
+```
+
+```
+## [1] "x is equal to 0!"
 ```
 
 ---
@@ -531,19 +754,20 @@ store_output
 
 We'll use `str_c` from the `stringr` package for this function.
 
-```{r}
+
+```r
 library(stringr)
-my_summary <- function(input, percentiles = c(.05, .5, .95)) {
+my_summary &lt;- function(input, percentiles = c(.05, .5, .95)) {
   if (!is.numeric(input) | !is.numeric(percentiles)) {
     stop("The input and percentiles must be numeric!")
   }
-  if (max(percentiles) > 1 | min(percentiles) < 0) {
+  if (max(percentiles) &gt; 1 | min(percentiles) &lt; 0) {
     stop("Percentiles must all be in [0, 1]")
   }
   # Convert percentiles to character percent, append " Percentile" to each
-  labels <- str_c(percentiles * 100, " Percentile")
-  output <- quantile(input, probs = percentiles)
-  names(output) <- labels
+  labels &lt;- str_c(percentiles * 100, " Percentile")
+  output &lt;- quantile(input, probs = percentiles)
+  names(output) &lt;- labels
   return(output)
 }
 ```
@@ -552,12 +776,40 @@ my_summary <- function(input, percentiles = c(.05, .5, .95)) {
 
 ## Make a table
 
-```{r, error = TRUE}
-x <- rnorm(100)
+
+```r
+x &lt;- rnorm(100)
 my_summary(x)
+```
+
+```
+##  5 Percentile 50 Percentile 95 Percentile 
+##   -1.22236488    0.06183487    1.22655423
+```
+
+```r
 my_summary(x, percentiles = c(.07, .5, .63, .91))
+```
+
+```
+##  7 Percentile 50 Percentile 63 Percentile 91 Percentile 
+##   -1.13785677    0.06183487    0.36358152    1.16185072
+```
+
+```r
 my_summary(c("string1", "string2"))
+```
+
+```
+## Error in my_summary(c("string1", "string2")): The input and percentiles must be numeric!
+```
+
+```r
 my_summary(x, percentiles = c(-7, .5, 1.3))
+```
+
+```
+## Error in my_summary(x, percentiles = c(-7, 0.5, 1.3)): Percentiles must all be in [0, 1]
 ```
 
 
@@ -565,15 +817,20 @@ my_summary(x, percentiles = c(-7, .5, 1.3))
 
 ## Function with iteration
 
-```{r}
-my_sum <- function(x) {
-  total <- 0
+
+```r
+my_sum &lt;- function(x) {
+  total &lt;- 0
   for (i in 1:length(x)) {
-    total <- total + x[i]
+    total &lt;- total + x[i]
   }
   return(total)
 }
 my_sum(1:5)
+```
+
+```
+## [1] 15
 ```
 
 
@@ -597,7 +854,8 @@ layout: true
 Strive to have function names based on verbs. 
 Otherwise, standard variable name style guidelines apply!
 
-```{r, eval = FALSE}
+
+```r
 # Good
 add_row()
 permute()
@@ -614,7 +872,8 @@ permutation()
 
 Place a space before and after `()` when used with `if`, `for`, or `while`.
 
-```{r, eval = FALSE}
+
+```r
 # Good
 if (condition) {
   x + 2
@@ -633,7 +892,8 @@ if(condition){
 
 Place a space after `()` used for function arguments.
 
-```{r, eval = FALSE}
+
+```r
 # Good
 if (debug) {
   show(x)
@@ -659,14 +919,15 @@ if(debug){
 
 ## Code Blocks
 
-```{r, eval = FALSE}
+
+```r
 # Good
-if (y < 0) {
+if (y &lt; 0) {
   message("y is negative")
 }
 
 if (y == 0) {
-  if (x > 0) {
+  if (x &gt; 0) {
     log(x)
   } else {
     message("x is negative or zero")
@@ -680,15 +941,16 @@ if (y == 0) {
 
 ## Code Blocks
 
-```{r, eval = FALSE}
+
+```r
 # Bad
-if (y<0){
+if (y&lt;0){
 message("Y is negative")
 }
 
 if (y == 0)
 {
-    if (x > 0) {
+    if (x &gt; 0) {
       log(x)
     } else {
   message("x is negative or zero")
@@ -703,17 +965,18 @@ if (y == 0)
 In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
 
 
-```{r, eval = FALSE}
-# Good
-y <- 10
-x <- if (y < 20) "Too low" else "Too high"
 
-if (y < 0) {
+```r
+# Good
+y &lt;- 10
+x &lt;- if (y &lt; 20) "Too low" else "Too high"
+
+if (y &lt; 0) {
   stop("Y is negative")
 }
 
-find_abs <- function(x) {
-  if (x > 0) {
+find_abs &lt;- function(x) {
+  if (x &gt; 0) {
     return(x)
   }
   x * -1
@@ -728,15 +991,16 @@ find_abs <- function(x) {
 
 In general, it's ok to drop the curly braces for very simple statements that fit on one line. However, function calls that affect control flow (`return`, `stop`, etc.) should always go in their own `{}` block:
 
-```{r, eval = FALSE}
-# Bad
-if (y < 0) stop("Y is negative")
 
-if (y < 0)
+```r
+# Bad
+if (y &lt; 0) stop("Y is negative")
+
+if (y &lt; 0)
   stop("Y is negative")
 
-find_abs <- function(x) {
-  if (x > 0) return(x)
+find_abs &lt;- function(x) {
+  if (x &gt; 0) return(x)
   x * -1
 }
 ```
@@ -749,16 +1013,17 @@ find_abs <- function(x) {
 
 If a function definition runs over multiple lines, indent the second line to where the definition starts.
 
-```{r, eval = FALSE}
+
+```r
 # Good
-long_function_name <- function(a = "a long argument",
+long_function_name &lt;- function(a = "a long argument",
                                b = "another argument",
                                c = "another long argument") {
   # As usual code is indented by two spaces.
 }
 
 # Bad
-long_function_name <- function(a = "a long argument",
+long_function_name &lt;- function(a = "a long argument",
   b = "another argument",
   c = "another long argument") {
   # Here it's hard to spot where the definition ends and the
@@ -774,12 +1039,13 @@ Strictly speaking, `return` is not necessary in a function definition.
 The function will output the last line of executable R code. 
 The following function definitions will output the same results!
 
-```{r}
-Add_Values <- function(x, y) {
+
+```r
+Add_Values &lt;- function(x, y) {
   return(x + y)
 }
 
-Add_Values <- function(x, y) {
+Add_Values &lt;- function(x, y) {
   x + y
 }
 ```
@@ -804,29 +1070,30 @@ The function body should be commented as usual!
 ---
 
 
-```{r, eval = FALSE}
+
+```r
 # Good ----
 # Function: square_plus_2, squares a number and then adds 2
 # Input: x, must be numeric
 # Output: numeric equal to x^2 + 2
-square_plus_2 <- function(x) {
+square_plus_2 &lt;- function(x) {
   # check that x is numeric
   if (!is.numeric(x)) {
     stop("x must be numeric!")
   } else {
     # if numeric, then square and add 2
-    y <- x^2 + 2
+    y &lt;- x^2 + 2
     return(y)
   }
 }
 
 # Bad ----
 # Function for problem 2c
-square_plus_2 <- function(x) {
+square_plus_2 &lt;- function(x) {
   if (!is.numeric(x)) {
     stop("x must be numeric!")
   } else {
-    y <- x^2 + 2
+    y &lt;- x^2 + 2
     return(y)
   }
 }
@@ -862,7 +1129,7 @@ layout: true
 * They come with functions that others have written for you to make your life easier, 
 and greatly improve the power of R! 
 * Packages are the reason we are learning about R in this course.
-* Packages can range from graphical software, to web scraping tools, statistical models for spatio-temporal data<sup>1</sup>, microbial data analysis tools<sup>2</sup>, and more!
+* Packages can range from graphical software, to web scraping tools, statistical models for spatio-temporal data&lt;sup&gt;1&lt;/sup&gt;, microbial data analysis tools&lt;sup&gt;2&lt;/sup&gt;, and more!
 
 .footnote[[1] This is a shameless self plug.
 
@@ -873,7 +1140,7 @@ and greatly improve the power of R!
 ## Where are packages?
 
 * The most popular package repository is the Comprehensive R Archive Network, or [CRAN](https://cran.r-project.org/)
-* As of making this slide, it includes over 15,000 packages 
+* As of making this slide, it includes over 16,000 packages 
 * Other popular repositories include [Bioconductor](https://www.bioconductor.org/) and [Github](https://github.com/)
 
 ---
@@ -883,7 +1150,8 @@ and greatly improve the power of R!
 If a package is available on CRAN, like most packages we will use for this course,
 you can install it using `install.packages()`:
 
-```{r, eval = FALSE}
+
+```r
 install.packages("PACKAGE_NAME_IN_QUOTES")
 ```
 
@@ -899,7 +1167,8 @@ Thus, you should **never** include a call to `install.packages()` in any `.R` or
 
 After a package is installed, you can load it into your current R session using `library()`:
 
-```{r, eval = FALSE}
+
+```r
 library(PACKAGE_NAME)
 # or 
 library("PACKAGE_NAME")
@@ -917,7 +1186,7 @@ Usually, I do that in the opening code chunk. If it is a `.Rmd`, I set the param
 `include = FALSE` to hide the messages and code, because they are usually unnecessary to the reader
 of my HTML. 
 
-    `r ''````{r, include = FALSE}
+    ```{r, include = FALSE}
     library(ggplot2)
     ```
     
@@ -937,14 +1206,28 @@ layout: true
 **Lists**, like vectors and matrices, are a class of objects in R.
 Lists are special because they can store multiple different types of data.
 
-```{r}
-my_list <- list("some_numbers" = 1:5,
+
+```r
+my_list &lt;- list("some_numbers" = 1:5,
                 "some_characters" = c("a", "b", "c"),
                 "a_matrix" = diag(2))
 my_list
 ```
 
-Make sure to store items within a list using `=`, not `<-`!
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $some_characters
+## [1] "a" "b" "c"
+## 
+## $a_matrix
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+```
+
+Make sure to store items within a list using `=`, not `&lt;-`!
 
 ---
 
@@ -962,10 +1245,29 @@ There are three ways to access an item within a list
 * double brackets `[[]]` with its index as a number
 * dollar sign `$` followed by its name without quotes
 
-```{r}
+
+```r
 my_list[["some_numbers"]]
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+```r
 my_list[[1]]
+```
+
+```
+## [1] 1 2 3 4 5
+```
+
+```r
 my_list$some_numbers
+```
+
+```
+## [1] 1 2 3 4 5
 ```
 
 ---
@@ -975,9 +1277,22 @@ my_list$some_numbers
 If you use a single bracket to index, like we do with matrices and vectors, you will return 
 a list with a single element.
 
-```{r}
+
+```r
 my_list[1]
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+```
+
+```r
 my_list[[1]]
+```
+
+```
+## [1] 1 2 3 4 5
 ```
 
 Note that this means you can only return a single item in a list using double brackets or the dollar sign! (Why?) 
@@ -988,12 +1303,22 @@ Note that this means you can only return a single item in a list using double br
 
 This is a subtle but important difference!
 
-```{r, error = TRUE}
+
+```r
 my_list[1] + 1
 ```
 
-```{r}
+```
+## Error in my_list[1] + 1: non-numeric argument to binary operator
+```
+
+
+```r
 my_list[[1]] + 1
+```
+
+```
+## [1] 2 3 4 5 6
 ```
 
 
@@ -1003,9 +1328,31 @@ my_list[[1]] + 1
 
 You can subset a list similarly to vectors and matrices using single brackets.
 
-```{r}
+
+```r
 my_list[1:2]
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $some_characters
+## [1] "a" "b" "c"
+```
+
+```r
 my_list[-2]
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $a_matrix
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
 ```
 
 ---
@@ -1015,17 +1362,39 @@ my_list[-2]
 We can use the same tools we used to access list elements to add to a list.
 However, if we use double brackets, we must use quotes, otherwise R will search for something that does not yet exist.
 
-```{r}
-my_list$a_boolean <- FALSE
-my_list[["a_list"]] <- list("recursive" = TRUE)
+
+```r
+my_list$a_boolean &lt;- FALSE
+my_list[["a_list"]] &lt;- list("recursive" = TRUE)
 ```
 
 
 ---
 
 
-```{r}
+
+```r
 my_list
+```
+
+```
+## $some_numbers
+## [1] 1 2 3 4 5
+## 
+## $some_characters
+## [1] "a" "b" "c"
+## 
+## $a_matrix
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+## 
+## $a_boolean
+## [1] FALSE
+## 
+## $a_list
+## $a_list$recursive
+## [1] TRUE
 ```
 
 ---
@@ -1034,8 +1403,14 @@ my_list
 
 Call `names()` to get a vector of list item names.
 
-```{r}
+
+```r
 names(my_list)
+```
+
+```
+## [1] "some_numbers"    "some_characters" "a_matrix"        "a_boolean"      
+## [5] "a_list"
 ```
 
 ---
@@ -1055,7 +1430,7 @@ layout: true
 ---
 
 A **data frame** in R is essentially a special type of list, where each item is a vector of equal length.
-Typically, we say that data has $n$ rows (one for each **observation**) and $p$ columns (one for each **variable**)
+Typically, we say that data has `\(n\)` rows (one for each **observation**) and `\(p\)` columns (one for each **variable**)
 
 Unlike a matrix, columns can have different types.
 However, many column functions still apply! (such as `colSums`, `summary`, etc.)
@@ -1067,13 +1442,21 @@ However, many column functions still apply! (such as `colSums`, `summary`, etc.)
 
 An easy way to create a data frame is to use the function `data.frame()`. 
 
-Like lists, make sure you define the names using `=` and not `<-`!
+Like lists, make sure you define the names using `=` and not `&lt;-`!
 
-```{r}
-my_data <- data.frame("var1" = 1:3,
+
+```r
+my_data &lt;- data.frame("var1" = 1:3,
                       "var2" = c("a", "b", "c"),
                       "var3" = c(TRUE, FALSE, TRUE))
 my_data
+```
+
+```
+##   var1 var2  var3
+## 1    1    a  TRUE
+## 2    2    b FALSE
+## 3    3    c  TRUE
 ```
 
 ---
@@ -1083,9 +1466,17 @@ my_data
 If you import or create numeric data as a `matrix`, you can also convert it easily
 using `as.data.frame()`
 
-```{r}
-my_matrix <- matrix(1:9, nrow = 3, ncol = 3)
+
+```r
+my_matrix &lt;- matrix(1:9, nrow = 3, ncol = 3)
 as.data.frame(my_matrix)
+```
+
+```
+##   V1 V2 V3
+## 1  1  4  7
+## 2  2  5  8
+## 3  3  6  9
 ```
 
 
@@ -1095,21 +1486,73 @@ as.data.frame(my_matrix)
 
 We can subset data frames using most of the tools we've learned about subsetting so far. We can use keys or indices.
 
-```{r}
+
+```r
 my_data$var1
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
 my_data["var1"]
+```
+
+```
+##   var1
+## 1    1
+## 2    2
+## 3    3
+```
+
+```r
 my_data[["var1"]]
+```
+
+```
+## [1] 1 2 3
 ```
 
 ---
 
 ## Subsetting data frames
 
-```{r}
+
+```r
 my_data[1]
+```
+
+```
+##   var1
+## 1    1
+## 2    2
+## 3    3
+```
+
+```r
 my_data[[1]]
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
 my_data[, 1]
+```
+
+```
+## [1] 1 2 3
+```
+
+```r
 my_data[1, ]
+```
+
+```
+##   var1 var2 var3
+## 1    1    a TRUE
 ```
 
 
@@ -1120,22 +1563,50 @@ my_data[1, ]
 We can add to a data frame using `rbind()` and `cbind()`, but be careful with type mismatches!
 We can also add columns using the column index methods.
 
-```{r}
+
+```r
 # These all do the same thing
-my_data <- cbind(my_data, "var4" = c(3, 2, 1))
-my_data$var4 <- c(3, 2, 1)
-my_data[, "var4"] <- c(3, 2, 1)
-my_data[["var4"]] <- c(3, 2, 1)
+my_data &lt;- cbind(my_data, "var4" = c(3, 2, 1))
+my_data$var4 &lt;- c(3, 2, 1)
+my_data[, "var4"] &lt;- c(3, 2, 1)
+my_data[["var4"]] &lt;- c(3, 2, 1)
 my_data
+```
+
+```
+##   var1 var2  var3 var4
+## 1    1    a  TRUE    3
+## 2    2    b FALSE    2
+## 3    3    c  TRUE    1
 ```
 
 ---
 
 ## Adding to a data frame
 
-```{r}
+
+```r
 rbind(my_data, c(1, 2, 3, 4))
+```
+
+```
+##   var1 var2 var3 var4
+## 1    1    a    1    3
+## 2    2    b    0    2
+## 3    3    c    1    1
+## 4    1    2    3    4
+```
+
+```r
 rbind(my_data, list(4, "d", FALSE, 0))
+```
+
+```
+##   var1 var2  var3 var4
+## 1    1    a  TRUE    3
+## 2    2    b FALSE    2
+## 3    3    c  TRUE    1
+## 4    4    d FALSE    0
 ```
 
 
@@ -1145,11 +1616,31 @@ rbind(my_data, list(4, "d", FALSE, 0))
 
 We can use `str()` to see the structure of a data frame (or any other object!)
 
-```{r}
-my_data2 <- rbind(my_data, c(1, 2, 3, 4))
+
+```r
+my_data2 &lt;- rbind(my_data, c(1, 2, 3, 4))
 str(my_data2)
-my_data2 <- rbind(my_data, list(4, "d", FALSE, 0))
+```
+
+```
+## 'data.frame':	4 obs. of  4 variables:
+##  $ var1: num  1 2 3 1
+##  $ var2: chr  "a" "b" "c" "2"
+##  $ var3: num  1 0 1 3
+##  $ var4: num  3 2 1 4
+```
+
+```r
+my_data2 &lt;- rbind(my_data, list(4, "d", FALSE, 0))
 str(my_data2)
+```
+
+```
+## 'data.frame':	4 obs. of  4 variables:
+##  $ var1: num  1 2 3 4
+##  $ var2: chr  "a" "b" "c" "d"
+##  $ var3: logi  TRUE FALSE TRUE FALSE
+##  $ var4: num  3 2 1 0
 ```
 
 
@@ -1158,9 +1649,18 @@ str(my_data2)
 Most data frames will have column names describing the variables. 
 They can also include rownames, which we can add using `rownames()`.
 
-```{r}
-rownames(my_data2) <- c("Obs1", "Obs2", "Obs3", "Obs4")
+
+```r
+rownames(my_data2) &lt;- c("Obs1", "Obs2", "Obs3", "Obs4")
 my_data2
+```
+
+```
+##      var1 var2  var3 var4
+## Obs1    1    a  TRUE    3
+## Obs2    2    b FALSE    2
+## Obs3    3    c  TRUE    1
+## Obs4    4    d FALSE    0
 ```
 
 ---
@@ -1178,10 +1678,21 @@ Tidyverse has (rightfully) decided rownames are obsolete, and so they do not inc
 by default. However, we can include our rownames as a variale using the parameter `rownames` in 
 `as_tibble()`.
 
-```{r}
+
+```r
 library(tibble)
-my_tibble <- as_tibble(my_data2, rownames = "Observation")
+my_tibble &lt;- as_tibble(my_data2, rownames = "Observation")
 my_tibble
+```
+
+```
+## # A tibble: 4 x 5
+##   Observation  var1 var2  var3   var4
+##   &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt; &lt;lgl&gt; &lt;dbl&gt;
+## 1 Obs1            1 a     TRUE      3
+## 2 Obs2            2 b     FALSE     2
+## 3 Obs3            3 c     TRUE      1
+## 4 Obs4            4 d     FALSE     0
 ```
 
 ---
@@ -1203,13 +1714,37 @@ Seems simple, but can sometimes be tricky!
 
 What's untidy about the following data?
 
-```{r, echo = FALSE}
-library(kableExtra)
-untidy_dat <- data.frame("Hospital" = c("A", "B", "C", "D"),
-                         "Diseased" = c(10, 15, 12, 5),
-                         "Healthy"  = c(14, 18, 13, 16))
-kable_styling(kable(untidy_dat))
-```
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Hospital &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Diseased &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Healthy &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 --
 
@@ -1225,26 +1760,92 @@ How can we tidy it up?
 
 --
 
-```{r, echo = FALSE}
-tidy_dat <- data.frame("Hospital" = rep(c("A", "B", "C", "D"), each = 2),
-                       "Status"   = rep(c("Diseased", "Healthy"), 4),
-                       "Count"    = c(10, 14, 15, 18, 12, 13, 5, 16))
-kable_styling(kable(tidy_dat))
-```
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Hospital &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Status &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Count &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diseased &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diseased &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diseased &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; C &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 13 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Diseased &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; D &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Healthy &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 ---
 
 Another example:
 
-```{r, echo = FALSE}
-untidy_dat2 <- data.frame("Country" = c("A", "B"),
-                          "Year"  = rep(2018, 2),
-                          "m1624" = c(49, 34),
-                          "m2534" = c(55, 33),
-                          "f1624" = c(47, 50),
-                          "f2534" = c(41, 43))
-kable_styling(kable(untidy_dat2))
-```
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Country &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; m1624 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; m2534 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; f1624 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; f2534 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 55 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 --
 
@@ -1254,14 +1855,75 @@ kable_styling(kable(untidy_dat2))
 
 ---
 
-```{r, echo = FALSE}
-tidy_dat2 <- data.frame("Country"   = rep(c("A", "B"), each = 4),
-                        "Year"      = rep(2018, 8),
-                        "Gender"    = rep(c("m", "m", "f", "f"), 2),
-                        "Age_Group" = rep(c("16-24", "25-34"), 4),
-                        "Counts"    = c(49, 55, 47, 41, 34, 33, 50, 43))
-kable_styling(kable(tidy_dat2))
-```
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Country &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Gender &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Age_Group &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Counts &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; m &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 49 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; m &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25-34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 55 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 47 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25-34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 41 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; m &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 34 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; m &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25-34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 33 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 16-24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2018 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 25-34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 43 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
 ---
@@ -1311,8 +1973,13 @@ layout: true
 A **working directory** is the filepath R uses to save and look for data. 
 You can check for your current working directory using `getwd()`
 
-```{r}
+
+```r
 getwd()
+```
+
+```
+## [1] "/Volumes/GoogleDrive/My Drive/Git Repos/STAT302/docs/LectureSlides/lectureslides2_fundamentals"
 ```
 
 This location is where R will look by default!
@@ -1323,24 +1990,36 @@ This location is where R will look by default!
 
 You can change your working directory using `setwd()`. 
 
-```{r, eval = FALSE}
+
+```r
 setwd("/Users/Bryan/Desktop/STAT302/")
 ```
 
 You can use the shorthand `..` to reference a parent directory relative to where you are now.
 
-```{r}
+
+```r
 setwd("..")
 getwd()
 ```
 
+```
+## [1] "/Volumes/GoogleDrive/My Drive/Git Repos/STAT302/docs/LectureSlides"
+```
+
 We can also reference the current directory using the shorthand `.`.
-```{r, eval = FALSE}
+
+```r
 setwd("./lectureslides2")
 ```
 
-```{r}
+
+```r
 getwd()
+```
+
+```
+## [1] "/Volumes/GoogleDrive/My Drive/Git Repos/STAT302/docs/LectureSlides/lectureslides2_fundamentals"
 ```
 
 ---
@@ -1360,9 +2039,10 @@ You can save single R objects as `.rds` files using `saveRDS()`,
 multiple R objects as `.RData` or `.rda` files using `save()`, 
 and your entire workspace as `.RData` using `save.image()`.
 
-```{r, eval = FALSE}
-object1 <- 1:5
-object2 <- c("a", "b", "c")
+
+```r
+object1 &lt;- 1:5
+object2 &lt;- c("a", "b", "c")
 # save only object1
 saveRDS(object1, file = "object1_only.rds")
 # save object1 and object2
@@ -1381,7 +2061,8 @@ In general, I recommend using `.RData` for multiple objects, and I recommend aga
 
 You can load `.rds` files using `readRDS()` and `.Rdata` and `.rda` files using `load()`.
 
-```{r, eval = FALSE}
+
+```r
 # load only object1
 readRDS("object1_only.rds")
 # load object1 and object2
@@ -1399,7 +2080,8 @@ The values in quotes are all filepaths, and by default, R will search for these 
 
 You can change where R searches for images by adjusting this filepath. For example, if you save your data in a `Data` subfolder within your working directory, you might try
 
-```{r, eval = FALSE}
+
+```r
 load("./Data/my_data.RData")
 ```
 
@@ -1408,9 +2090,10 @@ load("./Data/my_data.RData")
 ## Other types of data
 
 Often, you will read and write files as **c**omma **s**eparated **v**alues, or `.csv`. 
-You can do this by navigating *File > Import Dataset* in the menu bar, but generally I recommend doing it manually using the `readr` package. You will need to do so if loading data is part of your work flow, such as if it is required for an R Markdown writeup.
+You can do this by navigating *File &gt; Import Dataset* in the menu bar, but generally I recommend doing it manually using the `readr` package. You will need to do so if loading data is part of your work flow, such as if it is required for an R Markdown writeup.
 
-```{r, eval = FALSE}
+
+```r
 library(readr)
 # read a .csv file in a "Data" subfolder
 read_csv("./Data/file.csv")
@@ -1445,7 +2128,7 @@ Good file organization requires you to keep all your input data, R scripts,
 output data and results, and figures together. 
 You can do this using **Projects**.
 
-You can create a project by going to *File > New Project*. 
+You can create a project by going to *File &gt; New Project*. 
 If you want your project in a folder you have already created, select *Existing Directory*.
 If you want RStudio to automatically make you a new folder with a project, select *New Directory*.
 
@@ -1466,5 +2149,126 @@ helping with reproducibility.
 * Helps with reproducibility. You can share R project files and the project will load on other computer exactly as it does on yours.
 * Helps keep your separate analyses separate. For example, you won't need to worry if you defined a variable `x` in multiple different analyses
 * Easy to integrate with version control such as git (more on this later!)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "tomorrow-night-bright",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
 
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
 
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

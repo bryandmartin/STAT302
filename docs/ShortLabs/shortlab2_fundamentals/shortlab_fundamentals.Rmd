@@ -23,7 +23,7 @@ h4.date {
 ---
 title: "Short Lab 2"
 author: "INSERT YOUR NAME HERE"
-date: "1/15/2020"
+date: "10/12/2020"
 output: html_document
 ---
 
