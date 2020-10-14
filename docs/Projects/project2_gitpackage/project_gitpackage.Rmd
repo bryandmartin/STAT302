@@ -1,7 +1,7 @@
 ---
-title: "Project 3: R Package Development and Data Analysis Project Pipeline"
+title: "Project 2: R Package Development and Data Analysis Project Pipeline"
 author: "INSERT YOUR NAME(S) HERE"
-date: "3/16/2020"
+date: "Note: this is a draft for your information and is subject to change!"
 output: html_document
 ---
 <!--- Begin styling code. --->
