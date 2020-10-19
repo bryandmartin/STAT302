@@ -416,11 +416,6 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 
@@ -449,11 +444,6 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ]
 
@@ -484,11 +474,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 ]
 
@@ -520,11 +505,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 ]
 
@@ -551,11 +531,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]
 
@@ -585,11 +560,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 ]
 
@@ -617,11 +587,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 ]
 
@@ -653,11 +618,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
 ]
 
@@ -688,11 +648,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
 ]
 
@@ -722,11 +677,6 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
 ]
 
@@ -763,11 +713,6 @@ lifeExp_plot
 ```
 
 .center[
-
-```
-## `geom_smooth()` using formula 'y ~ x'
-```
-
 ![](lectureslides_datavizmanip_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
 ]
 
@@ -1649,10 +1594,6 @@ gapminder %&gt;%
 ```
 
 ```
-## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
-```
 ## # A tibble: 5 x 3
 ##   continent mean_lifeExp max_gdp
 ##   &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;
@@ -1678,10 +1619,6 @@ gapminder %&gt;%
   summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
             max_gdp = max(gdpPercap)) %&gt;%
   arrange(mean_lifeExp)
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```
@@ -1711,10 +1648,6 @@ gapminder %&gt;%
 ```
 
 ```
-## `summarise()` ungrouping output (override with `.groups` argument)
-```
-
-```
 ## # A tibble: 5 x 3
 ##   continent mean_lifeExp max_gdp
 ##   &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;
@@ -1737,10 +1670,6 @@ If we want to count by groups, we can use the notation we've already earned.
 gapminder %&gt;%
   group_by(continent) %&gt;%
   summarize(count = n())
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```

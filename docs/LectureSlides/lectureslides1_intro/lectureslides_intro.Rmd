@@ -768,6 +768,7 @@ Congrats! You have a functional .Rmd that will soon be your Lab 1 submissions!
 
 ## Syntax
 
+<div style="width:400px;overflow:auto">
 <pre>
 1. Ordered lists
 1. Are real easy
@@ -781,6 +782,7 @@ Congrats! You have a functional .Rmd that will soon be your Lab 1 submissions!
 [URLs are trivial](http://www.uw.edu)
 
 ![pictures too](http://depts.washington.edu/uwcreate/img/UW_W-Logo_smallRGB.gif)
+</div>
 </pre>
 ]
 
@@ -810,6 +812,7 @@ z <- y^2
 
 ## Syntax
 
+<div style="width:400px;overflow:auto">
 <pre>
 You can put some math $y= \left(\frac{2}{3} 
 \right)^2$ right up in there
@@ -827,6 +830,7 @@ Or a block of code:
     ```
 </pre>
 ]
+</div>
 
 ---
 

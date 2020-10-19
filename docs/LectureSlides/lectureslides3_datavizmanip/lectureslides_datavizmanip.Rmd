@@ -346,7 +346,7 @@ Let's add another layer. Trendlines by continent!
 * We will use the default option `loess`. (See `?geom_smooth()`)
 
 .pull-left[
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -360,7 +360,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -382,7 +382,7 @@ This is cluttered and hard to read. Let's try separating by continents using **f
 * Takes in a **formula** object. Use a tilde `~` and then the variable name you want
 
 .pull-left[
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -397,7 +397,7 @@ ggplot(data = gapminder,
 ]
 
 .pull-right[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -418,7 +418,7 @@ Looking better! Now let's fine tune. First we'll formalize the labels on our plo
 * Can also edit labels one at a time using `xlab()`, `ylab()`, `ggmain()`, ...
 * You should probably do this in every graph you present! Very rarely do you want the text styling of your data frame to match your output. Emphasis here on human readability!
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -437,7 +437,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -462,7 +462,7 @@ Let's center our title by adjusting `theme()`.
 * `hjust` is our horizontal alignment, we set it to one half
 
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -481,7 +481,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -502,7 +502,7 @@ ggplot(data = gapminder,
 
 Actually, that legend is redundant. Let's remove it.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -520,7 +520,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -542,7 +542,7 @@ I don't like the default gray background. I almost always set the `theme_bw()`.
 
 * There are several other theme options! Too many to list, so look them up if you want more options.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -561,7 +561,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -582,7 +582,7 @@ ggplot(data = gapminder,
 
 This overwrote our custome `theme()` settings! Let's reorder the layers.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -601,7 +601,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -626,7 +626,7 @@ Let's increase all of our text proportionally using `base_size` within `theme_bw
 * We could also do this by adjusting `text` within `theme()`
 * Note that we no longer need to manually adjust our title size. This will scale everything automatically.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -645,7 +645,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -668,7 +668,7 @@ ggplot(data = gapminder,
 Almost there! Now our text is a good size, but it overlaps. There are a few ways we could fix this. We'll rotate our text.
 
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -688,7 +688,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -710,7 +710,7 @@ ggplot(data = gapminder,
 
 Lastly, let's space out our panels by adjusting `panel.spacing.x`.
 
-```{r, eval = FALSE}
+```{r, eval = FALSE, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -731,7 +731,7 @@ ggplot(data = gapminder,
 ---
 
 .middler[
-```{r, echo = FALSE, fig.height = 5}
+```{r, echo = FALSE, fig.height = 5, message = FALSE}
 ggplot(data = gapminder,
        aes(x = year, y = lifeExp,
            group = country,
@@ -776,12 +776,12 @@ lifeExp_plot <- ggplot(data = gapminder, #<<
 
 Then we can plot it by just calling our object.
 
-```{r, fig.height = 5, eval = FALSE}
+```{r, fig.height = 5, eval = FALSE, message = FALSE}
 lifeExp_plot
 ```
 
 .center[
-```{r, fig.height = 5, echo = FALSE}
+```{r, fig.height = 5, echo = FALSE, message = FALSE}
 lifeExp_plot
 ```
 ]
@@ -1492,7 +1492,7 @@ ungrouped_gap
 
 `summarize()` (or `summarise()`, if you prefer) will apply functions to rows of a data frame. If a data frame is grouped, the function will be applied by group.
 
-```{r}
+```{r, message = FALSE}
 gapminder %>%
   group_by(continent) %>%
   summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
@@ -1507,7 +1507,7 @@ Notice that this creates an entirely new (and much smaller) data frame. Typicall
 
 We can order the rows of the data using `arrange()`. Usually, you do this after some call to `summarize()`. 
 
-```{r}
+```{r, message = FALSE}
 gapminder %>%
   group_by(continent) %>%
   summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
@@ -1521,7 +1521,7 @@ gapminder %>%
 
 We can order the rows of the data using `arrange()`. Usually, you do this after some call to `summarize()`. We can use `desc()` to put in decreasing order.
 
-```{r}
+```{r, message = FALSE}
 gapminder %>%
   group_by(continent) %>%
   summarize(mean_lifeExp = mean(lifeExp, na.rm = TRUE),
@@ -1536,7 +1536,7 @@ gapminder %>%
 
 If we want to count by groups, we can use the notation we've already earned.
 
-```{r}
+```{r, message = FALSE}
 gapminder %>%
   group_by(continent) %>%
   summarize(count = n())
