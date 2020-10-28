@@ -1,8 +1,8 @@
 ---
-title: "STAT 302, Week 9"
+title: "STAT 302, Lecture Slides 8"
 subtitle: "R Package Development"
 author: "Bryan Martin"
-date: "Week of March 2, 2020"
+date: ""
 output:
   xaringan::moon_reader:
     css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
@@ -32,7 +32,7 @@ library(tidyverse)
 4. Automated package testing
 5. Package vignettes
 
-.middler[**Goal:** Develop our own R packages (Project 3!)]
+.middler[**Goal:** Develop our own R packages (Project 2!)]
 
 
 
@@ -86,8 +86,8 @@ install.packages(c("devtools", "roxygen2", "testthat", "knitr", "covr"))
 # Step 1: Create the directory (*)
 
 1. Within your `STAT302` directory, go to your folder for projects
-2. Create a new subdirectory, `Project3` (or similar)
-3. **Change your working directory within R to your `Project3` subfolder!**
+2. Create a new subdirectory, `Project2` (or similar)
+3. **Change your working directory within R to your `Project2` subfolder!**
 4. Type in your R console (changing the package name)
   ```{r, eval = FALSE}
   devtools::create("YOURPACKAGENAME")
@@ -466,7 +466,7 @@ Instructions from the official [travis CI tutorial](https://docs.travis-ci.com/u
 1. Go to [travis-ci.com](travis-ci.com) and click `Sign up with Github`
 2. Accept the Authorization of Travis CI. You'll be redirected to GitHub.
 3. Click on your profile picture in the top right of your Travis Dashboard, click the green *Activate* button, and select the repositories you want to use with Travis CI.
-  * In this case, select your package for Project 3.
+  * In this case, select your package for Project 2.
   
 ---
 
@@ -686,7 +686,7 @@ layout: true
 # Part 13: Adding a vignette (*)
 ---
 
-Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
+Run `usethis::use_vignette("tutorial", title = "Project 2: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
   * Add `knitr` and `rmarkdown` to the `Suggests` field in `DESCRIPTION`
   * Sets `VignetteBuilder` field in `DESCRIPTION` to `knitr`
   * Add `inst/doc` to `.gitignore`
@@ -698,7 +698,7 @@ Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial
 
 .center[<img src="vignette.png" alt="" height="375"/>]
 
-Remove `Project 3: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
+Remove `Project 2: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
 Also add your own name to the YAML header using the `author:` field.
 
 ---
@@ -724,7 +724,7 @@ You can see one of [my packages](https://github.com/bryandmartin/corncob) for an
 ---
 class: inverse
 
-.sectionhead[Project 3!]
+.sectionhead[Project 2!]
 
 
 

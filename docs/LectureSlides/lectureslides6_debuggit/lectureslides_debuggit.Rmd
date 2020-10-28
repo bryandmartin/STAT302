@@ -1,8 +1,8 @@
 ---
-title: "STAT 302, Week 7"
+title: "STAT 302, Lecture Slides 6"
 subtitle: "Debugging and Version Control"
 author: "Bryan Martin"
-date: "Week of Feb 17, 2020"
+date: ""
 output:
   xaringan::moon_reader:
     css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
@@ -912,14 +912,14 @@ Now check the repository online at GitHub. What changed?
 
 ---
 
-# Add Short Lab 5 (*)
+# Add Short Lab 4 (*)
 
 
 1. Navigate to [the shortlab section of the course webpage](https://bryandmartin.github.io/STAT302/shortlabs.html).
-2. Download the .Rmd for Short Lab 5
+2. Download the .Rmd for Short Lab 4
 3. Using your standard file browser, copy the .Rmd into the git repo you created for the previous slides.
 4. In Short Lab 5, fill in the required text for the link to your repo
-5. Knit/Compile Short Lab 5
+5. Knit/Compile Short Lab 4
 6. Add, commit, and push the change to your remote repository following the relevant steps from the previous slide.
 
 Now check the repository online at GitHub. If you see a README, .Rmd, and .html, then congratulations, you are done with this step!
@@ -952,7 +952,7 @@ That is, first create on GitHub, then clone through RStudio. (Not clone through 
 
 # Edit your repo through RStudio (*)
 
-You should now have re-created the `shortlab5` (or similar) sub-folder within `ShortLabs`, and it should be associated with an R project.
+You should now have re-created the `shortlab4` (or similar) sub-folder within `ShortLabs`, and it should be associated with an R project.
 If it is not already open, open that R project by double clicking on the project file.
 
 **You should now see a `Git` pane within RStudio!**
@@ -967,16 +967,16 @@ If it is not already open, open that R project by double clicking on the project
 
 ---
 
-# Finished with Short Lab 5? (*)
+# Finished with Short Lab 4? (*)
 
 Now check the repository online at GitHub. You should see a README, .Rmd, and .html.
 Your README should include two lines indicating that it was edited from both the shell on your local computer and RStudio.
 
-If this is true, then congratulations, you are done with this Short Lab 5!
+If this is true, then congratulations, you are done with this Short Lab 4!
 
 If this is not true, then let me know and we will work through it together!
 
-Don't forget, if you created a private repository, be sure to add both `bryandmartin` and `zhangz73` as collaborators.
+Don't forget, if you created a private repository, be sure to add both `bryandmartin` and `FILLIN` as collaborators.
 
 ---
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STAT 302, Week 9</title>
+    <title>STAT 302, Lecture Slides 8</title>
     <meta charset="utf-8" />
     <meta name="author" content="Bryan Martin" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
@@ -13,10 +13,9 @@
     <textarea id="source">
 class: center, top, title-slide
 
-# STAT 302, Week 9
+# STAT 302, Lecture Slides 8
 ## R Package Development
 ### Bryan Martin
-### Week of March 2, 2020
 
 ---
 
@@ -32,7 +31,7 @@ class: center, top, title-slide
 4. Automated package testing
 5. Package vignettes
 
-.middler[**Goal:** Develop our own R packages (Project 3!)]
+.middler[**Goal:** Develop our own R packages (Project 2!)]
 
 
 
@@ -87,8 +86,8 @@ install.packages(c("devtools", "roxygen2", "testthat", "knitr", "covr"))
 # Step 1: Create the directory (*)
 
 1. Within your `STAT302` directory, go to your folder for projects
-2. Create a new subdirectory, `Project3` (or similar)
-3. **Change your working directory within R to your `Project3` subfolder!**
+2. Create a new subdirectory, `Project2` (or similar)
+3. **Change your working directory within R to your `Project2` subfolder!**
 4. Type in your R console (changing the package name)
   
   ```r
@@ -473,7 +472,7 @@ Instructions from the official [travis CI tutorial](https://docs.travis-ci.com/u
 1. Go to [travis-ci.com](travis-ci.com) and click `Sign up with Github`
 2. Accept the Authorization of Travis CI. You'll be redirected to GitHub.
 3. Click on your profile picture in the top right of your Travis Dashboard, click the green *Activate* button, and select the repositories you want to use with Travis CI.
-  * In this case, select your package for Project 3.
+  * In this case, select your package for Project 2.
   
 ---
 
@@ -697,7 +696,7 @@ layout: true
 # Part 13: Adding a vignette (*)
 ---
 
-Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
+Run `usethis::use_vignette("tutorial", title = "Project 2: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
   * Add `knitr` and `rmarkdown` to the `Suggests` field in `DESCRIPTION`
   * Sets `VignetteBuilder` field in `DESCRIPTION` to `knitr`
   * Add `inst/doc` to `.gitignore`
@@ -709,7 +708,7 @@ Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial
 
 .center[&lt;img src="vignette.png" alt="" height="375"/&gt;]
 
-Remove `Project 3: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
+Remove `Project 2: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
 Also add your own name to the YAML header using the `author:` field.
 
 ---
@@ -736,7 +735,7 @@ You can see one of [my packages](https://github.com/bryandmartin/corncob) for an
 ---
 class: inverse
 
-.sectionhead[Project 3!]
+.sectionhead[Project 2!]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -784,6 +783,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -801,17 +826,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {

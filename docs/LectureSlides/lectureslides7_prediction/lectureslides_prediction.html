@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STAT 302, Week 8</title>
+    <title>STAT 302, Lecture Slides 7</title>
     <meta charset="utf-8" />
     <meta name="author" content="Bryan Martin" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
@@ -13,10 +13,9 @@
     <textarea id="source">
 class: center, top, title-slide
 
-# STAT 302, Week 8
+# STAT 302, Lecture Slides 7
 ## Statistical Prediction
 ### Bryan Martin
-### Week of Feb 24, 2020
 
 ---
 
@@ -201,7 +200,7 @@ ggarrange(g_train, g_test) # from ggpubr, to put side-by-side
 ---
 
 .middler[
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -235,7 +234,7 @@ ggarrange(g_train2, g_test2)
 ## Degree 1 Model
 
 .middler[
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -271,7 +270,7 @@ ggarrange(g_train3, g_test3)
 ## Degree 5 Model
 
 .middler[
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -307,7 +306,7 @@ ggarrange(g_train4, g_test4)
 ## Degree 10 Model
 
 .middler[
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -343,7 +342,7 @@ ggarrange(g_train5, g_test5)
 ## Degree 15 Model
 
 .middler[
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -444,7 +443,7 @@ g_split
 
 ---
 
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 ---
 
 
@@ -487,7 +486,7 @@ ggarrange(g_split1, g_split10, common.legend = TRUE, legend = "bottom")
 
 ---
 
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -630,7 +629,7 @@ ggarrange(g_cv1, g_cv10, common.legend = TRUE, legend = "bottom")
 ```
 ---
 
-&lt;img src="lectureslides8_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_prediction_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 layout: false
@@ -838,6 +837,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -855,17 +880,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {

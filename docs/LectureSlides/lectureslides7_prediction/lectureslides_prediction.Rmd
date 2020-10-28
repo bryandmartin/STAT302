@@ -1,8 +1,8 @@
 ---
-title: "STAT 302, Week 8"
+title: "STAT 302, Lecture Slides 7"
 subtitle: "Statistical Prediction"
 author: "Bryan Martin"
-date: "Week of Feb 24, 2020"
+date: ""
 output:
   xaringan::moon_reader:
     css: ["default", "metropolis", "metropolis-fonts", "my-theme.css"]
