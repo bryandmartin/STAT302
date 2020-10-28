@@ -1,3 +1,10 @@
+---
+title: "Project 1: Data Exploration and Visualization"
+author: "INSERT YOUR NAME(S) HERE"
+date: "Due: 10/26/2020 at the start of class"
+output: html_document
+---
+
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -20,12 +27,6 @@ h4.date {
 </style>
 <!--- End styling code. --->
 
----
-title: "Project 1: Data Exploration and Visualization"
-author: "INSERT YOUR NAME(S) HERE"
-date: "Due: 10/26/2020 at the start of class"
-output: html_document
----
 
 ## Instructions
 

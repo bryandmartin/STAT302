@@ -4,6 +4,7 @@ author: "INSERT YOUR NAME(S) HERE"
 date: "Note: this is a draft for your information and is subject to change!"
 output: html_document
 ---
+
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -25,6 +26,7 @@ h4.date {
 }
 </style>
 <!--- End styling code. --->
+
 
 # Part 1. R Package Development (45 points)
 
