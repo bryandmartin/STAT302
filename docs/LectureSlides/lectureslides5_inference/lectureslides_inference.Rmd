@@ -29,9 +29,12 @@ library(tidyverse)
 1. Hypothesis Testing
 2. Linear Models
 
-Appendix: 
-A. Probability
-B. Random Variables
+#### Appendices: 
+<ol type="A">
+  <li>Probability</li>
+  <li>Random Variables</li>
+</ol>
+
 
 .middler[**Goal:** Understand and learn how to apply statistical tests and models with real data!]
 
