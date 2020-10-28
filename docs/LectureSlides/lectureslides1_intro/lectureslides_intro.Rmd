@@ -1,5 +1,5 @@
 ---
-title: "STAT 302, Week 1"
+title: "STAT 302, Lecture Slides 1"
 subtitle: "Introduction and Getting Started with R"
 author: "Bryan Martin"
 date: ""

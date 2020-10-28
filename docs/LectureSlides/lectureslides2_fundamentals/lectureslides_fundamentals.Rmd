@@ -1,5 +1,5 @@
 ---
-title: "STAT 302, Week 2"
+title: "STAT 302, Lecture Slides 2"
 subtitle: "Programming Fundamentals"
 author: "Bryan Martin"
 date: ""

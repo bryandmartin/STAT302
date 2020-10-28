@@ -1,5 +1,5 @@
 ---
-title: "STAT 302, Week 4"
+title: "STAT 302, Lecture Slides 4"
 subtitle: "Regular Expressions and Strings"
 author: "Bryan Martin"
 date: ""
@@ -728,7 +728,7 @@ fct_collapse(f2, x = c("a", "b"))
 
 ---
 
-# <TT>fct_other()</TT>: replace levels w/ "Other"
+# <TT>fct_other()</TT>: replace w/ "Other"
 
 
 ```{r}
