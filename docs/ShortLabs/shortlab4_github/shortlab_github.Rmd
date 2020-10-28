@@ -1,7 +1,7 @@
 ---
 title: "Short Lab 5"
 author: "INSERT YOUR NAME HERE"
-date: "2/24/2020"
+date: "11/4/2020"
 output: html_document
 ---
 <!--- Begin styling code. --->
@@ -26,7 +26,18 @@ h4.date {
 </style>
 <!--- End styling code. --->
 
+## Part 1. Course Feedback
 
+Please take a few minutes to provide thoughtful and constructive feedback for me and this course through the anonymous feedback form posted on Canvas. ([Link here, or available on the pinned Canvas discussion page.](https://canvas.uw.edu/courses/1402432/discussion_topics/5737404))
+
+Your opinions really do matter to me! It can be about my teaching, the content of the course, the labs, or anything. 
+I will read and respond to your feedback carefully.
+If I only know about your problems and concerns at the end of the quarter through the formal university teaching evaluation, it will be too late to adjust!
+
+Of course, I cannot grade you on this component of the short lab, nor will I know if you completed it. However, your feedback will be greatly appreciated.
+It will help improve the course for you and future generations of students.
+
+## Part 2. Set up a GitHub!
 
 Follow the instructions on Lecture Slides 7 (60 -- 68).
 
