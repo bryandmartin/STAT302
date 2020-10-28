@@ -1,3 +1,10 @@
+---
+title: "Lab 2"
+author: "STAT 302"
+date: "10/19/2020"
+output: html_document
+---
+
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -20,12 +27,6 @@ h4.date {
 </style>
 <!--- End styling code. --->
 
----
-title: "Lab 2"
-author: "STAT 302"
-date: "10/19/2020"
-output: html_document
----
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

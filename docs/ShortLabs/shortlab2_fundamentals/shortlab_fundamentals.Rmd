@@ -1,3 +1,10 @@
+---
+title: "Short Lab 2"
+author: "INSERT YOUR NAME HERE"
+date: "10/12/2020"
+output: html_document
+---
+
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -20,12 +27,6 @@ h4.date {
 </style>
 <!--- End styling code. --->
 
----
-title: "Short Lab 2"
-author: "INSERT YOUR NAME HERE"
-date: "10/12/2020"
-output: html_document
----
 
 As usual, all code below should follow the style guidelines from the lecture slides.
 

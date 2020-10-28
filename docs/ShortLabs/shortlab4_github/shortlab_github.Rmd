@@ -1,9 +1,10 @@
 ---
-title: "Short Lab 5"
+title: "Short Lab 4"
 author: "INSERT YOUR NAME HERE"
 date: "11/4/2020"
 output: html_document
 ---
+
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -25,6 +26,7 @@ h4.date {
 }
 </style>
 <!--- End styling code. --->
+
 
 ## Part 1. Course Feedback
 
