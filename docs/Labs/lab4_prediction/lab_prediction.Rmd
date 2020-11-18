@@ -1,9 +1,10 @@
 ---
 title: "Lab 4"
 author: "STAT 302"
-date: "3/2/2020"
+date: "11/23/2020"
 output: html_document
 ---
+
 <!--- Begin styling code. --->
 <style type="text/css">
 /* Whole document: */
@@ -27,7 +28,6 @@ h4.date {
 <!--- End styling code. --->
 
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -36,15 +36,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 For this lab, note that there are tidyverse methods to perform cross-validation in R (see the `rsample` package). However, your goal is to understand and be able to implement the algorithm "by hand", meaning  that automated procedures from the `rsample` package, or similar packages, will not be accepted.
 
-To begin, load in the popular `iris` data set.
+To begin, load in the popular `penguins` data set from the package `palmerpenguins`.
 
 ```{r}
-data(iris)
+library(palmerpenguins)
+data(package = "palmerpenguins")
 ```
 
 ## Part 1. k-Nearest Neighbors Cross-Validation (10 points)
 
-Our goal here is to predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`.
+Our goal here is to predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`.
 All your code should be within a function `my_knn_cv`.
 
 **Input:**
@@ -70,11 +71,11 @@ You will need to include the following steps:
   * Also within each iteration, record the prediction and the misclassification rate (a value between 0 and 1 representing the proportion of observations that were classified **incorrectly**).
 * After you have done the above steps for all $k$ iterations, store the vector `class` as the output of `knn()` with the full data as both the training and the test data, and the value `cv_error` as the average misclassification rate from your cross validation.
 
-**Submission:** To prove your function works, apply it to the `iris` data. Predict output class `Species` using covariates `Sepal.Length`, `Sepal.Width`, `Petal.Length`, and `Petal.Width`. Use $5$-fold cross validation (`k_cv = 5`). Use a table to show the `cv_err` values for 1-nearest neighbor and 5-nearest neighbors (`k_nn = 1` and `k_nn = 5`). Comment on which value had lower CV misclassification error and which had lower training set error (compare your output `class` to the true class, `iris$Species`).
+**Submission:** To prove your function works, apply it to the `penguins` data. Predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`. Use $5$-fold cross validation (`k_cv = 5`). Use a table to show the `cv_err` values for 1-nearest neighbor and 5-nearest neighbors (`k_nn = 1` and `k_nn = 5`). Comment on which value had lower CV misclassification error and which had lower training set error (compare your output `class` to the true class, `penguins$species`).
 
 ## Part 2. Random Forest Cross-Validation (10 points)
 
-Now, we will predict output `Sepal.Length` using covariates `Sepal.Width`, `Petal.Length`, and `Petal.Width`.
+Now, we will predict output `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm`.
 All your code should be within a function `my_rf_cv`.
 
 **Input:**
@@ -87,19 +88,19 @@ All your code should be within a function `my_rf_cv`.
   
 Your code will look very similar to Part 1! You will need the following steps: 
 
-* Within your function, define a variable `fold` within the `iris` data that randomly assigns observations to folds $1,\ldots,k$ with equal probability. (*Hint: see the example code on the slides for k-fold cross validation*)
+* Within your function, define a variable `fold` within the `penguins` data that randomly assigns observations to folds $1,\ldots,k$ with equal probability. (*Hint: see the example code on the slides for k-fold cross validation*)
 * Iterate through $i = 1:k$. 
   * Within each iteration, define your training data as all the data not in the $i$th fold.
-  * Also within each iteration, use `randomForest()` from the `randomForest` package to train a random forest model with $100$ trees to predict `Sepal.Length` using covariates `Sepal.Width`, `Petal.Length`, and `Petal.Width`. <br>
+  * Also within each iteration, use `randomForest()` from the `randomForest` package to train a random forest model with $100$ trees to predict `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm`. <br>
 *Hint: `randomForest()` takes formula input. Your code here will probably look something like: *
-`MODEL <- randomForest(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = TRAINING_DATA, ntree = 100)`
-  * Also within each iteration, predict the `Sepal.Length` of the $i$th fold which was not used as training data. <br>
+`MODEL <- randomForest(body_mass_g ~ bill_length_mm + bill_depth_mm + flipper_length_mm, data = TRAINING_DATA, ntree = 100)`
+  * Also within each iteration, predict the `body_mass_g` of the $i$th fold which was not used as training data. <br>
   *Hint: predicting with `randomForest()` works similar to `lm()`. Your code here will probably looks something like: *
   `PREDICTIONS <- predict(MODEL, TEST_DATA[, -1])`
-  *where we remove the first column, `Sepal.Length` from our test data.*
-  * Also within each iteration, evaluate the MSE, the average squared difference between predicted `Sepal.Length` and true `Sepal.Length`.
+  *where we remove the first column, `body_mass_g` from our test data.*
+  * Also within each iteration, evaluate the MSE, the average squared difference between predicted `body_mass_g` and true `body_mass_g`.
 * Return the average MSE across all $k$ folds.
 
 **Submission:** 
-To prove your function works, apply it to the `iris` data. Predict `Sepal.Length` using covariates `Sepal.Width`, `Petal.Length`, and `Petal.Width`. 
+To prove your function works, apply it to the `penguins` data. Predict `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm`.
 Run your function with $5$-fold cross validation (`k = 5`) and report the CV MSE.
