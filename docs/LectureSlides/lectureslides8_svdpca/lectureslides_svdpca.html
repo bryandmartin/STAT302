@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STAT 302, Week 6</title>
+    <title>STAT 302 Lecture Slides 8</title>
     <meta charset="utf-8" />
     <meta name="author" content="Bryan Martin" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
@@ -13,10 +13,9 @@
     <textarea id="source">
 class: center, top, title-slide
 
-# STAT 302, Week 6
-## Singular Value Decomposition
+# STAT 302 Lecture Slides 8
+## Statistical Applications: SVD and PCA
 ### Bryan Martin
-### Week of Feb 10, 2020
 
 ---
 
@@ -30,9 +29,9 @@ class: center, top, title-slide
 2. Dimension Reduction
 3. Image Analysis
 4. Cluster Analysis
-5. Project 2
+5. Principal Components Analysis (PCA)
 
-.middler[**Goal:** Learn how to interpret and use the SVD in practice! (Project 2)]
+.middler[**Goal:** Appreciate the beauty of SVD and PCA!]
 
 ---
 class: inverse
@@ -341,7 +340,7 @@ img_plot(img, main = "Cameraman")
 ```
 
 .center[
-![](lectureslides6_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](lectureslides_svdpca_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -395,7 +394,7 @@ img_approx &lt;- function(img, k){
 img_approx(img, 200)
 ```
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -406,7 +405,7 @@ img_approx(img, 2)
 img_approx(img, 3)
 ```
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-8-1.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-8-2.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-8-3.png" width="33%" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-8-1.png" width="33%" /&gt;&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-8-2.png" width="33%" /&gt;&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-8-3.png" width="33%" /&gt;
 
 ---
 
@@ -417,7 +416,7 @@ img_approx(img, 10)
 img_approx(img, 25)
 ```
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-9-1.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-9-2.png" width="33%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-9-3.png" width="33%" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-9-1.png" width="33%" /&gt;&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-9-2.png" width="33%" /&gt;&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-9-3.png" width="33%" /&gt;
 
 ---
 layout: false
@@ -462,7 +461,7 @@ ggplot(energy_df, aes(x = 1:nrow(energy_df), y = energy)) +
   labs(y = "Cumulative Energy", x = "k")
 ```
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-11-1.png" width="40%" /&gt;&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-11-2.png" width="40%" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-11-1.png" width="40%" /&gt;&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-11-2.png" width="40%" /&gt;
 
 ---
 
@@ -476,7 +475,7 @@ k &lt;- which.max(energy_df$energy &gt; .90)
 img_approx(img, k)
 ```
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-12-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -488,7 +487,7 @@ k &lt;- which.max(energy_df$energy &gt; .998)
 img_approx(img, k)
 ```
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-13-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-13-1.png" width="55%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -555,11 +554,11 @@ ggplot(cereal_df, aes(x = x, y = y, label = label)) +
   geom_text_repel(size = 4)
 ```
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-15-1.png" width="36%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-15-1.png" width="36%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-16-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-16-1.png" width="45%" style="display: block; margin: auto;" /&gt;
 
 * bran cereals
 * sugary cereals
@@ -568,7 +567,7 @@ ggplot(cereal_df, aes(x = x, y = y, label = label)) +
 
 ---
 
-What factors contributed most to each dimension? Look at the columns of `\(\mathbf{V}\)` (the rows of `\(\mathbf{V}^T\)`).
+What factors contributed most to each dimension? Look at the columns of `\(\mathbf{V}\)` (rows of `\(\mathbf{V}^T\)`).
 
 
 ```r
@@ -584,7 +583,7 @@ ggplot(cereal_df, aes(x = x, y = y, label = label)) +
 ---
 
 .middler[
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-18-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-18-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 ]
 
 * Bran cereals have the most potassium
@@ -611,7 +610,7 @@ ggplot(cereal_df, aes(x = x, y = y, label = label)) +
 ---
 
 .middler[
-&lt;img src="lectureslides6_files/figure-html/unnamed-chunk-20-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-20-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 ]
 Compare to the previous plot. This allows us to see the relative impact of each nutrient on our concepts.
 
@@ -619,7 +618,277 @@ Compare to the previous plot. This allows us to see the relative impact of each 
 layout: false
 class: inverse
 
-.sectionhead[Part 5. Project 2]
+.sectionhead[Part 5. PCA]
+---
+layout: true
+
+# Introduction to PCA
+---
+
+.middler-nocent[
+**Principal Components Analysis (PCA)** is the process by which we calculate the principal components.
+
+**Principal components** are the set of orthogonal axes along which data have the highest variance.
+
+Let's break this down.
+]
+
+---
+
+First, we have to identify the first principal component. This is the axes along which the data have the most variance.
+
+.center[&lt;img src="pcagif.gif" alt="" height="375"/&gt;]
+
+.footnote[[Source on stackexchange](https://stats.stackexchange.com/questions/2691/making-sense-of-principal-component-analysis-eigenvectors-eigenvalues)]
+
+
+---
+
+Next, we have to find the subsequent orthogonal vectors along which the data have the most variance.
+
+.center[&lt;img src="pca2plot.svg" alt="" height="375"/&gt;]
+
+
+.footnote[[Source on Wikipedia](https://en.wikipedia.org/wiki/Principal_component_analysis)]
+
+---
+layout:false
+
+# Relationship between PCA and SVD
+
+Sound familiar? PCA is *very* similar to SVD! In fact, PCA is typically actually calculated using the SVD.
+
+We won't worry too much about the details for this class, but in a nutshell:
+
+* PCA can be calculated using a linear algebra tool called eigen decomposition on the covariance matrix
+* This is equivalent to applying SVD after mean-centering the columns of `\(\mathbf{X}\)`
+* Thus PCA and SVD are used for many similar reasons!
+
+Computing the SVD is fast and easy, computing a covariance matrix is hard. Thus, when calculating PCA, people often use the SVD!
+
+---
+
+# A Pedantic Note
+
+Note that information available online about the relationship between SVD and PCA can be confusing.
+Some sources say they are effectively the same thing. Others say that it is like comparing apples and oranges. 
+In a way, they are both right. 
+
+When we talked about SVD, we talked about the *applications* of SVD. The SVD itself is just a linear algebraic decomposition. In contrast, PCA is an analysis/exploratory data/visualization/dimension reduction technique. This is why people say they are apples and oranges. 
+
+However, the actual math we use to perform SVD and PCA is (typically) much the same. The applications we apply them too are often the same as well. This is why other people say they are essentially the same thing.
+
+--
+
+**My takeaway for you:** Don't worry too much about the pedantics. Focus on what problems these tools can help you solve!
+
+---
+
+# More on dimension reduction
+
+.middler-nocent[
+PCA is perhaps the single most popular dimension reduction technique. Why is it so popular? It gives us a way to represent and visualize high dimensional data with a lower dimensional structure while retaining as much of what is interesting as possible!
+
+Here, "interesting" is measured by variation. When we care about preserving the variation in our data, but want to represent it using fewer dimensions, we might use PCA!
+]
+
+---
+layout: true
+
+# US Arrests Data
+
+.center[&lt;img src="pcaplot1.png" alt="" height="250"/&gt;]
+
+---
+
+Here is an example PCA using US Arrests data (with variables standardized to have mean 0 and standard deviation 1).
+
+This type of image is sometimes called a **biplot**. The axes are the first two principal components. 
+
+Credit for this image, along with much of the helpful interpretations in this section: An Introduction to Statistical Learning by Gareth James, Daniela Witten, Trevor Hastie, Robert Tibshirani.
+
+
+---
+
+Biplots show two pieces of important information:
+
+* **scores:** the positions of observations in principal components space, "observation-to-concept"
+  * This is just the columns of `\(\mathbf{U}\)` from SVD! (up to scaling)
+* **loadings:** how much each variable contributes to the principal components, "variable-to-concept"
+  * This is just the columns of `\(\mathbf{V}\)` from SVD!
+  
+---
+
+Let's focus on the loadings first. Some observations:
+
+* First principal component is highly correlated with all three serious crimes, very little with urban population
+* Second principal component is highly correlated with urban population, very little with all three serious crimes
+* All three crimes are correlated with each other, and have very low correlation with urban population
+
+---
+
+What does this mean for the scores?
+
+* States with high values of violent crime will tend to be towards the right
+* States with higher urban population will tend to be towards the top
+
+---
+
+Interpreting the scores:
+
+* CA, NV, FL: high crime rates
+* ND, VT: Low crime rate
+* CA, HI: high urbanization
+* MS, NC, SC: low urbanization
+* IN, VA, DE: average levels of urbanization and crime rates (remember centering!)
+
+---
+layout: false
+
+# What does PCA give us?
+
+.middler-nocent[
+PCA provides us with principal components. These have two primary interpretations, both of which are useful.
+
+* Directions in feature space along which the data vary the most
+  * Think of as dimensions that preserve the most interesting information
+  
++ Directions in the feature space along which the data are closest
+  + Think of as dimensions that provide a good summary of the data
+]
+---
+layout: true
+
+# Scaling variables before PCA
+
+.center[&lt;img src="pcaplot2.png" alt="" height="250"/&gt;]
+
+---
+
+We mentioned before that we centered and scaled the variables. Centering is mathematically necessary, but what happens if we don't scale? Let's return to our US arrests data biplot.
+
+---
+
+* Left: Same figure as before (variables are scaled to have standard deviation 1)
+* Right: biplot using unscaled data
+
+
+--
+
+
++ Left: All variables have similar loading magnitudes
++ Right: Assault and UrbanPop have by far the largest loadings. Why?
+
+---
+
+The three violent crimes are reported at number of occurrences per 100,000 people. 
+Criminal assault has a much higher rate of reporting than rape and murder.
+Urban Population is measured as the percentage of the population that lives in an urban area.
+
+Assault and UrbanPop tend to have much larger magnitudes than Rape and Murder.
+Thus, they will dominate measures of variance, like principal components.
+
+---
+
+If we simply changed the unit that we measured Assault in (what if it was number of occurrences per 100 people?), this plot would change dramatically. 
+Do we really want a biplot that just represents the scale of a variables?
+
+Typically, no. This is why we usually scale our variables when performing PCA.
+
+---
+
+One important disclaimer: this is not always the case! If our variables are measured in the same units, we may not wish to scale the variables because we can also lose information. For example, gene expression data we would not want to standardize because we want to compare all genes on the same scale of measurement.
+
+---
+layout: false
+
+# Uniqueness of Principal Components
+
+One nice property of principal components is that the loadings are unique, up to a sign flip.
+In other words, there is no randomness (besides signs) in the process of generating principal components.
+
+---
+layout: true
+
+# Proportion of Variance Explained (PVE)
+
+---
+
+For SVD we talked about using the **energy**. 
+The analog for PCA is the **proportion of variance explained (PVE)**.
+
+We can define the **total variance** of a data set as:
+
+\\[
+`\begin{equation}
+\sum_{j=1}^p\text{Var}(X_j) = \sum_{j=1}^p\frac{1}{n}\sum_{i=1}^n x_{ij}^2.
+\end{equation}`
+\\]
+
+---
+
+Note that when we actually write out an equation for a principal component `\(\mathbf{Z}_m\)` in terms of our variables `\(\mathbf{X}\)`, we can express it:
+
+\\[
+`\begin{equation}
+Z_m = \phi_{1m}X_1 + \phi_{2m}X_2 + \cdots + \phi_{pm}X_p,
+\end{equation}`
+\\]
+
+where `\(\phi_{km}\)` is the loading of the `\(k\)`th variable for the `\(m\)`th principal component.
+
+To get the variance explained by the `\(m\)`th principal component, we simply multiply:
+
+\\[
+`\begin{equation}
+\frac{1}{n}\sum_{i=1}^n\left(\sum_{j=1}^p \phi_{jm}x_{ij}\right)^2.
+\end{equation}`
+\\]
+
+---
+layout: false
+layout: true
+
+# Deciding how many components to use
+
+.center[&lt;img src="screeplot.png" alt="" height="250"/&gt;]
+
+---
+
+When using PCA, we often use a **scree plot** to decide how many components to use.
+Above is a scree plot for the US arrests data.
+
+---
+
+In general, an `\(n\times p\)` data matrix `\(\mathbf{X}\)` with `\(n\)` observations and `\(p\)` variables has min( `\(n-1,\ p\)` ) distinct principal components.
+Typically we don't want all of them, we only want enough to get a good understanding of the data!
+
+--
+
+Like many things in statistics, there is unfortunately not a magic rule I can tell you, like to always use 5 principal components, or only use 10% of the total principal components.
+In reality, the process is a bit more *ad hoc*, and as much of an art as a science.
+
+---
+
+So what can you do? My recommendation is to make a scree plot, like the one above. Most standard PCA software will have implementations of scree plots for you, so you don't need to make one yourself.
+
+--
+
+In general, you have to eyeball the scree plot and look for the point where there is an elbow in the scree plot and the next principal component does not explain enough variance to warrant inclusion.
+Alternatively, decide what proportion of total variance you want to explain, and choose the minimum number of components necessary to explain that proportion.
+
+---
+layout: false
+
+# Summary
+
+.middler-nocent[
+* SVD and PCA are both powerful tools for many applications
+* Visualizing your data
+* Data compression
+* Extracting new features from your data
+* Dimension reduction for easier and more effective analysis and computation
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -667,6 +936,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -684,17 +979,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
