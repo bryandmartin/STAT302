@@ -591,8 +591,8 @@ for (i in 1:k) {
   lm_10_cv &lt;- lm(y ~ poly(x, 10), data = data_train)
   
   # Record predictions
-  pred_mat[inds == i, 1] = predict(lm_1_cv, data.frame(x = data_test$x))
-  pred_mat[inds == i, 2] = predict(lm_10_cv, data.frame(x = data_test$x))
+  pred_mat[inds == i, 1] &lt;- predict(lm_1_cv, data.frame(x = data_test$x))
+  pred_mat[inds == i, 2] &lt;- predict(lm_10_cv, data.frame(x = data_test$x))
 }
 
 # Compute average MSE to get CV error
