@@ -1,0 +1,108 @@
+---
+title: "Short Lab 6"
+author: "INSERT YOUR NAME HERE"
+date: "11/30/2020"
+output: html_document
+---
+
+<!--- Begin styling code. --->
+<style type="text/css">
+/* Whole document: */
+body{
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 12pt;
+}
+h1.title {
+  font-size: 38px;
+  text-align: center;
+}
+h4.author {
+  font-size: 18px;
+  text-align: center;
+}
+h4.date {
+  font-size: 18px;
+  text-align: center;
+}
+</style>
+<!--- End styling code. --->
+
+
+## Part 1. Pairwise Plot
+
+We will start by plotting the data using a pairwise plot for exploratory data analysis. You will need the `GGally` package to run the code below. First install the package if you haven't already.
+
+```{r, message = FALSE}
+# install.packages("GGally")
+library(palmerpenguins)
+library(tidyverse)
+library(GGally)
+data(penguins)
+```
+
+
+```{r, fig.align = "center"}
+penguins <- penguins %>% drop_na()
+penguins %>%
+  select(species, where(is.numeric)) %>% 
+  GGally::ggpairs(aes(color = species),
+          columns = c("flipper_length_mm", "body_mass_g", 
+                      "bill_length_mm", "bill_depth_mm"),
+          upper = list(continuous = wrap("cor", size = 3))) +
+  scale_colour_manual(values = c("darkorange","purple","cyan4")) +
+  scale_fill_manual(values = c("darkorange","purple","cyan4")) +
+  theme_bw()
+```
+
+**1.** Comment on what you see in the plot above. Use several sentences, as later in this short lab you will be comparing your conclusions here to those from PCA. Focus on the associations between species and the various quantitative variables, and how those associations differ across species.
+
+## Part 2. PCA
+
+There are many, many functions in R for implementing PCA. We will focus on `prcomp()`. Note that you may be asked to use a different function someday!
+
+`prcomp()` parameters include the numeric data and a Boolean for whether or not to scale the data. See `?prcomp` for details. 
+We will store the output of `prcomp()` as `pc_out`.
+
+```{r}
+colnames(penguins)
+penguins_num <- penguins %>% 
+  select(contains("_mm"), "body_mass_g")
+pc_out <- prcomp(penguins_num, scale = TRUE)
+```
+
+Let's first investigate this object.
+
+```{r}
+names(pc_out)
+```
+
+**2.** Use the documentation for `prcomp()` and your intuition with data exploration to explain what the values `center` and `scale` represent.
+
+**3.** Print out a table of the proportion of variance explained by the principal components. You may find the `summary()` function useful here. See `prcomp()` for examples of how to use it. How many principal components would you suggest using in this application and why?
+
+```{r}
+# YOUR CODE HERE
+```
+
+We are now going to plot the biplot for these data, using `ggbiplot` within the `ggbiplot` package. We need to install this package from GitHub! You will need the `remotes` package, if you do not have it already to install the package from GitHub. (Remember: package installs never stay in our final RMarkdown document, hence why they are commented out here for your reference only.)
+
+Here I will use the standard function, with some graphical options.
+
+```{r, fig.align = "center", message = FALSE}
+# install.packages("remotes")
+# remotes::install_github("vqv/ggbiplot")
+library(ggbiplot)
+
+ggbiplot(pc_out, groups = as.factor(penguins$species), alpha = 0.7, 
+         varname.size = 3) + 
+  xlim(-3, 3) +
+  theme_bw()
+```
+
+
+
+**4.** First let's discuss the variables. Discuss which variables (`flipper_length_mm`, `body_mass_g`, `bill_length_mm`, `bill_depth_mm`) seem to be correlated, which do not, and why you are coming to these conclusions.
+
+**5.** Next let's discuss the species. How might we distinguish the species of penguins using the first two principal components? (e.g. Which species tend to have higher scores for the first principal component? The second?)
+
+**6.** Translate your answer in part 5 to the original variables (`flipper_length_mm`, `body_mass_g`, `bill_length_mm`, `bill_depth_mm`). What does this suggest about associations between the species and variables? How does this compare to what you observed in the pairwise plot from Part 1?

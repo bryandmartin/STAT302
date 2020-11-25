@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>STAT 302, Lecture Slides 8</title>
+    <title>STAT 302, Lecture Slides 9</title>
     <meta charset="utf-8" />
     <meta name="author" content="Bryan Martin" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
@@ -13,7 +13,7 @@
     <textarea id="source">
 class: center, top, title-slide
 
-# STAT 302, Lecture Slides 8
+# STAT 302, Lecture Slides 9
 ## R Package Development
 ### Bryan Martin
 
@@ -638,25 +638,26 @@ layout: true
 ---
 
 It is often useful to add data to our packages.
-To practice this, we are going to add the `iris` data to our own packages as `my_iris` (with proper credit, of course!).
+To practice this, we are going to add the `penguins` data to our own packages as `my_penguins` (with proper credit, of course!).
 
-After creating `my_iris`, run `usethis::use_data(my_iris)` in your console. This will create a `data/my_iris.rda`, which contains the object `my_iris`.
+After creating `my_penguins`, run `usethis::use_data(my_penguins)` in your console. This will create a `data/my_penguins.rda`, which contains the object `my_penguins`.
 Package data is always stored in `data` subfolder.
 
 
 ```r
-data(iris)
-my_iris &lt;- iris
-usethis::use_data(my_iris)
+library(palmerpenguins)
+data(penguins)
+my_penguins &lt;- penguins
+usethis::use_data(my_penguins)
 ```
 
 ---
 
 ## Documenting Data
 
-Data is exported to the user, and so it must also be documented! The process is as follows, where you replace `my_iris` with the name of the data you are documenting:
+Data is exported to the user, and so it must also be documented! The process is as follows, where you replace `my_penguins` with the name of the data you are documenting:
 
-1. Create `my_iris.R` within the `R` subdirectory.
+1. Create `my_penguins.R` within the `R` subdirectory.
 2. Add title and description, as usual.
   * Note my use of `\code{}` and `link{}`. Pay attention to what that does to the documentation on the next slides.
 3. Add `@format` describing the exact format of your data set
@@ -665,6 +666,8 @@ Data is exported to the user, and so it must also be documented! The process is 
 4. Add `@source` to give a reference for or `\url{}` source of your data.
 5. End the documentation with the name of your data in quotes.
   * Never `@export` data!
+  
+XXXXX HERE XXXXX
   
 ---
 
