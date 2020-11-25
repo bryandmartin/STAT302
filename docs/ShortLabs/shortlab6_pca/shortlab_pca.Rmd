@@ -95,7 +95,7 @@ Here I will use the standard function, with some graphical options.
 # remotes::install_github("vqv/ggbiplot")
 library(ggbiplot)
 
-ggbiplot(pc_out, groups = as.factor(penguins$species), varname.size = 3) + 
+ggbiplot(pc_out, groups = as.factor(penguins$species), varname.size = 3.4) + 
   xlim(-3, 3) +
   theme_bw() +   scale_colour_manual(values = c("darkorange","purple","cyan4"))
 ```
