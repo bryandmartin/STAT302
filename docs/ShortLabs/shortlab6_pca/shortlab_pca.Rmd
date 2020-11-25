@@ -41,6 +41,8 @@ data(penguins)
 ```
 
 
+Note the plotting code below comes from the excellent Allison Horst, [available here](https://allisonhorst.github.io/palmerpenguins/articles/articles/pca.html).
+
 ```{r, fig.align = "center"}
 penguins <- penguins %>% drop_na()
 penguins %>%
@@ -76,7 +78,7 @@ Let's first investigate this object.
 names(pc_out)
 ```
 
-**2.** Use the documentation for `prcomp()` and your intuition with data exploration to explain what the values `center` and `scale` represent.
+**2.** Use the documentation for `prcomp()` and your intuition with data exploration to explain what the `center` and `scale` elements of the `pc_out` object represent.
 
 **3.** Print out a table of the proportion of variance explained by the principal components. You may find the `summary()` function useful here. See `prcomp()` for examples of how to use it. How many principal components would you suggest using in this application and why?
 
@@ -93,10 +95,9 @@ Here I will use the standard function, with some graphical options.
 # remotes::install_github("vqv/ggbiplot")
 library(ggbiplot)
 
-ggbiplot(pc_out, groups = as.factor(penguins$species), alpha = 0.7, 
-         varname.size = 3) + 
+ggbiplot(pc_out, groups = as.factor(penguins$species), varname.size = 3) + 
   xlim(-3, 3) +
-  theme_bw()
+  theme_bw() +   scale_colour_manual(values = c("darkorange","purple","cyan4"))
 ```
 
 
