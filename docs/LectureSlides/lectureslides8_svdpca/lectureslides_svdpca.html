@@ -609,10 +609,12 @@ ggplot(cereal_df, aes(x = x, y = y, label = label)) +
 
 ---
 
-.middler[
+Compare to the previous plot. This allows us to see the relative impact of each nutrient on our concepts. 
+
+.center[
 &lt;img src="lectureslides_svdpca_files/figure-html/unnamed-chunk-20-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+Note that the two nutrients (NA and K) with the highest values are also those that have the highest magnitude in the raw data. We will talk about the importance of scaling variables in the next section!
 ]
-Compare to the previous plot. This allows us to see the relative impact of each nutrient on our concepts.
 
 ---
 layout: false
@@ -827,7 +829,7 @@ We can define the **total variance** of a data set as:
 
 ---
 
-Note that when we actually write out an equation for a principal component `\(\mathbf{Z}_m\)` in terms of our variables `\(\mathbf{X}\)`, we can express it:
+Note that when we actually write out an equation for a principal component `\(Z_m\)` in terms of our variables `\(\mathbf{X}\)`, we can express it:
 
 \\[
 `\begin{equation}
