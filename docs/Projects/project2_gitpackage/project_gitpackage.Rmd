@@ -1,7 +1,7 @@
 ---
 title: "Project 2: R Package Development and Data Analysis Project Pipeline"
 author: "INSERT YOUR NAME(S) HERE"
-date: "Note: this is a draft for your information and is subject to change!"
+date: ""
 output: html_document
 ---
 
@@ -32,7 +32,7 @@ h4.date {
 
 ## Instructions
 
-For this portion of Project 3, you are being asked to develop a well-documented, well-tested, and well-explained R package.
+For this portion of Project 2, you are being asked to develop a well-documented, well-tested, and well-explained R package.
 Follow the instruction on Lecture Slides 9 to set up the skeleton of your package.
 This R package should be adjusted to include functions we've written throughout the class:
 
@@ -48,7 +48,7 @@ However, you must add and document the `gapminder` data to your own package and 
 Specifically, the vignette should have 5 parts:
 
 1. A brief introductory paragraph explaining the package
-  * This paragraph should include instructions for how to install your package from Github. 
+  * This paragraph should include instructions for how to install your package from GitHub. 
   * The install instructions should be demonstrated with code that is not evaluated (`eval = FALSE`).
   * Make sure to include a call to `library()` for your package.
 2. A tutorial for `my_t.test`
@@ -76,8 +76,8 @@ Specifically, the vignette should have 5 parts:
   * Carefully interpret the results the `gdpPercap` hypothesis test using a p-value cut-off of $\alpha = 0.05$.
   * Use `ggplot2` to plot the Actual vs. Fitted values.
   * Interpret the Actual vs. Fitted plot and make a statement on what it tells you about model fit.
-4. A tutorial for `my_knn_cv`
-  * Predict output class `continent` using covariates `gdpPercap` and `lifeExp`. 
+4. A tutorial for `my_knn_cv` using `my_penguins`.
+  * Predict output class `species` using covariates `bill_length_mm`, `bill_depth_mm`, `flipper_length_mm`, and `body_mass_g`. 
   * Use $5$-fold cross validation (`k_cv = 5`).
   * Iterate from `k_nn`$= 1,\ldots, 10$:
     * For each value of `k_nn`, record the training misclassification rate and the CV misclassification rate (output from your function).
@@ -85,8 +85,7 @@ Specifically, the vignette should have 5 parts:
   * Discuss which model you would choose in practice and why. 
   * Your explanation(s) should include a general description of what the process of cross-validation is doing and why it is useful.
 5. A tutorial for `my_rf_cv`
-  * From Lab 4, switch the input data from `iris` to `my_gapminder`.
-  * Predict `lifeExp` using covariate `gdpPercap`. 
+  * Predict `body_mass_g` using covariates `bill_length_mm`, `bill_depth_mm`, and `flipper_length_mm`. 
   * Iterate through `k` in  `c(2, 5, 10)`:
     * For each value of `k`, run your function $30$ times. 
     * For each of the $30$ iterations, store the CV estimated MSE.
@@ -96,8 +95,8 @@ Specifically, the vignette should have 5 parts:
   
 ### Details
 
-* Your package must be hosted on Github as a public repository. You are free to make the repository private after the course concludes.
-* Your submission for this portion of the project will be a single link to your Github reposiory.
+* Your package must be hosted on GitHub as a public repository. You are free to make the repository private after the course concludes.
+* Your submission for this portion of the project will be a single link to your GitHub repository.
 * Your `README.md` file should include badges for travis-ci automated testing and codecov code coverage.
 * Your `README.md` should include an `Installation` section installation instructions and a `Use` section demonstrating how to view the package vignettes. 
 See [my package](https://github.com/bryandmartin/corncob) for an example.
@@ -114,14 +113,14 @@ See [my package](https://github.com/bryandmartin/corncob) for an example.
 
 ## Instructions
 
-For this portion of Project 3, you are being asked to set up a Github repository demonstrating your ability to set up a systematic data analysis project workflow.
+For this portion of Project 2, you are being asked to set up a GitHub repository demonstrating your ability to set up a systematic data analysis project workflow.
 For this part, we are pretending we don't have a package and using code and analyses you have already generated for Part 1.
 
-Your analysis should be contained on a Github repository and include:
+Your analysis should be contained on a GitHub repository and include:
 
 * A `.Rproj` file with the name of the project.
 * A `Data` subfolder with the raw, unprocessed data.
-  * Within `Data`, save the `gapminder`/`my_gapminder` data as a raw `.csv`. 
+  * Within `Data`, save the `my_gapminder` and `my_penguins` data as a raw `.csv`. 
 * A `Code` subfolder with code to be loaded by your analysis files.
   * Include `my_rf_cv.R` from your package in Part 1. You can include it exactly as it appears in your package, including documentation. Good `roxygen2` style documentation is not limited to packages!
 * An `Analysis` subfolder.
@@ -138,8 +137,8 @@ Your analysis should be contained on a Github repository and include:
 
 ### Details
 
-* Your data analysis project must be hosted on Github as a public repository. You are free to make the repository private after the course concludes.
-* Your submission for this portion of the project will be a single link to your Github reposiory.
+* Your data analysis project must be hosted on GitHub as a public repository. You are free to make the repository private after the course concludes.
+* Your submission for this portion of the project will be a single link to your GitHub repository.
 * Test whether your pipeline works. When you knit the `.Rmd` in your `Analysis` folder, it should re-load the `Data` and `Code` files and re-generate all the results in `Output`.
 If your results in `Output` aren't systematically re-generated when you run your Analysis, something in your pipeline is broken!
 
