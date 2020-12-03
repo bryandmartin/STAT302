@@ -1,6 +1,6 @@
 ---
 title: "STAT 302, Lecture Slides 9"
-subtitle: "R Package Development"
+subtitle: "Software Development: Unit Testing, Automated Testing, and Packages"
 author: "Bryan Martin"
 date: ""
 output:
