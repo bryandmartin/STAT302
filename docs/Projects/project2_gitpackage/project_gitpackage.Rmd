@@ -1,7 +1,7 @@
 ---
-title: "Project 2: R Package Development and Data Analysis Project Pipeline"
+title: "Project 3: R Package Development and Data Analysis Project Pipeline"
 author: "INSERT YOUR NAME(S) HERE"
-date: ""
+date: "Due Date Here"
 output: html_document
 ---
 

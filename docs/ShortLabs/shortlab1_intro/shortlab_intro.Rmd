@@ -1,7 +1,7 @@
 ---
 title: "Short Lab 1"
 author: "INSERT YOUR NAME HERE"
-date: "9/30/2020"
+date: "Due Date Here"
 output: html_document
 ---
 

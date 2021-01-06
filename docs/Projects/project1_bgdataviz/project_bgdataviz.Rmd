@@ -1,7 +1,7 @@
 ---
 title: "Project 1: Data Exploration and Visualization"
 author: "INSERT YOUR NAME(S) HERE"
-date: "Due: 10/26/2020 at the start of class"
+date: "Due Date Here"
 output: html_document
 ---
 

@@ -99,9 +99,9 @@ What I will expect from you...
 
 .pull-right[
 ### Good answers:
-* This error message occurs because your variable is a string instead of a numberic.
+* This error message occurs because your variable is a string instead of a numeric.
 Have you tried checking...
-* I think you have a bug in line 3 of the code you posted. You have more left parenthesis than right parenthesis so the line is incomplete.
+* I think you have a bug in line 3 of the code you posted. You have more left parentheses than right parentheses so the line is incomplete.
 ]
 
 ---

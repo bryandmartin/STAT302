@@ -1,7 +1,7 @@
 ---
 title: "Lab 3"
 author: "STAT 302"
-date: "11/2/2020"
+date: "Due Date Here"
 output: html_document
 ---
 
