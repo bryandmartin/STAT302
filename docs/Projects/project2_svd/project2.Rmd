@@ -1,7 +1,7 @@
 ---
 title: "Project 2: SVD Analysis of Partisanship in U.S. Congress"
 author: "INSERT YOUR NAME(S) HERE"
-date: "2/19/2020"
+date: ""
 output: html_document
 ---
 
