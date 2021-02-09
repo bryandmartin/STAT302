@@ -60,10 +60,10 @@ If you do so, you must both submit the same .Rmd, .html, and .Rproj files on Can
 * Your Project 2 directory should include an R Project associated with your report and analysis.
 * Final submissions must include .Rmd, .html, and .Rproj files
 * I **strongly** recommend saving a version of the unprocessed .csv on your machine in a `Data` subfolder within your Project 2 folder so you will be able to work offline. The data are available at:
-  * 90th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/house_90_raw.csv"
-  * 90th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_90_raw.csv"
-  * 116th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/house_116_raw.csv"
-  * 116th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2/senate_116_raw.csv"
+  * 90th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2_svd/house_90_raw.csv"
+  * 90th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2_svd/senate_90_raw.csv"
+  * 116th House of Representatives: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2_svd/house_116_raw.csv"
+  * 116th Senate: <br>"https://raw.githubusercontent.com/bryandmartin/STAT302/master/docs/Projects/project2_svd/senate_116_raw.csv"
 * In your visualizations, consider using color to distinguish between groups where appropriate, such as blue for Democrats and red for Republicans.
 * `rc` columns stand for roll calls. Each vote has it's own roll call. The code is as follows:
   * `1`: "Yea" vote
