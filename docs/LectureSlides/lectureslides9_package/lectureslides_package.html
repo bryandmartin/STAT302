@@ -31,7 +31,7 @@ class: center, top, title-slide
 4. Automated package testing
 5. Package vignettes
 
-.middler[**Goal:** Develop our own R packages (Project 2!)]
+.middler[**Goal:** Develop our own R packages (Project 3!)]
 
 
 
@@ -86,8 +86,8 @@ install.packages(c("devtools", "roxygen2", "testthat", "knitr", "covr"))
 # Step 1: Create the directory (*)
 
 1. Within your `STAT302` directory, go to your folder for projects
-2. Create a new subdirectory, `Project2` (or similar)
-3. **Change your working directory within R to your `Project2` subfolder!**
+2. Create a new subdirectory, `Project3` (or similar)
+3. **Change your working directory within R to your `Project3` subfolder!**
 4. Type in your R console (changing the package name)
   
   ```r
@@ -374,14 +374,13 @@ layout: true
 # Install! (*)
 ---
 
-Next, move into the parent directory that contains your package (should be one directory up), and install using `devtools::install()`.
+Next, use `devtools::install()`.
 Then load your package, like any other, using `library()`. 
 Then check out the documentation of your functions using `?`.
 
 
 ```r
-setwd("..")
-devtools::install("YOUR_PACKAGE_NAME")
+devtools::install()
 library(YOUR_PACKAGE_NAME)
 ?my_pow
 ```
@@ -465,31 +464,24 @@ class: inverse
 .sectionhead[Part 4. Automated package testing]
 ---
 
-# Step 8: Set up a travis CI account (*)
+# Step 8: Set up a GitHub Actions (*)
 
-Instructions from the official [travis CI tutorial](https://docs.travis-ci.com/user/tutorial/).
-
-1. Go to [travis-ci.com](travis-ci.com) and click `Sign up with Github`
-2. Accept the Authorization of Travis CI. You'll be redirected to GitHub.
-3. Click on your profile picture in the top right of your Travis Dashboard, click the green *Activate* button, and select the repositories you want to use with Travis CI.
-  * In this case, select your package for Project 2.
+1. Within console, enter `usethis::use_readme_md()` to create a skeleton `README.md` file.
+2. Within your console, enter `usethis::use_github_action_check_standard()`. This will:
+  * Create a `.github` folder with a `.gitignore` and `workflows` subfolder
+  * Add `^\\.github$` to `.Rbuildignore`
+  * Write `.github/workflows/R-CMD-check.yaml`
+  * Add R-CMD-check badge to `README.md`
   
 ---
 
-# Step 9: Set up travis in your package (*)
+# Step 9: Set up tests in your package (*)
 
 1. Within your console, enter `usethis::use_testthat()`. This will:
   * Create a `tests/testthat` directory for storing your tests
   * Adds `testthat` to the `Suggests` field in `DESCRIPTION`
   * Creates `tests/testthat.R` which runs your tests automatically whenever you check your package.
-2. Within your console, enter `usethis::use_travis()`. This will:
-  * Create a `.travis.yml` file and add it to your `.Rbuildignore`
-  * Push you to the travis website.
-  * Provide the markdown to insert a badge into `README`.
-3. Activate travis for your repo at the travis website.
-4. *File -&gt; New File -&gt; Text File*
-  * Take the markdown text from `use_travis()` output and save as `README.md`. You **must** change the file extension!
-5. Push your local changes to Github using instructions from Lecture Slide 7.
+2. Push your local changes to GitHub using instructions from Lecture Slide 7.
   * Recall: Easy way - through RStudio! 
   * Note that you may need to open and close RStudio. You probably opened this R session before you set up with git. The git panel will not show up if this is the case. If you restart RStudio, it will appear.
 
@@ -506,7 +498,7 @@ Thus, for every `.R` file within our R folder, we should have a corresponding fi
   
   ```r
   # within test-my_pow.R
-  test_that("my_pow works mathmatically", {
+  test_that("my_pow works mathematically", {
       expect_equal(my_pow(2), 4)
       expect_equal(my_pow(2, power = 3), 8)
   })
@@ -527,7 +519,7 @@ Let's repeat the process with `f_to_c`.
   
   ```r
   # within test-f_to_c.R
-  test_that("f_to_c works mathmatically", {
+  test_that("f_to_c works mathematically", {
       expect_equal(f_to_c(32), 0)
       expect_equal(f_to_c(212), 100)
   })
@@ -539,7 +531,7 @@ Let's repeat the process with `f_to_c`.
 3. Run `devtools::check()`. Does your code pass the checks?
 4. Push your changes to your remote repository on Github.
 
-Now go to the [travis-ci.com](travis-ci.com) and click on your repository. What is happening?
+Now go to your GitHub repository and click on the GitHub Action indicator. What is happening?
 
 ---
 layout: false
@@ -555,7 +547,7 @@ The second argument is contained in curly brackets `{...}`. It uses `testthat` h
 
 ```r
 # within test-f_to_c.R
-test_that("f_to_c works mathmatically", {
+test_that("f_to_c works mathematically", {
   expect_equal(f_to_c(32), 0)
   expect_equal(f_to_c(212), 100)
 })
@@ -623,11 +615,10 @@ If you have a line that is uncovered, it's a good idea to try and write a test t
 Thanks to the tidyverse authors, adding code coverage is easy! (Are you sensing a theme yet?)
 
 1. Navigate online to `codecov.io` and create an account. Link this account with your Github account.
-2. Run `usethis::use_coverage()`. This will:
+2. Run `usethis::use_github_action("test-coverage")`. This will:
   * Add `covr` to the `Suggests` field in `DESCRIPTION`
   * Create `codecov.yml` and add it to `.Rbuildignore`
   * Add a Codecov test coverage badge to `README.md`
-  * Provide text to add to `.travis.yml`
 3. Take the text it generated and add it on a new line to your `.travis.yml`. (It should be automatically copied to your clipboard.)
   
 .center[&lt;img src="travis.png" alt="" height="150"/&gt;]
@@ -723,7 +714,7 @@ layout: true
 # Part 13: Adding a vignette (*)
 ---
 
-Run `usethis::use_vignette("tutorial", title = "Project 2: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
+Run `usethis::use_vignette("tutorial", title = "Project 3: PACKAGE_NAME Tutorial")` in your console, changing the package name to match. This will:
   * Add `knitr` and `rmarkdown` to the `Suggests` field in `DESCRIPTION`
   * Sets `VignetteBuilder` field in `DESCRIPTION` to `knitr`
   * Add `inst/doc` to `.gitignore`
@@ -735,7 +726,7 @@ Run `usethis::use_vignette("tutorial", title = "Project 2: PACKAGE_NAME Tutorial
 
 .center[&lt;img src="vignette.png" alt="" height="375"/&gt;]
 
-Remove `Project 2: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
+Remove `Project 3: ` from the `%\VignetteIndexEntry`. We want that text in the title of the vignette `.html`, not within the vignette index.
 Also add your own name to the YAML header using the `author:` field.
 
 ---
@@ -762,7 +753,7 @@ You can see one of [my packages](https://github.com/bryandmartin/corncob) for an
 ---
 class: inverse
 
-.sectionhead[Project 2!]
+.sectionhead[Project 3!]
 
 ---
 layout: true
@@ -789,7 +780,7 @@ layout: true
 #'   \item{gdpPercap}{GDP per capita (US$, inflation-adjusted)}
 #'   }
 #'   
-#' The supplemental data frame \code{\link{gapminder_unfiltered}} was not
+#' The supplemental data frame \code{\link[gapminder]{gapminder_unfiltered}} was not
 #' filtered on \code{year} or for complete data and has 3313 rows.
 #' 
 ```
@@ -800,7 +791,7 @@ layout: true
 
 ```r
 #' @source \url{http://www.gapminder.org/data/}
-#' @seealso \code{\link{country_colors}} for a nice color scheme for the countries
+#' @seealso \code{\link[gapminder]{country_colors}} for a nice color scheme for the countries
 #' @importFrom tibble tibble
 #' @examples
 #' str(gapminder)

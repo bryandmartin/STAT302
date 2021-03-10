@@ -97,7 +97,7 @@ Specifically, the vignette should have 5 parts:
 
 * Your package must be hosted on GitHub as a public repository. You are free to make the repository private after the course concludes.
 * Your submission for this portion of the project will be a single link to your GitHub repository.
-* Your `README.md` file should include badges for travis-ci automated testing and codecov code coverage.
+* Your `README.md` file should include badges for R-CMD-check automated testing and codecov code coverage.
 * Your `README.md` should include an `Installation` section installation instructions and a `Use` section demonstrating how to view the package vignettes. 
 See [my package](https://github.com/bryandmartin/corncob) for an example.
 * Your package should pass all checks implemented in `devtools::check()`.
