@@ -619,10 +619,7 @@ Thanks to the tidyverse authors, adding code coverage is easy! (Are you sensing 
   * Add `covr` to the `Suggests` field in `DESCRIPTION`
   * Create `codecov.yml` and add it to `.Rbuildignore`
   * Add a Codecov test coverage badge to `README.md`
-3. Take the text it generated and add it on a new line to your `.travis.yml`. (It should be automatically copied to your clipboard.)
   
-.center[&lt;img src="travis.png" alt="" height="150"/&gt;]
-
 ---
 layout: true
 # Step 12: Add data (*)
@@ -650,10 +647,10 @@ Data is exported to the user, and so it must also be documented! The process is 
 
 1. Create `my_penguins.R` within the `R` subdirectory.
 2. Add title and description, as usual.
-  * Note my use of `\code{}` and `link{}`. Pay attention to what that does to the documentation on the next slides.
+  * Note my use of `\code{}` and `\link{}`. Pay attention to what that does to the documentation on the next slides.
 3. Add `@format` describing the exact format of your data set
   * Include class, number of observations, and number of variables
-  * Use `\describe{}` and `item{}` to describe every variable in the data, with units
+  * Use `\describe{}` and `\item{}` to describe every variable in the data, with units
 4. Add `@source` to give a reference for or `\url{}` source of your data.
 5. End the documentation with the name of your data in quotes.
   * Never `@export` data!

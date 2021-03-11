@@ -32,7 +32,7 @@ h4.date {
 
 ## Instructions
 
-For this portion of Project 2, you are being asked to develop a well-documented, well-tested, and well-explained R package.
+For this portion of Project 3, you are being asked to develop a well-documented, well-tested, and well-explained R package.
 Follow the instruction on Lecture Slides 9 to set up the skeleton of your package.
 This R package should be adjusted to include functions we've written throughout the class:
 
@@ -97,7 +97,7 @@ Specifically, the vignette should have 5 parts:
 
 * Your package must be hosted on GitHub as a public repository. You are free to make the repository private after the course concludes.
 * Your submission for this portion of the project will be a single link to your GitHub repository.
-* Your `README.md` file should include badges for R-CMD-check automated testing and codecov code coverage.
+* Your `README.md` file should include badges for R-CMD-check automated testing and codecov code coverage. 
 * Your `README.md` should include an `Installation` section installation instructions and a `Use` section demonstrating how to view the package vignettes. 
 See [my package](https://github.com/bryandmartin/corncob) for an example.
 * Your package should pass all checks implemented in `devtools::check()`.
@@ -113,7 +113,7 @@ See [my package](https://github.com/bryandmartin/corncob) for an example.
 
 ## Instructions
 
-For this portion of Project 2, you are being asked to set up a GitHub repository demonstrating your ability to set up a systematic data analysis project workflow.
+For this portion of Project 3, you are being asked to set up a GitHub repository demonstrating your ability to set up a systematic data analysis project workflow.
 For this part, we are pretending we don't have a package and using code and analyses you have already generated for Part 1.
 
 Your analysis should be contained on a GitHub repository and include:
@@ -131,7 +131,7 @@ Your analysis should be contained on a GitHub repository and include:
     * use `saveRDS()` and `write_csv()` to save your table of summary statistics and your simulation results, respectively (see `Results` description).
 * A `Output` subfolder with:
   * A `Figures` sub-subfolder with all the figures you generated in `Analysis`
-  * A `Results` sub-subfolder that contains (a) your table of 8 summary statistics saved as a `.rds` file and (b) a `.csv` with your 120 simulated results with  4 columns for each value of $k$ and 30 rows for each simulation.
+  * A `Results` sub-subfolder that contains (a) your table of 8 summary statistics saved as a `.rds` file and (b) a `.csv` with your 90 simulated results with 3 columns for each value of $k$ and 30 rows for each simulation.
 * A `.gitignore` file
   * Include `.Rproj.user` and `.Rhistory`
 
