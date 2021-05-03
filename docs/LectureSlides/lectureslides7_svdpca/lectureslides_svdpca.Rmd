@@ -1,5 +1,5 @@
 ---
-title: "STAT 302 Lecture Slides 8"
+title: "STAT 302 Lecture Slides 7"
 subtitle: "Statistical Applications: SVD and PCA"
 author: "Bryan Martin"
 date: ""

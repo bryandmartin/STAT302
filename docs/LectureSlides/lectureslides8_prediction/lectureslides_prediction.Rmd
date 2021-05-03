@@ -1,5 +1,5 @@
 ---
-title: "STAT 302, Lecture Slides 7"
+title: "STAT 302, Lecture Slides 8"
 subtitle: "Statistical Prediction"
 author: "Bryan Martin"
 date: ""
