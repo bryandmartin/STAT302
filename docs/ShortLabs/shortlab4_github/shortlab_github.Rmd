@@ -30,7 +30,7 @@ h4.date {
 
 ## Part 1. Course Feedback
 
-Please take a few minutes to provide thoughtful and constructive feedback for me and this course through the anonymous feedback form posted on Canvas. ([Link here, or available on the pinned Canvas discussion page.](https://canvas.uw.edu/courses/1402432/discussion_topics/5737404))
+Please take a few minutes to provide thoughtful and constructive feedback for me and this course through the anonymous feedback form posted on Canvas. ([Link here, or available on the pinned Canvas discussion page.](https://forms.gle/7TrJKy2GUABkPyLE6))
 
 Your opinions really do matter to me! It can be about my teaching, the content of the course, the labs, or anything. 
 I will read and respond to your feedback carefully.
