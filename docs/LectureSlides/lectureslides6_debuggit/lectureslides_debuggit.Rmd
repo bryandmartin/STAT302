@@ -665,7 +665,7 @@ However, how will you know:
 
 We want something that:
 
-1. Keeps old versions indefinitionally (tracking changes, reversions become easy)
+1. Keeps old versions indefinitely (tracking changes, reversions become easy)
 2. Keeps track of who changed what and when they changed it
 3. Changes are automatically integrated into the most recent version, and conflicts receive warnings
 4. Work with multiple collaborators
@@ -962,7 +962,8 @@ If it is not already open, open that R project by double clicking on the project
 3. Click `Diff` within the `Git` pane.
 4. Click the box under `Staged` for the changed file (top left box).
 5. Add a commit message within the box (top right).
-6. Click push (top right).
+6. Click `Commit` (top right).
+6. Click `push` (top right).
 
 
 ---

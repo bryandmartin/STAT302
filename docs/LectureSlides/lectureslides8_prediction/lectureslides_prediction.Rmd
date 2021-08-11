@@ -887,7 +887,7 @@ layout: true
 # Trees
 ---
 
-Instead of classifying based on neighboring data points in the training data, we can classify based on splits in our parameters. 
+Instead of classifying based on neighboring data points in the training data, we can classify based on splits in our covariates. 
 
 * **Input:** training data $X_i = (X_{i1}, \ldots, X_{ip})$ and output class/value $Y_i$ for $i = 1,\ldots, n$
 * **Input:** test data $X^* = (X^*_1, \ldots, X^*_p)$ with unknown output class/value $Y^*$
